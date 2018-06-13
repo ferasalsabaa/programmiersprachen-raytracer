@@ -25,13 +25,8 @@ float Sphere::volume() const
 {
   return (4.0f/3.0f) * M_PI * (pow(get_radius(),3));
 }
-/*std::ostream& Circle::print(std::ostream& os) const
-{
-    os << "radius : "<<radius_ <<" center :(" << center_.x_ << ", "<< center_.y_ <<")" << "  name: "<<name_ <<" color"<<"( "<<color_circle_.r<<" , "<<color_circle_.g<<" , "<<color_circle_.b<<" )"<<"\n";
+std::ostream& Sphere::print(std::ostream& os) const
+{   Shape::print(os);
+    os<<"\n radius : "<<radius_<<" center : " <<" x "<<mittel_punkt_.x<<" y "<<mittel_punkt_.y<<" z "<<mittel_punkt_.z;
     return os;
 }
-std::ostream& operator<<(std::ostream& os, Circle const& c)
-  {
-    std::ostream::sentry const ostream_sentry(os);
-    return ostream_sentry ? c.print(os) : os;
-  }*/

@@ -12,6 +12,7 @@ glm::vec3 get_maximum() const;
 glm::vec3 get_minimum() const;
 float area() const override ;
 float volume()const override;
+std::ostream& print(std::ostream& os) const override;
 private:
 glm::vec3 maximum_;
 glm::vec3 minimum_;

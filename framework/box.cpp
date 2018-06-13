@@ -28,6 +28,10 @@ float Box::volume() const
     float length = get_maximum().x - get_minimum().x;
   float width = get_maximum().z - get_minimum().z;
   float hight = get_maximum().y - get_minimum().y;
-  return hight*length*width;
-    
+  return hight*length*width;   
+}
+std::ostream& Box::print(std::ostream& os) const
+{   Shape::print(os);
+    os << " max x  "<<maximum_.x<<"max y "<<maximum_.y<<"maxinḿum z"<<maximum_.z<<"\n"<<"min x"<<minimum_.x<<"min y"<<minimum_.y<<"min z"<<minimum_.z;
+    return os;
 }

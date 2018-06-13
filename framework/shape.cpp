@@ -8,7 +8,7 @@ Shape::Shape(std::string const& name,Color const& shape_color) : name_{name} , s
 {}
 std::ostream& Shape::print(std::ostream& os) const
 {
-   os << "name" <<name_<< "color" << shape_color_.r<<shape_color_.g<<shape_color_.b;
+   os << "name  : " <<name_<< "color : " << shape_color_.r<<"  "<<shape_color_.g<<"  "<<shape_color_.b;
    return os;
 }
 std::ostream& operator<<(std::ostream& os, Shape const& s)

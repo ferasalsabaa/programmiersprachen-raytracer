@@ -14,13 +14,14 @@ glm::vec3 get_mittel_punkt() const;
 
 float area() const override ;
 float volume()const override;
+std::ostream& print(std::ostream& os) const override;
 
 
 private:
 glm::vec3 mittel_punkt_;
 float radius_;
 };
-std::ostream& operator<<(std::ostream& os , Shape const& s);
+//std::ostream& operator<<(std::ostream& os , Shape const& s);
 
 
 #endif

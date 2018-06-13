@@ -3,6 +3,7 @@
 #include "shape.hpp"
 #include "Sphere.hpp"
 #include "box.hpp"
+#include<iostream>
 
 TEST_CASE("testing_area_volum", "[area_volum]")
 {
@@ -31,6 +32,16 @@ TEST_CASE("testing_area_volum", "[area_volum]")
 }
 
 int main(int argc, char *argv[])
-{
+{ glm::vec3 v_1(4.0f,10.0f,24.0f);
+  glm::vec3 v_2(2.0f,8.0f,12.0f);
+  Color c1{0.0,0.0,1.0};
+  Sphere s1;
+  Sphere s2(v_1,5,"sphere",c1);
+  std::cout<<s1<<"\n";
+  std::cout<<s2;
+  Box b1;
+  Box b2(v_1,v_2,"t1 ",c1);
+  std::cout<<b1<<"\n";
+  std::cout<<b2;
   return Catch::Session().run(argc, argv);
 }
