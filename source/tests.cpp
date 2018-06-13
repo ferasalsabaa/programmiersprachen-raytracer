@@ -3,6 +3,7 @@
 #include "Shape.hpp"
 #include "Sphere.hpp"
 #include "Box.hpp"
+#include <iostream>
 
 TEST_CASE("circle-normal_construct, getter") {
   Sphere kugel;
@@ -59,5 +60,21 @@ TEST_CASE("box-area/volume") {
 
 int main(int argc, char *argv[])
 {
+  glm::vec3 vec(1,2,3);
+  glm::vec3 vec2(3,5,6);
+  Color color(1,3,0);
+  Sphere kugel(vec, 3, "kugeli", color);
+  std::cout << kugel;
+
+  Sphere kugel2;
+  std::cout << kugel2;
+
+  Box kiste;
+  std::cout << kiste;
+
+  Box kiste2(vec, vec2, "boxi", color);
+  std::cout << kiste2;
+  
+
   return Catch::Session().run(argc, argv);
 }
