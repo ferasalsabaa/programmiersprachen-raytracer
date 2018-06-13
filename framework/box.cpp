@@ -5,7 +5,9 @@
 Box::Box() : maximum_{0.0f,0.0f,0.0f} , minimum_{0.0f,0.0f,0.0f}
 {}
 Box::Box(glm::vec3 const& maximum , glm::vec3 const& minimum) : maximum_{maximum} , minimum_{minimum}
-{} 
+{}
+Box::Box(glm::vec3 const& maximum,glm::vec3 const& minimum,std::string const& name, Color const& box_color) : maximum_{maximum} , minimum_{minimum} , Shape(name,box_color)
+{}
 glm::vec3 Box::get_maximum() const
 {
     return maximum_;

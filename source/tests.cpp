@@ -28,10 +28,6 @@ TEST_CASE("testing_area_volum", "[area_volum]")
   Box b2(max,min);
   REQUIRE(104==b2.area());
   REQUIRE(48==b2.volume());
-
-
-
-
 }
 
 int main(int argc, char *argv[])
