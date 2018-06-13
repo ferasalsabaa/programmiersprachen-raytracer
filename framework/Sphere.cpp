@@ -6,6 +6,9 @@
 
     Sphere::Sphere(glm::vec3 const& vec3, double const& radius) : center_{vec3}, radius_{radius} {}
 
+    Sphere::Sphere(glm::vec3 const& vec3, double const& radius, std::string const& name, Color const& color) :
+        center_{vec3}, radius_{radius}, Shape(name, color) {}
+
     glm::vec3 Sphere::get_center() const {
         return center_;
     }
