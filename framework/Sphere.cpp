@@ -25,3 +25,9 @@
     double Sphere::volume() const {
         return (4.0f/3.0f)*M_PI*pow(radius_,3); //Integerdivision (4/3) --> wird abgeschnitten
     }
+
+std::ostream& Sphere::print(std::ostream& os) const {
+    Shape::print(os);
+    os << "\n Radius: " << radius_ << "\n Zentrum: (" << center_.x << " , " << center_.y << " , " << center_.z << ")\n ";
+    return os;
+}

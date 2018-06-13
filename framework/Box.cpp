@@ -35,3 +35,10 @@ double Box::volume() const{
 
     return width*depth*height;
 }
+
+std::ostream& Box::print(std::ostream& os) const {
+    Shape::print(os);
+    os << "\n Min.: (" << min_.x << " , " << min_.y << " , " << min_.z << ") " 
+    << "\n Max.: (" << max_.x << " , " << max_.y << " , " << max_.z << ")\n "; 
+    return os;
+}
