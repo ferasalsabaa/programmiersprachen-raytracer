@@ -3,6 +3,7 @@
 #include <string>
 #include <color.hpp>
 
+
 class Shape {
 
     public:

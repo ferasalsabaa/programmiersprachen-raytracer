@@ -1,6 +1,8 @@
+#ifndef SPHERE_HPP
+#define SPHERE_HPP
 #include <glm/vec3.hpp>
 #include "Shape.hpp"
-
+#include "ray.hpp"
 
 class Sphere : public Shape {
  
@@ -13,8 +15,11 @@ class Sphere : public Shape {
         double area() const override;
         double volume() const override;
         std::ostream& print(std::ostream& os) const override;
+        bool intersect(Ray ray, float distance) const;
 
     private:                // private immer nach public - Konvention
         glm::vec3 center_;
         double radius_;
 };
+
+#endif

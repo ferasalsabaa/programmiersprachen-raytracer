@@ -1,6 +1,7 @@
 #include "Sphere.hpp"
 #include <glm/vec3.hpp>
 #include <math.h>
+#include "ray.hpp"
 
     Sphere::Sphere() : center_{0.0f}, radius_{0} {}
 
@@ -30,4 +31,8 @@ std::ostream& Sphere::print(std::ostream& os) const {
     Shape::print(os);
     os << "\n Radius: " << radius_ << "\n Zentrum: (" << center_.x << " , " << center_.y << " , " << center_.z << ")\n ";
     return os;
+}
+
+bool Sphere::intersect(Ray ray, float distance) const{
+    return glm::intersectRaySphere(ray.origin, ray.direction , center_ , radius_ * radius_, distance);
 }

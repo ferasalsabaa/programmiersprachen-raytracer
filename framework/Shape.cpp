@@ -1,4 +1,6 @@
 #include "Shape.hpp"
+#include <glm/glm.hpp>
+#include <glm/gtx/intersect.hpp>
 
 Shape::Shape() : name_{"shape"}, color_{0.0f, 0.0f, 0.0f} {}
 
@@ -13,3 +15,4 @@ std::ostream& operator <<(std::ostream& os, Shape const& s) {
    s.print(os);
    return os;
 }
+

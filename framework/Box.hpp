@@ -1,3 +1,5 @@
+#ifndef BOX_HPP
+#define BOX_HPP
 #include <glm/vec3.hpp>
 #include "Shape.hpp"
 #include <string>
@@ -21,3 +23,5 @@ class Box : public Shape {
 
   
 };
+
+#endif
