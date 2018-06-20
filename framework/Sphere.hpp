@@ -1,12 +1,16 @@
 #ifndef Sphare_HPP
 #define Sphare_HPP
 #include"shape.hpp"
+#include"ray.hpp"
+#include <glm/glm.hpp>
+#include <glm/gtx/intersect.hpp>
 #include <glm/vec3.hpp>
 
 class Sphere : public Shape 
 {
 public:
 Sphere();
+~Sphere();
 Sphere(glm::vec3 const& mittel_punkt,float const& radius);
 Sphere(glm::vec3 const& mittel_punkt,float const& radius,std::string const& name,Color const& sphare_color);
 float get_radius() const;
@@ -15,6 +19,7 @@ glm::vec3 get_mittel_punkt() const;
 float area() const override ;
 float volume()const override;
 std::ostream& print(std::ostream& os) const override;
+bool intersect(Ray ray,float & distance) const;
 
 
 private:

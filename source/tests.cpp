@@ -4,6 +4,8 @@
 #include "Sphere.hpp"
 #include "box.hpp"
 #include<iostream>
+#include<glm/glm.hpp>
+#include<glm/gtx/intersect.hpp>
 
 TEST_CASE("testing_area_volum", "[area_volum]")
 {
@@ -32,7 +34,7 @@ TEST_CASE("testing_area_volum", "[area_volum]")
 }
 
 int main(int argc, char *argv[])
-{ glm::vec3 v_1(4.0f,10.0f,24.0f);
+{ /*glm::vec3 v_1(4.0f,10.0f,24.0f);
   glm::vec3 v_2(2.0f,8.0f,12.0f);
   Color c1{0.0,0.0,1.0};
   Sphere s1;
@@ -42,6 +44,58 @@ int main(int argc, char *argv[])
   Box b1;
   Box b2(v_1,v_2,"t1 ",c1);
   std::cout<<b1<<"\n";
-  std::cout<<b2;
+  std::cout<<b2;*/
+Color red{255,0,0};
+glm::vec3 position {0.0f,0.0f,0.0f};
+std::cout<<"begin"<<"\n";
+Sphere* s1 = new Sphere{position,1.2f,"sphere0",red};
+Shape*  s2 = new Sphere{position,1.2f,"sphere1",red};
+s1->print(std::cout);
+s2->print(std::cout);
+delete s1;
+delete s2;
+std::cout<<"end"<<"\n";
+
   return Catch::Session().run(argc, argv);
+}
+
+TEST_CASE("intersect_ray_sphere" , "[intersect]")
+{
+// Ray
+glm:: vec3 ray_origin{0.0f,0.0f,0.0f};
+// ray direction has to be normalized !
+// you can use :
+//v = glm::normalize(some_vector)
+glm::vec3 ray_direction {0.0f,0.0f,1.0f};
+// Sphere
+glm::vec3 sphere_center {0.0f,0.0f,5.0f};
+float sphere_radius {1.0f};
+float distance = 0.0f;
+auto result = glm::intersectRaySphere(
+ray_origin,ray_direction,
+sphere_center,
+sphere_radius * sphere_radius , // squared radius !!!
+distance );
+REQUIRE ( distance == Approx(4.0f));
+//REQUIRE ( result == true);
+}
+TEST_CASE("intersect_sphare","[intersect_sphare]")
+{
+  Ray ray;
+  ray.origin=glm::vec3 {0.0,0.0,0.0};
+  ray.direction=glm::vec3 {0.0,0.0,1.0};
+  glm::vec3 sphere_center {0.0f,0.0f,5.0f};
+  Ray ray1;
+  float distance =0;
+  ray1.origin=glm::vec3 {0.0,0.0,0.0};
+  ray1.direction=glm::vec3 {0.0,0.0,-1.0};
+  Sphere s1{sphere_center,1.0f};
+  float d=0.0f;
+  float d1=0.0f;
+  bool result = s1.intersect(ray,d);
+  bool result1 = s1.intersect(ray1,d1);
+  REQUIRE ( result1 == false);
+  REQUIRE ( result == true);
+  REQUIRE ( d == Approx(4.0f));
+
 }
