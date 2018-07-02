@@ -19,7 +19,7 @@ glm::vec3 get_mittel_punkt() const;
 float area() const override ;
 float volume()const override;
 std::ostream& print(std::ostream& os) const override;
-bool intersect(Ray ray,float & distance) const;
+bool intersect(Ray const& ray,float & distance) const override;
 
 
 private:

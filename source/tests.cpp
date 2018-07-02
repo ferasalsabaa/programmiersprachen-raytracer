@@ -34,31 +34,35 @@ TEST_CASE("testing_area_volum", "[area_volum]")
 }
 
 int main(int argc, char *argv[])
-{ /*glm::vec3 v_1(4.0f,10.0f,24.0f);
+{ std::cout<<"\n begin aufgabe 5.5  \n";
+  glm::vec3 v_1(4.0f,10.0f,24.0f);
   glm::vec3 v_2(2.0f,8.0f,12.0f);
   Color c1{0.0,0.0,1.0};
-  Sphere s1;
-  Sphere s2(v_1,5,"sphere",c1);
-  std::cout<<s1<<"\n";
-  std::cout<<s2;
-  Box b1;
-  Box b2(v_1,v_2,"t1 ",c1);
-  std::cout<<b1<<"\n";
-  std::cout<<b2;*/
+  Sphere s11;
+  Sphere s22(v_1,5,"sphere",c1);
+  std::cout<<s11<<"\n";
+  std::cout<<s22;
+  Box b11;
+  Box b22(v_1,v_2,"t1 ",c1);
+  std::cout<<b11<<"\n";
+  std::cout<<b22;
+  std::cout<<"\n Ende aufgabe 5.5  \n";
+
+
 Color red{255,0,0};
 glm::vec3 position {0.0f,0.0f,0.0f};
-std::cout<<"begin"<<"\n";
+std::cout<<"begin  5.8  "<<"\n";
 Sphere* s1 = new Sphere{position,1.2f,"sphere0",red};
 Shape*  s2 = new Sphere{position,1.2f,"sphere1",red};
 s1->print(std::cout);
 s2->print(std::cout);
 delete s1;
 delete s2;
-std::cout<<"end"<<"\n";
+std::cout<<"end  5.8"<<"\n";
 
   return Catch::Session().run(argc, argv);
 }
-
+//5.6
 TEST_CASE("intersect_ray_sphere" , "[intersect]")
 {
 // Ray
@@ -79,7 +83,8 @@ distance );
 REQUIRE ( distance == Approx(4.0f));
 //REQUIRE ( result == true);
 }
-TEST_CASE("intersect_sphare","[intersect_sphare]")
+//5.6
+TEST_CASE("intersect_sphere","[intersect_sphere]")
 {
   Ray ray;
   ray.origin=glm::vec3 {0.0,0.0,0.0};

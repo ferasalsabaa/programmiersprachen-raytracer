@@ -1,6 +1,7 @@
 #ifndef box_HPP
 #define box_HPP
 #include"shape.hpp"
+#include"ray.hpp"
 #include <glm/vec3.hpp>
 class Box : public Shape 
 {
@@ -13,6 +14,7 @@ glm::vec3 get_minimum() const;
 float area() const override ;
 float volume()const override;
 std::ostream& print(std::ostream& os) const override;
+bool intersect (Ray const& ray,float & t) const override;
 private:
 glm::vec3 maximum_;
 glm::vec3 minimum_;

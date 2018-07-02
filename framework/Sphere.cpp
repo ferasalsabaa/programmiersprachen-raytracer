@@ -38,7 +38,7 @@ std::ostream& Sphere::print(std::ostream& os) const
     os<<"\n radius : "<<radius_<<"\n center : " <<"\n x "<<mittel_punkt_.x<<" y "<<mittel_punkt_.y<<" z "<<mittel_punkt_.z<<"\n";
     return os;
 }
-bool Sphere::intersect(Ray ray,float & distance) const
+bool Sphere::intersect(Ray const& ray,float & distance) const
 {
 
 glm::vec3 v = glm::normalize(ray.direction); //ohne ende
