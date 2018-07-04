@@ -104,3 +104,23 @@ TEST_CASE("intersect_sphere","[intersect_sphere]")
   REQUIRE ( d == Approx(4.0f));
 
 }
+//6.3
+TEST_CASE("intersect_box","[intersect_box]")
+{
+  Ray ray;
+  ray.origin=glm::vec3 {0.0,0.0,0.0};
+  ray.direction=glm::vec3 {2.0,2.0,2.0};
+  glm::vec3 min {1.0f,0.0f,0.0f};
+  glm::vec3 max {6.0f,5.0f,5.0f};
+ 
+  float distance =0;
+  Box box1(max,min);
+
+
+  bool result = box1.intersect(ray,distance);
+  //bool result1 = s1.intersect(ray1,d1);
+  //REQUIRE ( result1 == false);
+  REQUIRE ( result == true);
+  //REQUIRE ( d == Approx(4.0f));
+
+}

@@ -43,28 +43,35 @@ std::ostream& Box::print(std::ostream& os) const
 bool Box::intersect(Ray const& ray,float & t) const
 {
    bool test=false;
-   if(ray.origin.x>minimum_.x && ray.origin.y>minimum_.y && ray.origin.z>minimum_.z &&ray.direction.x>ray.origin.x && ray.direction.y>ray.origin.y && ray.direction.z>ray.origin.z) //richtung recht und box links
+   std::cout<<"kkkkkkkkkkkk000";
+   if(ray.origin.x>maximum_.x && ray.origin.y>maximum_.y && ray.origin.z>maximum_.z &&ray.direction.x>ray.origin.x && ray.direction.y>ray.origin.y && ray.direction.z>ray.origin.z) //richtung recht und box links
      {
        test = false;
+       std::cout<<"kkkkkkkkkkkk11";
      }
     else if(ray.origin.x<minimum_.x && ray.origin.y<minimum_.y && ray.origin.z<minimum_.z &&ray.direction.x<ray.origin.x && ray.direction.y<ray.origin.y && ray.direction.z<ray.origin.z) //richtung links und box recht
     {
         test = false;
+        std::cout<<"kkkkkkkkkkkk22";
     }
     else if(ray.origin.x<maximum_.x && ray.origin.y<maximum_.y && ray.origin.z<maximum_.z && ray.origin.x>minimum_.x && ray.origin.y>minimum_.y && ray.origin.z>minimum_.z)  //in box
     {
         test = true;
+
     }
    else
    {
-    glm::vec3 v = glm::normalize(ray.direction);
-    
+    //glm::vec3 v_direction = glm::normalize(ray.direction);
+    std::cout<<minimum_.x <<"origin "<<ray.origin.x<<"dir "<<ray.direction.x;
     float distance_x = (minimum_.x - ray.origin.x) / ray.direction.x;
+    std::cout<<"disss"<<distance_x;
     glm::vec3 schnitt_punkt_x = ray.origin + (distance_x*ray.direction);
+    std::cout<<"\n "<< "scnitt "<<schnitt_punkt_x.x<<","<<schnitt_punkt_x.y<<","<<schnitt_punkt_x.z;
     if((schnitt_punkt_x.y<=maximum_.y&&schnitt_punkt_x.y>=minimum_.y)&&(schnitt_punkt_x.z<=maximum_.z&&schnitt_punkt_x.z>=minimum_.z))
     {
         glm::vec3 vector_distance = schnitt_punkt_x - ray.origin;
         t = sqrt(vector_distance.x * vector_distance.x + vector_distance.y*vector_distance.y + vector_distance.z*vector_distance.z);
+        std::cout<<"kkkkkkkkkkkk";
         test = true;
     }
 
