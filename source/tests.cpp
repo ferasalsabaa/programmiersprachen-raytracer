@@ -7,7 +7,7 @@
 #include<glm/glm.hpp>
 #include<glm/gtx/intersect.hpp>
 
-TEST_CASE("testing_area_volum", "[area_volum]")
+/*TEST_CASE("testing_area_volum", "[area_volum]")
 {
   glm::vec3 mittel(0.0f,0.0f,0.0f);
   Sphere s1;
@@ -31,10 +31,10 @@ TEST_CASE("testing_area_volum", "[area_volum]")
   Box b2(max,min);
   REQUIRE(104==b2.area());
   REQUIRE(48==b2.volume());
-}
+}*/
 
 int main(int argc, char *argv[])
-{ std::cout<<"\n begin aufgabe 5.5  \n";
+{ /*std::cout<<"\n begin aufgabe 5.5  \n";
   glm::vec3 v_1(4.0f,10.0f,24.0f);
   glm::vec3 v_2(2.0f,8.0f,12.0f);
   Color c1{0.0,0.0,1.0};
@@ -58,10 +58,11 @@ s1->print(std::cout);
 s2->print(std::cout);
 delete s1;
 delete s2;
-std::cout<<"end  5.8"<<"\n";
+std::cout<<"end  5.8"<<"\n";*/
 
   return Catch::Session().run(argc, argv);
 }
+/*
 //5.6
 TEST_CASE("intersect_ray_sphere" , "[intersect]")
 {
@@ -103,7 +104,8 @@ TEST_CASE("intersect_sphere","[intersect_sphere]")
   REQUIRE ( result == true);
   REQUIRE ( d == Approx(4.0f));
 
-}
+}*/
+
 //6.3
 TEST_CASE("intersect_box","[intersect_box]")
 {
@@ -112,15 +114,24 @@ TEST_CASE("intersect_box","[intersect_box]")
   ray.direction=glm::vec3 {2.0,2.0,2.0};
   glm::vec3 min {1.0f,0.0f,0.0f};
   glm::vec3 max {6.0f,5.0f,5.0f};
+
+  Ray ray1;
+  ray1.origin=glm::vec3 {0.0,0.0,0.0};
+  ray1.direction=glm::vec3 {2.0,3.0,1.0};
+   glm::vec3 min1 {8.0f,-5.0f,0.0f};
  
   float distance =0;
+  float distance1 =0;
   Box box1(max,min);
+  Box box2(max,min1);
 
 
-  bool result = box1.intersect(ray,distance);
+  bool result =  box1.intersect(ray,distance);
+  bool result1 = box2.intersect(ray1,distance1);
   //bool result1 = s1.intersect(ray1,d1);
   //REQUIRE ( result1 == false);
   REQUIRE ( result == true);
-  //REQUIRE ( d == Approx(4.0f));
+  REQUIRE ( result1 == false);
+  //REQUIRE ( distance == Approx(0.5f));
 
 }

@@ -1,18 +1,23 @@
 #define CATCH_CONFIG_RUNNER
 
 #include "box.hpp"
-#include<glm/glm.hpp>
-#include<glm/gtx/intersect.hpp>
+#include <glm/glm.hpp>
+#include <glm/gtx/intersect.hpp>
+#include <vector>
+#include <math.h>
+#include <algorithm>
 
-Box::Box() : maximum_{0.0f,0.0f,0.0f} , minimum_{0.0f,0.0f,0.0f}
-{}
-Box::Box(glm::vec3 const& maximum , glm::vec3 const& minimum) : maximum_{maximum} , minimum_{minimum}
-{}
-Box::Box(glm::vec3 const& maximum,glm::vec3 const& minimum,std::string const& name, Color const& box_color) : 
-    maximum_{maximum} ,
-    minimum_{minimum} , 
-    Shape(name,box_color)
-{}
+Box::Box() : maximum_{0.0f, 0.0f, 0.0f}, minimum_{0.0f, 0.0f, 0.0f}
+{
+}
+Box::Box(glm::vec3 const &maximum, glm::vec3 const &minimum) : maximum_{maximum}, minimum_{minimum}
+{
+}
+Box::Box(glm::vec3 const &maximum, glm::vec3 const &minimum, std::string const &name, Color const &box_color) : maximum_{maximum},
+                                                                                                                minimum_{minimum},
+                                                                                                                Shape(name, box_color)
+{
+}
 glm::vec3 Box::get_maximum() const
 {
     return maximum_;
@@ -23,76 +28,88 @@ glm::vec3 Box::get_minimum() const
 }
 float Box::area() const
 {
-  float length = get_maximum().x - get_minimum().x;
-  float width = get_maximum().z - get_minimum().z;
-  float hight = get_maximum().y - get_minimum().y;
-  return 2*(length*width + width*hight + hight*length);
+    float length = get_maximum().x - get_minimum().x;
+    float width = get_maximum().z - get_minimum().z;
+    float hight = get_maximum().y - get_minimum().y;
+    return 2 * (length * width + width * hight + hight * length);
 }
 float Box::volume() const
 {
     float length = get_maximum().x - get_minimum().x;
-  float width = get_maximum().z - get_minimum().z;
-  float hight = get_maximum().y - get_minimum().y;
-  return hight*length*width;   
+    float width = get_maximum().z - get_minimum().z;
+    float hight = get_maximum().y - get_minimum().y;
+    return hight * length * width;
 }
-std::ostream& Box::print(std::ostream& os) const
-{   Shape::print(os);
-    os << "\n max x  "<<maximum_.x<<" max y "<<maximum_.y<<" maxinmum z"<<maximum_.z<<"\n"<<" min x"<<minimum_.x<<" min y"<<minimum_.y<<" min z"<<minimum_.z;
+std::ostream &Box::print(std::ostream &os) const
+{
+    Shape::print(os);
+    os << "\n max x  " << maximum_.x << " max y " << maximum_.y << " maxinmum z" << maximum_.z << "\n"
+       << " min x" << minimum_.x << " min y" << minimum_.y << " min z" << minimum_.z;
     return os;
 }
-bool Box::intersect(Ray const& ray,float & t) const
+bool Box::intersect(Ray const &ray, float &t) const
 {
-   bool test=false;
-   std::cout<<"kkkkkkkkkkkk000";
-   if(ray.origin.x>maximum_.x && ray.origin.y>maximum_.y && ray.origin.z>maximum_.z &&ray.direction.x>ray.origin.x && ray.direction.y>ray.origin.y && ray.direction.z>ray.origin.z) //richtung recht und box links
+    /* if(ray.origin.x>maximum_.x && ray.origin.y>maximum_.y && ray.origin.z>maximum_.z &&ray.direction.x>ray.origin.x && ray.direction.y>ray.origin.y && ray.direction.z>ray.origin.z) //richtung recht und box links
      {
-       test = false;
-       std::cout<<"kkkkkkkkkkkk11";
+       return false;
      }
     else if(ray.origin.x<minimum_.x && ray.origin.y<minimum_.y && ray.origin.z<minimum_.z &&ray.direction.x<ray.origin.x && ray.direction.y<ray.origin.y && ray.direction.z<ray.origin.z) //richtung links und box recht
     {
-        test = false;
-        std::cout<<"kkkkkkkkkkkk22";
-    }
-    else if(ray.origin.x<maximum_.x && ray.origin.y<maximum_.y && ray.origin.z<maximum_.z && ray.origin.x>minimum_.x && ray.origin.y>minimum_.y && ray.origin.z>minimum_.z)  //in box
+        return false;
+        
+    }*/
+    /*if(ray.origin.x<maximum_.x && ray.origin.y<maximum_.y && ray.origin.z<maximum_.z && ray.origin.x>minimum_.x && ray.origin.y>minimum_.y && ray.origin.z>minimum_.z)  //in box
     {
-        test = true;
+        return true;
 
-    }
-   else
-   {
-    //glm::vec3 v_direction = glm::normalize(ray.direction);
-    std::cout<<minimum_.x <<"origin "<<ray.origin.x<<"dir "<<ray.direction.x;
-    float distance_x = (minimum_.x - ray.origin.x) / ray.direction.x;
-    std::cout<<"disss"<<distance_x;
-    glm::vec3 schnitt_punkt_x = ray.origin + (distance_x*ray.direction);
-    std::cout<<"\n "<< "scnitt "<<schnitt_punkt_x.x<<","<<schnitt_punkt_x.y<<","<<schnitt_punkt_x.z;
-    if((schnitt_punkt_x.y<=maximum_.y&&schnitt_punkt_x.y>=minimum_.y)&&(schnitt_punkt_x.z<=maximum_.z&&schnitt_punkt_x.z>=minimum_.z))
+    }*/
+
+    std::cout << minimum_.x << "origin " << ray.origin.x << "dir " << ray.direction.x;
+    if (ray.direction.x == 0 && ray.direction.y == 0 && ray.direction.z == 0)
     {
-        glm::vec3 vector_distance = schnitt_punkt_x - ray.origin;
-        t = sqrt(vector_distance.x * vector_distance.x + vector_distance.y*vector_distance.y + vector_distance.z*vector_distance.z);
-        std::cout<<"kkkkkkkkkkkk";
-        test = true;
+        std::cout << "diriction kann nicht 0,0,0 sein";
     }
-
-    float distance_y = (minimum_.y - ray.origin.y) / ray.direction.y;
-    glm::vec3 schnitt_punkt_y = ray.origin + (distance_y*ray.direction);
-    if((schnitt_punkt_y.x<=maximum_.x&&schnitt_punkt_y.x>=minimum_.x)&&(schnitt_punkt_y.z<=maximum_.z&&schnitt_punkt_y.z>=minimum_.z))
+    else
     {
-        glm::vec3 vector_distance = schnitt_punkt_y - ray.origin;
-        t = sqrt(vector_distance.x * vector_distance.x + vector_distance.y*vector_distance.y + vector_distance.z*vector_distance.z);
-        test=true;
-    }
+        std::vector<float> distance_vector;
+        float distance_x_min = (minimum_.x - ray.origin.x) / ray.direction.x;
+        float distance_x_max = (maximum_.x - ray.origin.x) / ray.direction.x;
+        distance_vector.push_back(distance_x_min);
+        distance_vector.push_back(distance_x_max);
 
-    float distance_z = (minimum_.z - ray.origin.z) / ray.direction.z;
-    glm::vec3 schnitt_punkt_z = ray.origin + (distance_z*ray.direction);
-    if((schnitt_punkt_z.y<=maximum_.y&&schnitt_punkt_z.y>=minimum_.y)&&(schnitt_punkt_z.x<=maximum_.x&&schnitt_punkt_z.x>=minimum_.x))
-    {
-        glm::vec3 vector_distance = schnitt_punkt_z - ray.origin;
-        t = sqrt(vector_distance.x * vector_distance.x + vector_distance.y*vector_distance.y + vector_distance.z*vector_distance.z);
-        test=true;
-    }
-}
+        float distance_y_min = (minimum_.y - ray.origin.y) / ray.direction.y;
+        float distance_y_max = (maximum_.y - ray.origin.y) / ray.direction.y;
+        distance_vector.push_back(distance_y_min);
+        distance_vector.push_back(distance_y_max);
 
-    return test;
+        float distance_z_min = (minimum_.z - ray.origin.z) / ray.direction.z;
+        float distance_z_max = (maximum_.z - ray.origin.z) / ray.direction.z;
+        distance_vector.push_back(distance_z_min);
+        distance_vector.push_back(distance_z_max);
+
+        std::sort(distance_vector.begin(), distance_vector.end());
+
+        for (auto &i : distance_vector)
+        {
+            if (!std::isinf(i))
+            {
+                if (ray.direction.x == 0 && ray.direction.y == 0 && ray.direction.z == 0)
+                {
+                    std::cout << "diriction kann nicht 0,0,0 sein";
+                }
+                glm::vec3 schnitt_punkt = ray.origin + (i * ray.direction);
+
+                if ((schnitt_punkt.x <= maximum_.x && schnitt_punkt.x >= minimum_.x) && (schnitt_punkt.y <= maximum_.y && schnitt_punkt.y >= minimum_.y) && (schnitt_punkt.z <= maximum_.z && schnitt_punkt.z >= minimum_.z))
+                {
+                    t = i;
+                    // glm::vec3 vector_distance = schnitt_punkt - ray.origin;
+
+                    // t = sqrt((vector_distance.x * vector_distance.x) + (vector_distance.y*vector_distance.y) + (vector_distance.z*vector_distance.z));
+                    std::cout << "...$$$$$..." << t;
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
 }
