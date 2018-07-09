@@ -8,7 +8,7 @@ class Box : public Shape
 public:
 Box();
 Box(glm::vec3 const& maximum,glm::vec3 const& minimum);
-Box(glm::vec3 const& maximum,glm::vec3 const& minimum,std::string const& name, Color const& box_color);
+Box(glm::vec3 const& maximum,glm::vec3 const& minimum,std::string const& name, std::shared_ptr<Material> const& material);
 glm::vec3 get_maximum() const;
 glm::vec3 get_minimum() const;
 float area() const override ;

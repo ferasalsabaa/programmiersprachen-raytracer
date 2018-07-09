@@ -13,9 +13,10 @@ Box::Box() : maximum_{0.0f, 0.0f, 0.0f}, minimum_{0.0f, 0.0f, 0.0f}
 Box::Box(glm::vec3 const &maximum, glm::vec3 const &minimum) : maximum_{maximum}, minimum_{minimum}
 {
 }
-Box::Box(glm::vec3 const &maximum, glm::vec3 const &minimum, std::string const &name, Color const &box_color) : maximum_{maximum},
-                                                                                                                minimum_{minimum},
-                                                                                                                Shape(name, box_color)
+Box::Box(glm::vec3 const &maximum, glm::vec3 const &minimum, std::string const &name, std::shared_ptr<Material> const& material) 
+: maximum_{maximum},
+  minimum_{minimum},
+  Shape(name, material)
 {
 }
 glm::vec3 Box::get_maximum() const
@@ -42,7 +43,7 @@ float Box::volume() const
 }
 std::ostream &Box::print(std::ostream &os) const
 {
-    Shape::print(os);
+    //Shape::print(os);
     os << "\n max x  " << maximum_.x << " max y " << maximum_.y << " maxinmum z" << maximum_.z << "\n"
        << " min x" << minimum_.x << " min y" << minimum_.y << " min z" << minimum_.z;
     return os;

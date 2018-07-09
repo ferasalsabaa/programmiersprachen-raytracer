@@ -2,16 +2,16 @@
 #include "shape.hpp"
 #include<iostream>
 
-Shape::Shape() : name_{""} , shape_color_{0.0,0.0,0.0}
+Shape::Shape() : name_{""} , material_{}
 {std::cout<<"shape constructor ..."<<"\n";}
-Shape::Shape(std::string const& name,Color const& shape_color) : name_{name} , shape_color_{shape_color}
+Shape::Shape(std::string const& name,std::shared_ptr<Material> const& material) : name_{name} , material_{material}
 {std::cout<<"shape constructor ..."<<"\n";}
 Shape::~Shape()
 {std::cout<<"shape destructor ..."<<"\n";}
 
 std::ostream& Shape::print(std::ostream& os) const
 {
-   os << "\n name  : " <<name_<< "\n color : " << shape_color_.r<<"  "<<shape_color_.g<<"  "<<shape_color_.b;
+   os << "\n name  : " <<name_<< "\n material : ";
    return os;
 }
 std::ostream& operator<<(std::ostream& os, Shape const& s)
