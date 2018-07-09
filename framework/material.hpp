@@ -10,9 +10,9 @@ struct Material
     Color kd_;
     Color ks_;
     float m_;
-Material() : ka_{0.0,0.0,0.0} , kd_{0.0,0.0,0.0} , ks_{0.0,0.0,0.0} , m_{0.0}
+Material() : name_{" "} ,ka_{0.0,0.0,0.0} , kd_{0.0,0.0,0.0} , ks_{0.0,0.0,0.0} , m_{0.0}
 {}
-Material(Color ka,Color kd,Color ks,float m) : ka_{ka} , kd_{kd} , ks_{ks} , m_{m}
+Material(Color ka,Color kd,Color ks,float m) : name_{" "},ka_{ka} , kd_{kd} , ks_{ks} , m_{m}
 {}
 friend std::ostream& operator<<(std::ostream& os, Material const& s)
 {

@@ -43,9 +43,9 @@ float Box::volume() const
 }
 std::ostream &Box::print(std::ostream &os) const
 {
-    //Shape::print(os);
-    os << "\n max x  " << maximum_.x << " max y " << maximum_.y << " maxinmum z" << maximum_.z << "\n"
-       << " min x" << minimum_.x << " min y" << minimum_.y << " min z" << minimum_.z;
+    Shape::print(os);
+    os << "\n max : " << maximum_.x << "," << maximum_.y << "," << maximum_.z << "\n"
+       << " min : " << minimum_.x << "," << minimum_.y << "," << minimum_.z <<"\n material : "<< *material_<< "\n";
     return os;
 }
 bool Box::intersect(Ray const &ray, float &t) const

@@ -2,6 +2,7 @@
 #include <catch.hpp>
 #include "shape.hpp"
 #include "Sphere.hpp"
+#include<memory>
 #include "box.hpp"
 #include<iostream>
 #include<glm/glm.hpp>
@@ -59,6 +60,18 @@ s2->print(std::cout);
 delete s1;
 delete s2;
 std::cout<<"end  5.8"<<"\n";*/
+Color ka(0.0,0.0,0.0);
+Color kd(0.0,0.0,0.0);
+Color ks(0.0,0.0,0.0);
+float m=50;
+//Material m1(ka,kd,ks,m);
+std::shared_ptr<Material> m1(new Material(ka,kd,ks,m));
+glm::vec3 min {1.0f,0.0f,0.0f};
+glm::vec3 max {6.0f,5.0f,5.0f};
+
+Box b1(max,min,"dd",m1);
+std::cout<<b1;
+//std::cout<<material;
 
   return Catch::Session().run(argc, argv);
 }

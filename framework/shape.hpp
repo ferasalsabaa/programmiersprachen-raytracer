@@ -8,6 +8,7 @@
 class Shape
 {
   public:
+  std::shared_ptr<Material> material_;
   Shape();
   Shape(std::string const& name,std::shared_ptr<Material> const& material);
    ~Shape();
@@ -16,9 +17,10 @@ class Shape
   virtual bool intersect (Ray const& ray,float & t) const = 0;
   virtual std::ostream& print(std::ostream& os) const;
   
+  
   private:
   std::string name_;
-  std::shared_ptr<Material> material_;
+  
 
 };
 std::ostream& operator <<(std::ostream& os, Shape const& s);
