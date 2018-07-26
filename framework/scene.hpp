@@ -21,6 +21,8 @@ struct Scene{
    Light ambient;
 
 };
+
 Scene open_sdf (std::string const& sdf_name);
 std::shared_ptr<Material> find_map(std::string const& name,std::map<std::string,std::shared_ptr<Material>> const& material_map);
+
 #endif

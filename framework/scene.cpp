@@ -1,6 +1,8 @@
 #include"scene.hpp"
 #include"Sphere.hpp"
 #include"shape.hpp"
+#include"light.hpp"
+#include"box.hpp"
 #include<memory>
 #include<algorithm>
 #include<vector>
@@ -20,11 +22,11 @@ Scene open_sdf(std::string const& sdf_name)
         std::stringstream line_stream(line);
         std::string word;
         line_stream >> word;
-        if("define" == word)
+        if(word=="define")
         {
            line_stream>>word;
-           if("material"==word) {
-               std::shared_ptr<Material> material_ptr = std::make_shared<Material>();
+           if(word=="material") {
+                std::shared_ptr<Material> material_ptr = std::make_shared<Material>();
                 line_stream>> material_ptr->name_;
                 line_stream >> material_ptr->ka_.r; 
                 line_stream >> material_ptr->ka_.g; 
@@ -40,14 +42,35 @@ Scene open_sdf(std::string const& sdf_name)
                 scene.material_map.insert(make_pair(material_ptr->name_,material_ptr));
            }
            if(word=="shape"){
-              // std::shared_ptr<Shape> shape_ptr = std::make_shared<Shape>();
-               line_stream>>word;
-               if(word=="sphere"){
-
-                
-                  
-               }
-
+               auto shape = std::make_shared<Shape>();
+               line_stream >> shape -> name_; //set_name?              
+        //        if(word=="sphere"){
+        //            auto sphere = std::make_shared<Sphere>(); //point to shape?
+        //            line_stream >> sphere -> mittelpunkt_.x_;
+        //            line_stream >> sphere -> mittelpunkt_.y_;
+        //            line_stream >> sphere -> mittelpunkt_.z_;
+        //            line_stream >> sphere -> radius_;                 
+        //        } else if (word=="box") {
+        //            auto box = std::make_shared<Box>();
+        //            line_stream >> box -> minimum_.x_;
+        //            line_stream >> box -> minimum_.y_;
+        //            line_stream >> box -> minimum_.z_;
+        //            line_stream >> box -> maximum.x_;
+        //            line_stream >> box -> maximum.y_;
+        //            line_stream >> box -> maximum.z_;
+        //        }
+        //        line_stream >> shape -> material_.*name_;
+        //    }
+        //    if (word=="light") {
+        //        auto light = std::make_shared<Light>();
+        //        line_stream >> light -> name_;
+        //        line_stream >> light -> position_.x_;
+        //        line_stream >> light -> position_.y_;
+        //        line_stream >> light -> position_.z_;
+        //        line_stream >> light -> color_.r;
+        //        line_stream >> light -> color_.g;
+        //        line_stream >> light -> color_.b;
+        //        line_stream >> light -> brightness_;
            }
         }
 
