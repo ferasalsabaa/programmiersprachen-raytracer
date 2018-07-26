@@ -1,4 +1,5 @@
 #include"scene.hpp"
+#include"Sphere.hpp"
 #include<memory>
 #include<algorithm>
 #include<vector>
@@ -39,6 +40,14 @@ Scene open_sdf(std::string const& sdf_name)
                 scene.material_vector.push_back(material_ptr);
                 scene.material_map.insert(make_pair(material_ptr->name_,material_ptr));
                 scene.material_set.insert(material_ptr);
+           }
+           if(word=="shape"){
+               line_stream>>word;
+               if(word=="sphere"){
+                   Sphere sphere();
+                   line_stream >> sphere->name_;
+               }
+
            }
         }
 
