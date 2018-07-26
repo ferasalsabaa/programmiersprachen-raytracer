@@ -4,6 +4,7 @@
 #include "Sphere.hpp"
 #include<memory>
 #include "box.hpp"
+#include "light.hpp"
 #include<iostream>
 #include<glm/glm.hpp>
 #include<glm/gtx/intersect.hpp>
@@ -35,7 +36,9 @@
 }*/
 
 int main(int argc, char *argv[])
-{ /*std::cout<<"\n begin aufgabe 5.5  \n";
+{
+  
+  /*std::cout<<"\n begin aufgabe 5.5  \n";
   glm::vec3 v_1(4.0f,10.0f,24.0f);
   glm::vec3 v_2(2.0f,8.0f,12.0f);
   Color c1{0.0,0.0,1.0};
