@@ -7,11 +7,11 @@
 #include<glm/gtx/intersect.hpp>
 
 
-Sphere::Sphere() : Shape(name,material) , mittel_punkt_{0.0f,0.0f,0.0f} , radius_{0.0f}, {
+Sphere::Sphere() : Shape() , mittel_punkt_{0.0f,0.0f,0.0f} , radius_{0.0f} {
     std::cout<<"sphere constructor 1"<<"\n";
     }
 
-Sphere::Sphere(glm::vec3 const& mittel_punkt,float const& radius) : Shape(name,material), mittel_punkt_{mittel_punkt} , radius_{radius} {
+Sphere::Sphere(glm::vec3 const& mittel_punkt,float const& radius) : Shape(), mittel_punkt_{mittel_punkt} , radius_{radius} {
     std::cout<<"sphere constructor 2"<<"\n";
     }
 
