@@ -16,7 +16,7 @@ Sphere::Sphere(glm::vec3 const& mittel_punkt,float const& radius) : Shape(name,m
     }
 
 Sphere::Sphere(glm::vec3 const& mittel_punkt,float const& radius,std::string const& name,std::shared_ptr<Material> const& material) : 
-    mittel_punkt_{mittel_punkt} , radius_{radius}, Shape(name,material) {} //Shape nach vorne verschieben
+    mittel_punkt_{mittel_punkt} , radius_{radius}, Shape(name,material) {}
 Sphere::~Sphere()
 {
     std::cout<<"sphere destructor"<<"\n";
