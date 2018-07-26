@@ -18,6 +18,7 @@ bool intersect (Ray const& ray,float & t) const override;
 private:
 glm::vec3 maximum_;
 glm::vec3 minimum_;
+std::cout"hi";
 };
 
 #endif
