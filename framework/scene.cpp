@@ -1,4 +1,6 @@
 #include"scene.hpp"
+#include"Sphere.hpp"
+#include"shape.hpp"
 #include<memory>
 #include<algorithm>
 #include<vector>
@@ -21,9 +23,8 @@ Scene open_sdf(std::string const& sdf_name)
         if("define" == word)
         {
            line_stream>>word;
-           if("material"==word)
-           {
-               std::shared_ptr<Material> material_ptr = std::make_shared<Material> ();
+           if("material"==word) {
+               std::shared_ptr<Material> material_ptr = std::make_shared<Material>();
                 line_stream>> material_ptr->name_;
                 line_stream >> material_ptr->ka_.r; 
                 line_stream >> material_ptr->ka_.g; 
@@ -36,9 +37,17 @@ Scene open_sdf(std::string const& sdf_name)
                 line_stream >> material_ptr->ks_.b;
                 line_stream >> material_ptr->m_; 
 
-                scene.material_vector.push_back(material_ptr);
                 scene.material_map.insert(make_pair(material_ptr->name_,material_ptr));
-                scene.material_set.insert(material_ptr);
+           }
+           if(word=="shape"){
+              // std::shared_ptr<Shape> shape_ptr = std::make_shared<Shape>();
+               line_stream>>word;
+               if(word=="sphere"){
+
+                
+                  
+               }
+
            }
         }
 

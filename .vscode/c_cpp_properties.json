@@ -10,7 +10,8 @@
             },
             "includePath": [
                 "${workspaceFolder}",
-                "${workspaceFolder}/external/glm-0.9.5.3"
+                "${workspaceFolder}/external/glm-0.9.5.3",
+                "${workspaceFolder}/framework"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
