@@ -22,6 +22,7 @@ Box::Box(glm::vec3 const &maximum, glm::vec3 const &minimum, std::string const &
 glm::vec3 Box::get_maximum() const
 {
     return maximum_;
+    std::cout<<"hollaaaaa";
 }
 glm::vec3 Box::get_minimum() const
 {
@@ -50,21 +51,6 @@ std::ostream &Box::print(std::ostream &os) const
 }
 bool Box::intersect(Ray const &ray, float &t) const
 {
-    /* if(ray.origin.x>maximum_.x && ray.origin.y>maximum_.y && ray.origin.z>maximum_.z &&ray.direction.x>ray.origin.x && ray.direction.y>ray.origin.y && ray.direction.z>ray.origin.z) //richtung recht und box links
-     {
-       return false;
-     }
-    else if(ray.origin.x<minimum_.x && ray.origin.y<minimum_.y && ray.origin.z<minimum_.z &&ray.direction.x<ray.origin.x && ray.direction.y<ray.origin.y && ray.direction.z<ray.origin.z) //richtung links und box recht
-    {
-        return false;
-        
-    }*/
-    /*if(ray.origin.x<maximum_.x && ray.origin.y<maximum_.y && ray.origin.z<maximum_.z && ray.origin.x>minimum_.x && ray.origin.y>minimum_.y && ray.origin.z>minimum_.z)  //in box
-    {
-        return true;
-
-    }*/
-
     std::cout << minimum_.x << "origin " << ray.origin.x << "dir " << ray.direction.x;
     if (ray.direction.x == 0 && ray.direction.y == 0 && ray.direction.z == 0)
     {
@@ -103,9 +89,6 @@ bool Box::intersect(Ray const &ray, float &t) const
                 if ((schnitt_punkt.x <= maximum_.x && schnitt_punkt.x >= minimum_.x) && (schnitt_punkt.y <= maximum_.y && schnitt_punkt.y >= minimum_.y) && (schnitt_punkt.z <= maximum_.z && schnitt_punkt.z >= minimum_.z))
                 {
                     t = i;
-                    // glm::vec3 vector_distance = schnitt_punkt - ray.origin;
-
-                    // t = sqrt((vector_distance.x * vector_distance.x) + (vector_distance.y*vector_distance.y) + (vector_distance.z*vector_distance.z));
                     std::cout << "...$$$$$..." << t;
                     return true;
                 }
