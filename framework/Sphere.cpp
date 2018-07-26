@@ -7,12 +7,16 @@
 #include<glm/gtx/intersect.hpp>
 
 
-Sphere::Sphere() : mittel_punkt_{0.0f,0.0f,0.0f} , radius_{0.0f}
-{std::cout<<"sphere constructor 1"<<"\n";}
-Sphere::Sphere(glm::vec3 const& mittel_punkt,float const& radius) : mittel_punkt_{mittel_punkt} , radius_{radius}
-{std::cout<<"sphere constructor 2"<<"\n";}
-Sphere::Sphere(glm::vec3 const& mittel_punkt,float const& radius,std::string const& name,std::shared_ptr<Material> const& material) : mittel_punkt_{mittel_punkt} , radius_{radius},Shape(name,material)//shape zuerest
-{std::cout<<"sphere constructor 3"<<"\n";}
+Sphere::Sphere() : Shape(name,material) , mittel_punkt_{0.0f,0.0f,0.0f} , radius_{0.0f}, {
+    std::cout<<"sphere constructor 1"<<"\n";
+    }
+
+Sphere::Sphere(glm::vec3 const& mittel_punkt,float const& radius) : Shape(name,material), mittel_punkt_{mittel_punkt} , radius_{radius} {
+    std::cout<<"sphere constructor 2"<<"\n";
+    }
+
+Sphere::Sphere(glm::vec3 const& mittel_punkt,float const& radius,std::string const& name,std::shared_ptr<Material> const& material) : 
+    mittel_punkt_{mittel_punkt} , radius_{radius}, Shape(name,material) {} //Shape nach vorne verschieben
 Sphere::~Sphere()
 {
     std::cout<<"sphere destructor"<<"\n";
