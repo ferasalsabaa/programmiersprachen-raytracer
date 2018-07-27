@@ -8,13 +8,13 @@ class Camera {
     public:
     std::string name_;
     float aperture_;
-    glm::vec3 origine_;
+    glm::vec3 origin_;
     glm::vec3 direction_;
 
     
 
     Camera() : name_{""}, aperture_{45}, origine_{0.0,0.0,0.0}, direction_{0.0,0.0,-1} {}
-    Camera(std::string const& name, float aperture, Ray const& ray, glm::vec3 origine,glm::vec3 direction) :
+    Camera(std::string const& name, float aperture, glm::vec3 origin, glm::vec3 direction) :
      name_{name}, aperture_{aperture}, origine_ {origine}, direction_{direction} {}
 
     private:
