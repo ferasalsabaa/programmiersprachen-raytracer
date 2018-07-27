@@ -30,17 +30,6 @@ glm::vec3 Sphere::get_mittelpunkt() const {
     return mittelpunkt_;
 }
 
-void Sphere::set_position_X(int x) {
-    mittelpunkt_.x = x;
-}
-
-void Sphere::set_position_Y(int y) {
-    mittelpunkt_.y = y;
-}
-
-void Sphere::set_position_Z(int z) {
-    mittelpunkt_.z = z;
-}
 
 
 float Sphere::area() const {

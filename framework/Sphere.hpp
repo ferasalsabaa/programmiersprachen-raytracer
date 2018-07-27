@@ -16,9 +16,6 @@ Sphere(glm::vec3 const& mittel_punkt,float const& radius,std::string const& name
 float get_radius() const;
 glm::vec3 get_mittelpunkt() const;
 
-void set_position_X(int x);
-void set_position_Y(int y);
-void set_position_Z(int z);
 
 float area() const override ;
 float volume()const override;

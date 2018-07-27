@@ -43,25 +43,30 @@ Scene open_sdf(std::string const& sdf_name)
            }
            if(word=="shape"){        
                   if(word=="sphere"){
-                      std::shared_ptr<Sphere> sphere = std::make_shared<Sphere>();
+                      std::shared_ptr<Sphere> sphere = std::make_shared<Sphere>(); 
                       line_stream >> word;
                       sphere->set_name(word);      
-                      line_stream >> sphere -> mittelpunkt_.x_;
-                      line_stream >> sphere -> mittelpunkt_.y_;
-                      line_stream >> sphere -> mittelpunkt_.z_;
+                      line_stream >> sphere -> mittelpunkt_.x;
+                      line_stream >> sphere -> mittelpunkt_.y;
+                      line_stream >> sphere -> mittelpunkt_.z;
                       line_stream >> sphere -> radius_;
                       line_stream >> word;
-                      sphere.material_ = find_map(word);       
-        //        } else if (word=="box") {
-        //            auto box = std::make_shared<Box>();
-        //            line_stream >> box -> minimum_.x_;
-        //            line_stream >> box -> minimum_.y_;
-        //            line_stream >> box -> minimum_.z_;
-        //            line_stream >> box -> maximum.x_;
-        //            line_stream >> box -> maximum.y_;
-        //            line_stream >> box -> maximum.z_;
-        //        }
-        //        
+                      sphere->material_ = find_map(word, scene.material_map);
+                      scene.objects.push_back(sphere);
+
+                } else if (word=="box") {
+                    std::shared_ptr<Box> box = std::make_shared<Box>();
+                    line_stream >> word;
+                    box->set_name(word);  
+                    line_stream >> box -> minimum_.x;
+                    line_stream >> box -> minimum_.y;
+                    line_stream >> box -> minimum_.z;
+                    line_stream >> box -> maximum_.x;
+                    line_stream >> box -> maximum_.y;
+                    line_stream >> box -> maximum_.z;
+                    box->material_ = find_map(word, scene.material_map);
+                    scene.objects.push_back(box);
+                }     
         //    }
         //    if (word=="light") {
         //        auto light = std::make_shared<Light>();
@@ -75,12 +80,14 @@ Scene open_sdf(std::string const& sdf_name)
         //        line_stream >> light -> brightness_;
            }
         }
-
+    // for (auto& i : scene.objects) {
+    //     std::cout<<" object" << *i << "!/n";
+    // }
     }
     ifs.close();
     return scene;
 }
-}
+
 
 
 
