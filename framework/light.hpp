@@ -9,11 +9,11 @@ class Light {
     Light(): name_{""},position_{0.0,0.0,0.0},color_{0.0,0.0,0.0},brightness_{0},intensity_{0.0,0.0,0.0}
     {}
 
-    Light(std::string name,glm::vec3 position,Color color,unsigned int brightness):
+    Light(std::string const& name,glm::vec3 const& position,Color const& color,unsigned int brightness):
     name_{name},position_{position},color_{color},brightness_{brightness} ,intensity_{calucate_intensity(color,brightness)}
     {}
     
-    Color calucate_intensity(Color color, unsigned int brightness){
+    Color calucate_intensity(Color const& color, unsigned int brightness){
         Color intensity(color.r*brightness,color.g*brightness,color.b*brightness);
         return intensity;
     }

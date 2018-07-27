@@ -3,6 +3,7 @@
 #include"shape.hpp"
 #include"light.hpp"
 #include"box.hpp"
+#include"camera.hpp"
 #include<memory>
 #include<algorithm>
 #include<vector>
@@ -67,22 +68,26 @@ Scene open_sdf(std::string const& sdf_name)
                     box->material_ = find_map(word, scene.material_map);
                     scene.objects.push_back(box);
                 }     
-        //    }
-        //    if (word=="light") {
-        //        auto light = std::make_shared<Light>();
-        //        line_stream >> light -> name_;
-        //        line_stream >> light -> position_.x_;
-        //        line_stream >> light -> position_.y_;
-        //        line_stream >> light -> position_.z_;
-        //        line_stream >> light -> color_.r;
-        //        line_stream >> light -> color_.g;
-        //        line_stream >> light -> color_.b;
-        //        line_stream >> light -> brightness_;
+           }
+           if (word=="light") {
+               Light light{};
+               line_stream >> light.name_;
+               line_stream >> light.position_.x;
+               line_stream >> light.position_.y;
+               line_stream >> light.position_.z;
+               line_stream >> light.color_.r;
+               line_stream >> light.color_.g;
+               line_stream >> light.color_.b;
+               line_stream >> light.brightness_;
+               scene.lights.push_back(light);
+           }
+           if(word=="camera") {
+               Camera cam{};
+               line_stream >> cam.name_;
+               line_stream >> cam.aperture_;
+               scene.cam_ = cam;             
            }
         }
-    // for (auto& i : scene.objects) {
-    //     std::cout<<" object" << *i << "!/n";
-    // }
     }
     ifs.close();
     return scene;
