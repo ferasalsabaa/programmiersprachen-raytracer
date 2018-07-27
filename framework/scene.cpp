@@ -43,7 +43,8 @@ Scene open_sdf(std::string const& sdf_name)
 
                 scene.material_map.insert(make_pair(material_ptr->name_,material_ptr));
            }
-           if(word=="shape"){        
+           if(word=="shape"){ 
+                  line_stream>>word;       
                   if(word=="sphere"){
                       std::shared_ptr<Sphere> sphere = std::make_shared<Sphere>(); 
                       line_stream >> word;

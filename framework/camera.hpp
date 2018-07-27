@@ -12,8 +12,7 @@ class Camera {
     Camera(std::string const& name, float aperture) : name_{name}, aperture_{aperture} {}
 
     private:
-    //
-
+    
 };
 
 
