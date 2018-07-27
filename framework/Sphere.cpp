@@ -10,39 +10,54 @@
 Sphere::Sphere() : Shape() , mittelpunkt_{0.0f,0.0f,0.0f} , radius_{0.0f}{
     std::cout<<"sphere constructor 1"<<"\n";
     }
+
 Sphere::Sphere(glm::vec3 const& mittelpunkt,float const& radius) : Shape(), mittelpunkt_{mittelpunkt} , radius_{radius} {
     std::cout<<"sphere constructor 2"<<"\n";
     }
 
 Sphere::Sphere(glm::vec3 const& mittelpunkt,float const& radius,std::string const& name,std::shared_ptr<Material> const& material) : 
     mittelpunkt_{mittelpunkt} , radius_{radius}, Shape(name,material) {}
-Sphere::~Sphere()
-{
+
+Sphere::~Sphere(){
     std::cout<<"sphere destructor"<<"\n";
 }
-float Sphere::get_radius() const
-{
+
+float Sphere::get_radius() const {
     return radius_;
 }
-glm::vec3 Sphere::get_mittelpunkt() const
-{
+
+glm::vec3 Sphere::get_mittelpunkt() const {
     return mittelpunkt_;
 }
-float Sphere::area() const
-{
+
+void Sphere::set_position_X(int x) {
+    mittelpunkt_.x = x;
+}
+
+void Sphere::set_position_Y(int y) {
+    mittelpunkt_.y = y;
+}
+
+void Sphere::set_position_Z(int z) {
+    mittelpunkt_.z = z;
+}
+
+
+float Sphere::area() const {
   return 4 * pow(get_radius(),2) * M_PI;
 }
-float Sphere::volume() const
-{
+
+float Sphere::volume() const {
   return (4.0f/3.0f) * M_PI * (pow(get_radius(),3));
 }
-std::ostream& Sphere::print(std::ostream& os) const
-{   Shape::print(os);
+
+std::ostream& Sphere::print(std::ostream& os) const {
+    Shape::print(os);
     os<<"\n radius : "<<radius_<<"\n center : " <<"\n x "<<mittelpunkt_.x<<" y "<<mittelpunkt_.y<<" z "<<mittelpunkt_.z<<"\n";
     return os;
 }
-bool Sphere::intersect(Ray const& ray,float & distance) const
-{
+
+bool Sphere::intersect(Ray const& ray,float & distance) const {
 
 glm::vec3 v = glm::normalize(ray.direction); //ohne ende
 //auto a = ray.direction = {0.0f,0.0f,1.0f};

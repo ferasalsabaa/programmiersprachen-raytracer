@@ -16,15 +16,19 @@ Sphere(glm::vec3 const& mittel_punkt,float const& radius,std::string const& name
 float get_radius() const;
 glm::vec3 get_mittelpunkt() const;
 
+void set_position_X(int x);
+void set_position_Y(int y);
+void set_position_Z(int z);
+
 float area() const override ;
 float volume()const override;
 std::ostream& print(std::ostream& os) const override;
 bool intersect(Ray const& ray,float & distance) const override;
-
-
-private:
 glm::vec3 mittelpunkt_;
 float radius_;
+
+private:
+
 };
 //std::ostream& operator<<(std::ostream& os , Shape const& s);
 
