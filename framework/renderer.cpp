@@ -9,6 +9,7 @@
 
 #include "renderer.hpp"
 
+
 Renderer::Renderer(unsigned w, unsigned h, std::string const& file)
   : width_(w)
   , height_(h)
@@ -36,6 +37,34 @@ void Renderer::render()
   ppm_.save(filename_);
 }
 
+void Renderer::render(Scene const& scene) {
+  Ray ray;
+  float t = 1;
+  std::shared_ptr<Shape> closest_o(scene.objects.front());
+  float closest_t = closest_o->intersect(ray, t);
+  closest_o = 0;
+  for(int i = 0; i<=100; ++i) {
+    for(int j = 0; j<= 100; ++j) {
+      Pixel p(i,j);
+      for (auto& object : scene.objects) {
+        t = object->intersect(ray,t);
+        if(t<closest_t) {
+          closest_t = t;
+          closest_o = object;
+        }
+      }
+      if(closest_o != 0) {
+     p.color = Color(0.0, 1.0, 0.5);
+     write(p);
+    } else {
+     p.color = Color(1.0, 0.0, 1.0);
+     write(p);
+  }
+    }
+  }
+  ppm_.save(filename_);
+}
+
 void Renderer::write(Pixel const& p)
 {
   // flip pixels, because of opengl glDrawPixels
@@ -51,3 +80,4 @@ void Renderer::write(Pixel const& p)
 
   ppm_.write(p);
 }
+

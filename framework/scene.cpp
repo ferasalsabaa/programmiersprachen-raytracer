@@ -4,6 +4,7 @@
 #include"light.hpp"
 #include"box.hpp"
 #include"camera.hpp"
+#include"renderer.hpp"
 #include<memory>
 #include<algorithm>
 #include<vector>
@@ -88,6 +89,11 @@ Scene open_sdf(std::string const& sdf_name)
                scene.cam_ = cam;             
            }
         }
+        // if(word=="render") {
+        //     Renderer render();
+        //     line_stream << render.filename_;
+
+        // }
     }
     ifs.close();
     return scene;

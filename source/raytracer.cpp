@@ -12,6 +12,9 @@ int main(int argc, char* argv[])
   unsigned const image_height = 600;
   std::string const filename = "./checkerboard.ppm";
 
+  Scene test();
+
+
   Renderer renderer{image_width, image_height, filename};
 
   //create separate thread to see updates of pixels while rendering

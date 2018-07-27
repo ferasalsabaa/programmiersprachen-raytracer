@@ -18,6 +18,8 @@ class Light {
         return intensity;
     }
 
+    ~Light();
+
     std::string name_;
     glm::vec3 position_;
     Color color_;

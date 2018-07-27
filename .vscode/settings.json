@@ -45,6 +45,10 @@
         "list": "cpp",
         "algorithm": "cpp",
         "__config": "cpp",
-        "__nullptr": "cpp"
+        "__nullptr": "cpp",
+        "__split_buffer": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "random": "cpp"
     }
 }
