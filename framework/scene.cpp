@@ -41,11 +41,11 @@ Scene open_sdf(std::string const& sdf_name)
 
                 scene.material_map.insert(make_pair(material_ptr->name_,material_ptr));
            }
-           if(word=="shape"){
-               auto shape = std::make_shared<Shape>();
-               line_stream >> shape -> name_; //set_name?              
-        //        if(word=="sphere"){
-        //            auto sphere = std::make_shared<Sphere>(); //point to shape?
+           if(word=="shape"){        
+                  if(word=="sphere"){
+                      std::shared_ptr<Shape> sphere = std::make_shared<Sphere>();
+                      line_stream >> word;
+                      sphere->set_name(word);    
         //            line_stream >> sphere -> mittelpunkt_.x_;
         //            line_stream >> sphere -> mittelpunkt_.y_;
         //            line_stream >> sphere -> mittelpunkt_.z_;
@@ -78,20 +78,9 @@ Scene open_sdf(std::string const& sdf_name)
     ifs.close();
     return scene;
 }
-
-
-std::shared_ptr<Material> find_vector(std::string const& name,std::vector<std::shared_ptr<Material>> const& material_vector) {
-    auto it = find_if(material_vector.begin(), material_vector.end(),
-    [&name] (std::shared_ptr<Material> const& material) {return material->name_ == name;});
-
-    if (it!=material_vector.end())
-    {
-      return *it;
-    } else {
-        return nullptr;
-    }
-
 }
+
+
 
 
 std::shared_ptr<Material> find_map(std::string const& name,std::map<std::string,std::shared_ptr<Material>> const& material_map) {
@@ -100,19 +89,6 @@ std::shared_ptr<Material> find_map(std::string const& name,std::map<std::string,
     {
         return it->second;
     } else {
-        return nullptr;
-    }
-
-}
-
-std::shared_ptr<Material> find_set(std::string const& name,std::set<std::shared_ptr<Material>> const& material_set) {
-    auto it = find_if(material_set.begin(),material_set.end(),[&name] (std::shared_ptr<Material> const& material)
-    {return (material->name_)==name;});
-
-    if(it!=material_set.end())
-    {
-        return *it;
-    } else{
         return nullptr;
     }
 

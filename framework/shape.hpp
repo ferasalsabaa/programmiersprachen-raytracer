@@ -16,15 +16,15 @@ class Shape
   virtual float volume() const=0;
   virtual bool intersect (Ray const& ray,float & t) const = 0;
   virtual std::ostream& print(std::ostream& os) const;
-  
+  void set_name(std::string const& na);
   
   private:
   std::string name_;
   
 
 };
-std::ostream& operator <<(std::ostream& os, Shape const& s);
 
+std::ostream& operator <<(std::ostream& os, Shape const& s);
 
 
 #endif
