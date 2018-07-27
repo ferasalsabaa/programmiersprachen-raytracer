@@ -15,6 +15,7 @@
 #include "ppmwriter.hpp"
 #include "ray.hpp"
 #include "scene.hpp"
+#include "camera.hpp"
 #include <string>
 #include <glm/glm.hpp>
 
@@ -25,6 +26,7 @@ public:
 
   void render();
   void render(Scene const& scene);
+  void render_test(Scene const& scene);
   void write(Pixel const& p);
 
   inline std::vector<Color> const& color_buffer() const

@@ -8,6 +8,7 @@
 // -----------------------------------------------------------------------------
 
 #include "renderer.hpp"
+#include "ray.hpp"
 
 
 Renderer::Renderer(unsigned w, unsigned h, std::string const& file)
@@ -35,6 +36,26 @@ void Renderer::render()
     }
   }
   ppm_.save(filename_);
+}
+
+void Renderer::render_test(Scene const& scene){
+  std::size_t const checker_pattern_size = 20;
+
+  for (unsigned y = 0; y < height_; ++y) {
+    for (unsigned x = 0; x < width_; ++x) {
+      Pixel p(x,y);
+      Ray ray;
+      float distance=10;
+      if(scene.objects[0]->intersect(ray,distance)==true){
+       p.color = Color(0.0, 1.0, 1.0);
+      }else{
+        p.color = Color(1.0,0.0,0.0);
+      }
+      write(p);
+      
+    }
+  }
+  ppm_.save(filename_);  
 }
 
 void Renderer::render(Scene const& scene) {
