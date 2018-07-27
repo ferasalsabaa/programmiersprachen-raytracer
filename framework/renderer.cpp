@@ -39,17 +39,18 @@ void Renderer::render()
 }
 
 void Renderer::render_test(Scene const& scene){
-  std::size_t const checker_pattern_size = 20;
 
   for (unsigned y = 0; y < height_; ++y) {
     for (unsigned x = 0; x < width_; ++x) {
       Pixel p(x,y);
       Ray ray;
-      float distance=10;
+      ray.origin = glm::vec3{x,y,0};
+      ray.direction = glm::vec3{0,0,1.0};
+      float distance=0;
       if(scene.objects[0]->intersect(ray,distance)==true){
        p.color = Color(0.0, 1.0, 1.0);
       }else{
-        p.color = Color(1.0,0.0,0.0);
+        p.color = Color(0.0,1.0,0.0);
       }
       write(p);
       
@@ -75,10 +76,10 @@ void Renderer::render(Scene const& scene) {
         }
       }
       if(closest_o != 0) {
-     p.color = Color(0.0, 1.0, 0.5);
+     p.color = Color(0.0, 1.0, 0.0);
      write(p);
     } else {
-     p.color = Color(1.0, 0.0, 1.0);
+     p.color = Color(0.0, 0.0, 1.0);
      write(p);
   }
     }

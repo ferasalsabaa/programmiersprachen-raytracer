@@ -13,9 +13,9 @@ class Camera {
 
     
 
-    Camera() : name_{""}, aperture_{45}, origine_{0.0,0.0,0.0}, direction_{0.0,0.0,-1} {}
+    Camera() : name_{""}, aperture_{45}, origin_{0.0,0.0,0.0}, direction_{0.0,0.0,-1} {}
     Camera(std::string const& name, float aperture, glm::vec3 origin, glm::vec3 direction) :
-     name_{name}, aperture_{aperture}, origine_ {origine}, direction_{direction} {}
+     name_{name}, aperture_{aperture}, origin_ {origin}, direction_{direction} {}
 
     private:
     

@@ -18,7 +18,7 @@ class Light {
         return intensity;
     }
 
-    ~Light();
+  //  ~Light();
 
     std::string name_;
     glm::vec3 position_;
