@@ -1,10 +1,5 @@
-#include"scene.hpp"
-#include"Sphere.hpp"
-#include"shape.hpp"
-#include"light.hpp"
-#include"box.hpp"
-#include"camera.hpp"
-#include"renderer.hpp"
+#include "scene.hpp"
+#include "renderer.hpp"
 #include<memory>
 #include<algorithm>
 #include<vector>
@@ -90,11 +85,14 @@ Scene open_sdf(std::string const& sdf_name)
                scene.cam_ = cam;             
            }
         }
-        // if(word=="render") {
-        //     Renderer render();
-        //     line_stream << render.filename_;
-
-        // }
+         if(word=="render") {
+             Renderer ren{};
+             line_stream >> word;
+             //find camera and add to renderer?
+             line_stream >> ren.filename_;
+             line_stream >> ren.width_;
+             line_stream >> ren.height_;
+         }
     }
     ifs.close();
     return scene;

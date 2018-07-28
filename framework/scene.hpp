@@ -4,6 +4,11 @@
 #include "shape.hpp"
 #include "light.hpp"
 #include "camera.hpp"
+#include "Sphere.hpp"
+#include "light.hpp"
+#include "box.hpp"
+#include "camera.hpp"
+
 #include <memory>
 #include <iostream>
 #include <fstream>
@@ -21,6 +26,7 @@ struct Scene{
    std::vector<std::shared_ptr<Shape>> objects;
    std::vector<Light> lights;
    Light ambient();
+   //Renderer rend();
 
 };
 

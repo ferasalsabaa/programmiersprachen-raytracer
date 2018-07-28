@@ -7,18 +7,18 @@
 #include <math.h>
 #include <algorithm>
 
-Box::Box() : maximum_{0.0f, 0.0f, 0.0f}, minimum_{0.0f, 0.0f, 0.0f}
-{
-}
-Box::Box(glm::vec3 const &maximum, glm::vec3 const &minimum) : maximum_{maximum}, minimum_{minimum}
-{
-}
+Box::Box() : maximum_{0.0f, 0.0f, 0.0f}, minimum_{0.0f, 0.0f, 0.0f} {}
+
+Box::Box(glm::vec3 const &maximum, glm::vec3 const &minimum) : maximum_{maximum}, minimum_{minimum} {}
+
 Box::Box(glm::vec3 const &maximum, glm::vec3 const &minimum, std::string const &name, std::shared_ptr<Material> const& material) 
 : maximum_{maximum},
   minimum_{minimum},
   Shape(name, material)
-{
-}
+{}
+
+Box::~Box(){}
+
 glm::vec3 Box::get_maximum() const
 {
     return maximum_;
