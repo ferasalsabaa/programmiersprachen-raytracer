@@ -62,6 +62,7 @@ Scene open_sdf(std::string const& sdf_name)
                     line_stream >> box -> maximum_.x;
                     line_stream >> box -> maximum_.y;
                     line_stream >> box -> maximum_.z;
+                    line_stream >> word;
                     box->material_ = find_map(word, scene.material_map);
                     scene.objects.push_back(box);
                 }     
