@@ -11,6 +11,7 @@
 #define BUW_COLOR_HPP
 
 #include <iostream>
+#include <glm/vec3.hpp>
 
 struct Color
 {
@@ -52,10 +53,11 @@ struct Color
     return tmp;
   }
 
-friend Color operator*(Color const& a, float x) {
-    r = r*x;
-    g = g*x:
-    b = b*x;
+friend Color operator*(Color & a, float x) {
+    a.r = a.r*x;
+    a.g = a.g*x;
+    a.b = a.b*x;
+    return a;
 }
 
   float r;
