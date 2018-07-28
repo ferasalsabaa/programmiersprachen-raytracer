@@ -19,13 +19,21 @@
 #include <string>
 #include <glm/glm.hpp>
 
+
 class Renderer
 {
 public:
+
+  unsigned width_;
+  unsigned height_;
+  std::vector<Color> color_buffer_;
+  std::string filename_;
+  PpmWriter ppm_;
+
+  Renderer();
   Renderer(unsigned w, unsigned h, std::string const& file);
 
   void render();
-  void render(Scene const& scene);
   void render_test(Scene const& scene);
   void write(Pixel const& p);
 
@@ -35,12 +43,9 @@ public:
   }
 
 
+
 private:
-  unsigned width_;
-  unsigned height_;
-  std::vector<Color> color_buffer_;
-  std::string filename_;
-  PpmWriter ppm_;
+
 };
 
 #endif // #ifndef BUW_RENDERER_HPP
