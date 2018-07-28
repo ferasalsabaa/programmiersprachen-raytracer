@@ -52,6 +52,12 @@ struct Color
     return tmp;
   }
 
+friend Color operator*(Color const& a, float x) {
+    r = r*x;
+    g = g*x:
+    b = b*x;
+}
+
   float r;
   float g;
   float b;
