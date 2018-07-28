@@ -47,12 +47,14 @@ void Renderer::render_test(Scene const& scene){
       ray.origin = glm::vec3{x,y,0};
       ray.direction = glm::vec3{0,0,1.0};
       float distance=0;
-      if(scene.objects[0]->intersect(ray,distance)==true){
+      for(int i=0;i<scene.objects.size();i++) {
+      if(scene.objects[i]->intersect(ray,distance)==true){
        p.color = Color(0.0, 1.0, 1.0);
       }else{
         p.color = Color(0.0,1.0,0.0);
       }
       write(p);
+      }
       
     }
   }

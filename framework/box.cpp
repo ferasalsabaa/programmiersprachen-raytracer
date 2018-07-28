@@ -80,10 +80,10 @@ bool Box::intersect(Ray const &ray, float &t) const
         {
             if (!std::isinf(i))
             {
-                if (ray.direction.x == 0 && ray.direction.y == 0 && ray.direction.z == 0)
-                {
-                    std::cout << "diriction kann nicht 0,0,0 sein";
-                }
+               // if (ray.direction.x == 0 && ray.direction.y == 0 && ray.direction.z == 0)
+               // {
+               //     std::cout << "diriction kann nicht 0,0,0 sein";
+               // }
                 glm::vec3 schnitt_punkt = ray.origin + (i * ray.direction);
 
                 if ((schnitt_punkt.x <= maximum_.x && schnitt_punkt.x >= minimum_.x) && (schnitt_punkt.y <= maximum_.y && schnitt_punkt.y >= minimum_.y) && (schnitt_punkt.z <= maximum_.z && schnitt_punkt.z >= minimum_.z))
