@@ -40,6 +40,14 @@ void Renderer::render()
   ppm_.save(filename_);
 }
 
+Color shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> light_vector){
+  glm::vec3 position = ray.direction + ray.direction*t;
+  glm::vec3 normal = glm::normalize(position);
+  glm::vec3 vec_light = light_vector[0].position_-position;
+  float angle = glm::angle(normal,vec_light);
+  glm::vec3 intensity = (shape.material_->kd_) * cos(angle) * int (light_vector[0].brightness_) ;
+}
+
 void Renderer::render_test(Scene const& scene){
 for(int i=0;i<scene.objects.size();i++) {
   for (unsigned y = 0; y < height_; ++y) {
