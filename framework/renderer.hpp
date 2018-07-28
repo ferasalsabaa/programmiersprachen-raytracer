@@ -29,9 +29,10 @@ public:
   std::vector<Color> color_buffer_;
   std::string filename_;
   PpmWriter ppm_;
+  Camera cam_;
 
   Renderer();
-  Renderer(unsigned w, unsigned h, std::string const& file);
+  Renderer(unsigned w, unsigned h, std::string const& file, Camera const& cam);
 
   void render();
   void render_test(Scene const& scene);
