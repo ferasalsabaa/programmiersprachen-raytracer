@@ -82,7 +82,7 @@ Scene open_sdf(std::string const& sdf_name)
                Camera cam{};
                line_stream >> cam.name_;
                line_stream >> cam.aperture_;
-               scene.cam_ = cam;             
+               scene.cameras.insert(make_pair(cam.name_,cam));
            }
         }
          if(word=="render") {

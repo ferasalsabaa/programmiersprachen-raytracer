@@ -21,10 +21,10 @@
 struct Scene{ 
     
    std::string name_;
-   Camera cam_;
    std::map<std::string,std::shared_ptr<Material>> material_map;
    std::vector<std::shared_ptr<Shape>> objects;
    std::vector<Light> lights;
+   std::map<std::string,Camera> cameras;
    Light ambient();
    //Renderer rend();
 
