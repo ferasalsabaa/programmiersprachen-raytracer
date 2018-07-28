@@ -113,3 +113,16 @@ std::shared_ptr<Material> find_map(std::string const& name,std::map<std::string,
     }
 
 }
+
+Camera find_campera(std::string const& name,std::map<std::string,Camera> const& cameras) {
+    auto it = cameras.find(name);
+    if(it != cameras.end())
+    {
+        return it->second;
+    } else {
+        Camera cam{};
+        std::cout << "no such camera. set default";
+        return cam;
+    }
+
+}
