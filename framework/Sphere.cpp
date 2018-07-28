@@ -18,9 +18,7 @@ Sphere::Sphere(glm::vec3 const& mittelpunkt,float const& radius) : Shape(), mitt
 Sphere::Sphere(glm::vec3 const& mittelpunkt,float const& radius,std::string const& name,std::shared_ptr<Material> const& material) : 
     mittelpunkt_{mittelpunkt} , radius_{radius}, Shape(name,material) {}
 
-Sphere::~Sphere(){
-    std::cout<<"sphere destructor"<<"\n";
-}
+Sphere::~Sphere(){}
 
 float Sphere::get_radius() const {
     return radius_;

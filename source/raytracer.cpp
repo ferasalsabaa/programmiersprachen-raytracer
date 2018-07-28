@@ -40,7 +40,9 @@ std::shared_ptr<Box> b2(new Box(max,min,"mm",m1));
 test.objects.push_back(b1);
 test.objects.push_back(b2);
 
-  Renderer renderer{image_width, image_height, filename};
+Camera cam{};
+
+  Renderer renderer{image_width, image_height, filename, cam};
 
   //create separate thread to see updates of pixels while rendering
   //std::thread render_thread([&renderer]() {renderer.render();});
