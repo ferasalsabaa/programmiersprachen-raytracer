@@ -89,7 +89,7 @@ Scene open_sdf(std::string const& sdf_name)
          if(word=="render") {
              Renderer ren{};
              line_stream >> word;
-             //find camera and add to renderer?
+             ren.cam_ = find_camera(word, scene.cameras);
              line_stream >> ren.filename_;
              line_stream >> ren.width_;
              line_stream >> ren.height_;
@@ -114,7 +114,7 @@ std::shared_ptr<Material> find_map(std::string const& name,std::map<std::string,
 
 }
 
-Camera find_campera(std::string const& name,std::map<std::string,Camera> const& cameras) {
+Camera find_camera(std::string const& name, std::map<std::string, Camera> const& cameras) {
     auto it = cameras.find(name);
     if(it != cameras.end())
     {
