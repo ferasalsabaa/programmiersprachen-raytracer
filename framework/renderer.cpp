@@ -40,20 +40,20 @@ void Renderer::render()
 }
 
 void Renderer::render_test(Scene const& scene){
-
+for(int i=0;i<scene.objects.size();i++) {
   for (unsigned y = 0; y < height_; ++y) {
     for (unsigned x = 0; x < width_; ++x) {
       Pixel p(x,y);
       Ray ray;
       ray.origin = glm::vec3{x,y,0};
-      ray.direction = glm::vec3{0,0,1.0};
+      ray.direction = glm::vec3{0,0,-1.0};
       float distance=0;
-      for(int i=0;i<scene.objects.size();i++) {
-      if(scene.objects[i]->intersect(ray,distance)==true){
-       p.color = Color(0.0, 1.0, 1.0);
-      }else{
-        p.color = Color(0.0,1.0,0.0);
-      }
+      
+        if(scene.objects[i]->intersect(ray,distance)==true){
+          p.color = Color(0.0, 1.0, 1.0);
+        }else{
+          p.color = Color(0.0,1.0,0.0);
+        }
       write(p);
       }
       

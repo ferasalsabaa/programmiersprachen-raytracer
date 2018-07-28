@@ -17,12 +17,10 @@ Box::Box(glm::vec3 const &maximum, glm::vec3 const &minimum, std::string const &
   Shape(name, material)
 {}
 
-Box::~Box(){}
 
 glm::vec3 Box::get_maximum() const
 {
     return maximum_;
-    std::cout<<"hollaaaaa";
 }
 glm::vec3 Box::get_minimum() const
 {
@@ -51,10 +49,9 @@ std::ostream &Box::print(std::ostream &os) const
 }
 bool Box::intersect(Ray const &ray, float &t) const
 {
-    std::cout << minimum_.x << "origin " << ray.origin.x << "dir " << ray.direction.x;
     if (ray.direction.x == 0 && ray.direction.y == 0 && ray.direction.z == 0)
     {
-        std::cout << "diriction kann nicht 0,0,0 sein";
+        std::cout << "direction kann nicht 0,0,0 sein";
     }
     else
     {
@@ -89,7 +86,6 @@ bool Box::intersect(Ray const &ray, float &t) const
                 if ((schnitt_punkt.x <= maximum_.x && schnitt_punkt.x >= minimum_.x) && (schnitt_punkt.y <= maximum_.y && schnitt_punkt.y >= minimum_.y) && (schnitt_punkt.z <= maximum_.z && schnitt_punkt.z >= minimum_.z))
                 {
                     t = i;
-                    std::cout << "...$$$$$..." << t;
                     return true;
                 }
             }
