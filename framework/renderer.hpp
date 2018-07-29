@@ -16,6 +16,7 @@
 #include "ray.hpp"
 #include "scene.hpp"
 #include "camera.hpp"
+#include "shape.hpp"
 #include <string>
 #include <glm/glm.hpp>
 

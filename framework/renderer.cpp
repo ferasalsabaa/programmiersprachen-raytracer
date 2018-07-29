@@ -41,10 +41,12 @@ void Renderer::render()
   ppm_.save(filename_);
 }
 
-Color shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> const& light_vector){
+Color Renderer::shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> const& light_vector){
+  
   glm::vec3 position = ray.direction + ray.direction*t;
   glm::vec3 normal = glm::normalize(shape.get_normal(position));
   glm::vec3 vec_light = glm::normalize(light_vector[0].position_-position);
+  
 
   Color diffuse = light_vector[0].intensity_ + shape.material_->kd_ * glm::dot(normal,vec_light) ;
 
@@ -67,7 +69,7 @@ for(int i=0;i<scene.objects.size();i++) {
       
         if(scene.objects[i]->intersect(ray,distance)==true){
          // p.color = Color(0.0, 1.0, 1.0);
-         p.color = shade((*scene.objects[i]), ray, distance, scene.lights);
+         p.color = shade(*scene.objects[i], ray, distance, scene.lights); 
         }else{
           p.color = Color(0.0,1.0,0.0);
         }
