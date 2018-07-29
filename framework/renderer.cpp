@@ -42,10 +42,15 @@ void Renderer::render()
 
 Color shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> const& light_vector){
   glm::vec3 position = ray.direction + ray.direction*t;
-  glm::vec3 normal = glm::normalize(position);
-  glm::vec3 vec_light = light_vector[0].position_-position;
-  float angle = 15;// glm::angle(normal,vec_light);
-  Color intensity = (shape.material_->kd_) * (cos(angle)* float (light_vector[0].brightness_)) ;
+  glm::vec3 normal = glm::normalize(shape.get_normal(position));
+  glm::vec3 vec_light = glm::normalize(light_vector[0].position_-position);
+  //reflect vec_light;
+  //normalize vec_light;
+  //vector to camera;
+  //normalize vector to camera;
+  //calculate = Ia*Ka+Ip*Kd*cos(normal*vec_light)+ks*(reflected * camera)^m;
+
+  
 }
 
 void Renderer::render_test(Scene const& scene){

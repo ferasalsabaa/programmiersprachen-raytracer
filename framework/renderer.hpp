@@ -18,7 +18,7 @@
 #include "camera.hpp"
 #include <string>
 #include <glm/glm.hpp>
-#include <glm/gtx/vector_angle.hpp>
+//#include <glm/gtx/vector_angle.hpp>
 
 
 class Renderer
