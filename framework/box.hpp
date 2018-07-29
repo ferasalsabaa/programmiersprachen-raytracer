@@ -18,6 +18,7 @@ public:
     bool intersect (Ray const& ray,float & t) const override;
     glm::vec3 get_center() const override;
     float get_radius() const override;
+    glm::vec3 get_normal(glm::vec3 const& schnittpunkt) const override; 
     
 
     glm::vec3 maximum_;

@@ -19,6 +19,7 @@ class Shape
   void set_name(std::string const& na);
   virtual float get_radius() const=0;
   virtual glm::vec3 get_center() const=0;
+  virtual glm::vec3 get_normal(glm::vec3 const& schnittpunkt) const=0;
 
   
   private:
