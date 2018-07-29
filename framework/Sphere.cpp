@@ -56,3 +56,9 @@ radius_ * radius_, // squared radius !!!
 distance);
 }
 
+glm::vec3 Sphere::get_center() const{
+    return mittelpunkt_;
+}
+
+
+

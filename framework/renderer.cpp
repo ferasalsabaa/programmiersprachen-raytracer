@@ -44,8 +44,8 @@ Color shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> cons
   glm::vec3 position = ray.direction + ray.direction*t;
   glm::vec3 normal = glm::normalize(position);
   glm::vec3 vec_light = light_vector[0].position_-position;
-  float angle = glm::angle(normal,vec_light);
-  Color intensity = (shape.material_->kd_) + (cos(angle)* float (light_vector[0].brightness_)) ;
+  float angle = 15;// glm::angle(normal,vec_light);
+  Color intensity = (shape.material_->kd_) * (cos(angle)* float (light_vector[0].brightness_)) ;
 }
 
 void Renderer::render_test(Scene const& scene){
@@ -60,7 +60,7 @@ for(int i=0;i<scene.objects.size();i++) {
       
         if(scene.objects[i]->intersect(ray,distance)==true){
          // p.color = Color(0.0, 1.0, 1.0);
-         p.color = shade(*scene.objects[i],ray,distance,scene.lights);
+       //  p.color = shade(*scene.objects[i],ray,distance,scene.lights);
         }else{
           p.color = Color(0.0,1.0,0.0);
         }

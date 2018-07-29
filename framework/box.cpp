@@ -7,20 +7,22 @@
 #include <math.h>
 #include <algorithm>
 
-Box::Box() : maximum_{0.0f, 0.0f, 0.0f}, minimum_{0.0f, 0.0f, 0.0f} {}
-
-Box::Box(glm::vec3 const &maximum, glm::vec3 const &minimum) : maximum_{maximum}, minimum_{minimum} {}
-
+Box::Box() : maximum_{0.0f, 0.0f, 0.0f}, minimum_{0.0f, 0.0f, 0.0f}
+{
+}
+Box::Box(glm::vec3 const &maximum, glm::vec3 const &minimum) : maximum_{maximum}, minimum_{minimum}
+{
+}
 Box::Box(glm::vec3 const &maximum, glm::vec3 const &minimum, std::string const &name, std::shared_ptr<Material> const& material) 
 : maximum_{maximum},
   minimum_{minimum},
   Shape(name, material)
-{}
-
-
+{
+}
 glm::vec3 Box::get_maximum() const
 {
     return maximum_;
+    std::cout<<"hollaaaaa";
 }
 glm::vec3 Box::get_minimum() const
 {
@@ -49,9 +51,10 @@ std::ostream &Box::print(std::ostream &os) const
 }
 bool Box::intersect(Ray const &ray, float &t) const
 {
+    std::cout << minimum_.x << "origin " << ray.origin.x << "dir " << ray.direction.x;
     if (ray.direction.x == 0 && ray.direction.y == 0 && ray.direction.z == 0)
     {
-        std::cout << "direction kann nicht 0,0,0 sein";
+        std::cout << "diriction kann nicht 0,0,0 sein";
     }
     else
     {
@@ -86,10 +89,18 @@ bool Box::intersect(Ray const &ray, float &t) const
                 if ((schnitt_punkt.x <= maximum_.x && schnitt_punkt.x >= minimum_.x) && (schnitt_punkt.y <= maximum_.y && schnitt_punkt.y >= minimum_.y) && (schnitt_punkt.z <= maximum_.z && schnitt_punkt.z >= minimum_.z))
                 {
                     t = i;
+                    std::cout << "...$$$$$..." << t;
                     return true;
                 }
             }
         }
     }
     return false;
+}
+
+glm::vec3 Box::get_center() const{
+    return maximum_;
+}
+float Box::get_radius() const{
+    return 15;
 }

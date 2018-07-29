@@ -17,6 +17,8 @@ class Shape
   virtual bool intersect (Ray const& ray,float & t) const=0;
   virtual std::ostream& print(std::ostream& os) const;
   void set_name(std::string const& na);
+  virtual float get_radius() const=0;
+  virtual glm::vec3 get_center() const=0;
 
   
   private:

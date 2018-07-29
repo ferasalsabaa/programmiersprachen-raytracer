@@ -16,6 +16,9 @@ public:
     float volume()const override;
     std::ostream& print(std::ostream& os) const override;
     bool intersect (Ray const& ray,float & t) const override;
+    glm::vec3 get_center() const override;
+    float get_radius() const override;
+    
 
     glm::vec3 maximum_;
     glm::vec3 minimum_;
