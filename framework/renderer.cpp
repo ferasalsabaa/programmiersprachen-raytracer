@@ -40,7 +40,7 @@ void Renderer::render()
   ppm_.save(filename_);
 }
 
-Color shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> const& light_vector){
+Color shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> const& light_vector, Light ambient){
   glm::vec3 position = ray.direction + ray.direction*t;
   glm::vec3 normal = glm::normalize(shape.get_normal(position));
   glm::vec3 vec_light = glm::normalize(light_vector[0].position_-position);
@@ -48,9 +48,7 @@ Color shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> cons
   //normalize vec_light;
   //vector to camera;
   //normalize vector to camera;
-  //calculate = Ia*Ka+Ip*Kd*cos(normal*vec_light)+ks*(reflected * camera)^m;
-
-  
+  // glm::vec3 intensity = ambient.intensity_ * shape.material_->ka_ +light_vector[0].intensity_ * shape.material_->kd_ * cos(normal*vec_light)+ shape.material_->ks_*(reflected * camera)^m;
 }
 
 void Renderer::render_test(Scene const& scene){
