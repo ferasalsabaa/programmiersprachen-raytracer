@@ -46,7 +46,7 @@ Color shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> cons
   glm::vec3 normal = glm::normalize(shape.get_normal(position));
   glm::vec3 vec_light = glm::normalize(light_vector[0].position_-position);
 
-  Color diffuse = light_vector[0].intensity_ + shape.material_->kd_ * glm::dot(normal,vec_light);
+  Color diffuse = light_vector[0].intensity_ + shape.material_->kd_ * glm::dot(normal,vec_light) ;
 
   //reflect vec_light;
   //normalize vec_light;
@@ -66,8 +66,8 @@ for(int i=0;i<scene.objects.size();i++) {
       float distance=0;
       
         if(scene.objects[i]->intersect(ray,distance)==true){
-          p.color = Color(0.0, 1.0, 1.0);
-         //p.color = shade(*scene.objects[i],ray,distance,scene.lights);
+         // p.color = Color(0.0, 1.0, 1.0);
+         p.color = shade((*scene.objects[i]), ray, distance, scene.lights);
         }else{
           p.color = Color(0.0,1.0,0.0);
         }

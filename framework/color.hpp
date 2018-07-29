@@ -72,12 +72,13 @@ friend Color operator*=(Color const& a, Color const& b){
   tmp *=b;
   return tmp;
 }
- Color& operator*=(Color const& other){
-  r *= other.r;
-  g *= other.g;
-  b *= other.b;
-  return *this;
-}
+//  Color& operator*=(Color const& other){
+//   r *= other.r;
+//   g *= other.g;
+//   b *= other.b;
+//   return *this;
+// }
+
 Color& operator*=(float other){
   r *= other;
   g *= other;
