@@ -40,7 +40,7 @@ void Renderer::render()
   ppm_.save(filename_);
 }
 
-Color shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> light_vector){
+Color shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> const& light_vector){
   glm::vec3 position = ray.direction + ray.direction*t;
   glm::vec3 normal = glm::normalize(position);
   glm::vec3 vec_light = light_vector[0].position_-position;
@@ -60,7 +60,7 @@ for(int i=0;i<scene.objects.size();i++) {
       
         if(scene.objects[i]->intersect(ray,distance)==true){
          // p.color = Color(0.0, 1.0, 1.0);
-         p.color = shade(scene.objects,ray,distance,scene.lights);
+         p.color = shade(*scene.objects[i],ray,distance,scene.lights);
         }else{
           p.color = Color(0.0,1.0,0.0);
         }
