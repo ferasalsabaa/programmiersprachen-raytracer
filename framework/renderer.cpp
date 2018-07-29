@@ -44,6 +44,13 @@ Color shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> cons
   glm::vec3 position = ray.direction + ray.direction*t;
   glm::vec3 normal = glm::normalize(shape.get_normal(position));
   glm::vec3 vec_light = glm::normalize(light_vector[0].position_-position);
+
+  //wir finden zuerst ein Wert dt 
+
+double dt = glm::dot(normal,vec_light); // multiplizieren die werte und addieren
+Color c1(0.0,0.0,1.0);
+Color pixel = c1 * dt;
+
   //reflect vec_light;
   //normalize vec_light;
   //vector to camera;
@@ -65,7 +72,7 @@ for(int i=0;i<scene.objects.size();i++) {
       
         if(scene.objects[i]->intersect(ray,distance)==true){
          // p.color = Color(0.0, 1.0, 1.0);
-       //  p.color = shade(*scene.objects[i],ray,distance,scene.lights);
+         p.color = shade(*scene.objects[i],ray,distance,scene.lights);
         }else{
           p.color = Color(0.0,1.0,0.0);
         }
