@@ -99,8 +99,11 @@ bool Box::intersect(Ray const &ray, float &t) const
 }
 
 glm::vec3 Box::get_center() const{
-    return maximum_;
+    glm::vec3 center((minimum_.x+maximum_.x)/2,(minimum_.y+maximum_.y)/2,(minimum_.z+maximum_.z)/2);
+    return center;
 }
 float Box::get_radius() const{
-    return 15;
+    return sqrt(((get_center().x-minimum_.x)*(get_center().x-minimum_.x)) +
+      ((get_center().y-minimum_.y)*(get_center().y-minimum_.y)) +
+       ((get_center().z-minimum_.z)*(get_center().z-minimum_.z)));
 }
