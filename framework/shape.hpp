@@ -5,6 +5,7 @@
 #include"color.hpp"
 #include"ray.hpp"
 #include<material.hpp>
+
 class Shape
 {
   public:
@@ -21,8 +22,7 @@ class Shape
   virtual glm::vec3 get_center() const=0;
   virtual glm::vec3 get_normal(glm::vec3 const& schnittpunkt) const=0;
 
-  std::cout<<"Holla";
-  
+
   private:
   std::string name_;
   

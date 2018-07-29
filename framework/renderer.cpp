@@ -9,6 +9,7 @@
 
 #include "renderer.hpp"
 
+
 Renderer::Renderer() : width_{480}, height_{320}, color_buffer_(width_*height_, Color(0.0, 0.0, 0.0)),
                       filename_{"file"}, ppm_{width_, height_}, cam_{} {}
 
@@ -40,16 +41,12 @@ void Renderer::render()
   ppm_.save(filename_);
 }
 
-Color shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> const& light_vector, Light ambient){
+Color shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> const& light_vector){
   glm::vec3 position = ray.direction + ray.direction*t;
   glm::vec3 normal = glm::normalize(shape.get_normal(position));
   glm::vec3 vec_light = glm::normalize(light_vector[0].position_-position);
 
-  //wir finden zuerst ein Wert dt 
-
-double dt = glm::dot(normal,vec_light); // multiplizieren die werte und addieren
-Color c1(0.0,0.0,1.0);
-Color pixel = c1 * dt;
+  Color diffuse = light_vector[0].intensity_ + shape.material_->kd_ * glm::dot(normal,vec_light);
 
   //reflect vec_light;
   //normalize vec_light;
@@ -69,8 +66,8 @@ for(int i=0;i<scene.objects.size();i++) {
       float distance=0;
       
         if(scene.objects[i]->intersect(ray,distance)==true){
-         // p.color = Color(0.0, 1.0, 1.0);
-         p.color = shade(*scene.objects[i],ray,distance,scene.lights);
+          p.color = Color(0.0, 1.0, 1.0);
+         //p.color = shade(*scene.objects[i],ray,distance,scene.lights);
         }else{
           p.color = Color(0.0,1.0,0.0);
         }

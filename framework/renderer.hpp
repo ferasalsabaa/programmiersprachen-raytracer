@@ -18,6 +18,7 @@
 #include "camera.hpp"
 #include <string>
 #include <glm/glm.hpp>
+
 //#include <glm/gtx/vector_angle.hpp>
 
 
@@ -38,7 +39,7 @@ public:
   void render();
   void render_test(Scene const& scene);
   void write(Pixel const& p);
-  Color shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> light_vector);
+  Color shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> const& light_vector, Light ambient);
 
   inline std::vector<Color> const& color_buffer() const
   {
