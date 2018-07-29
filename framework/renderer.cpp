@@ -45,7 +45,7 @@ Color shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> cons
   glm::vec3 normal = glm::normalize(position);
   glm::vec3 vec_light = light_vector[0].position_-position;
   float angle = glm::angle(normal,vec_light);
-  Color intensity = (shape.material_->kd_) * (cos(angle)* float (light_vector[0].brightness_)) ;
+  Color intensity = (shape.material_->kd_) + (cos(angle)* float (light_vector[0].brightness_)) ;
 }
 
 void Renderer::render_test(Scene const& scene){
