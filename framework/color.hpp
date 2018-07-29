@@ -67,6 +67,23 @@ friend Color operator*(Color & a, float x) {
     a.b = a.b*x;
     return a;
 }
+friend Color operator*=(Color const& a, Color const& b){
+  auto tmp(a);
+  tmp *=b;
+  return tmp;
+}
+ Color& operator*=(Color const& other){
+  r *= other.r;
+  g *= other.g;
+  b *= other.b;
+  return *this;
+}
+Color& operator*=(float other){
+  r *= other;
+  g *= other;
+  b *= other;
+  return *this;
+}
 
 
   float r;
