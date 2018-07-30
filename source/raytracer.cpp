@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
   //Camera cam();
   //test.cam_(cam);
   Color ka(1.0,0.0,0.0);
-  Color kd(0.0,1.0,0.0);
+  Color kd(1.0,0.0,0.0);
   Color ks(0.0,0.0,1.0);
   float m=50;
 
@@ -42,7 +42,8 @@ std::shared_ptr<Sphere> b1(new Sphere(position,distance,"sphere",m1));
 std::shared_ptr<Box> b2(new Box(max,min,"mm",m1));
 test.objects.push_back(b1);
 //test.objects.push_back(b2);
-
+Light ambient_l{"ambient",{0,0,0},{0.1,0.1,0.5},1};
+test.ambient = ambient_l;
 Camera cam{};
 
   Renderer renderer{image_width, image_height, filename, cam};

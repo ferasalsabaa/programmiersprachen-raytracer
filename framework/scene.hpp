@@ -25,7 +25,7 @@ struct Scene{
    std::vector<std::shared_ptr<Shape>> objects;
    std::vector<Light> lights;
    std::map<std::string,Camera> cameras;
-   Light ambient();
+   Light ambient;
    //Renderer rend();
 
 };
