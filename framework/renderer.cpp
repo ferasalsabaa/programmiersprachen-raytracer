@@ -48,9 +48,11 @@ Color Renderer::shade(Shape const& shape, Ray const& ray, float t, std::vector<L
   glm::vec3 vec_light = glm::normalize(light_vector[0].position_-position);
   
 
-  Color diffuse = light_vector[0].intensity_ + shape.material_->kd_ * glm::dot(normal,vec_light) ;
-  return diffuse;
-
+ //Color diffuse = light_vector[0].intensity_ * (shape.material_->kd_) * glm::dot(normal,vec_light);
+ Color diffuse =  light_vector[0].intensity_ * glm::dot(normal,vec_light) ;
+ //Color c11(0.0,0.1,0.0);
+ return diffuse;
+  
   //reflect vec_light;
   //normalize vec_light;
   //vector to camera;

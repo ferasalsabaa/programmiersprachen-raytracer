@@ -61,13 +61,14 @@ struct Color
     return tmp;
   }
 
-friend Color operator*(Color & a, float x) {
-    a.r = a.r*x;
-    a.g = a.g*x;
-    a.b = a.b*x;
-    return a;
+friend Color operator*(Color const& a, float x) {
+    auto tmp(a);
+    tmp.r = a.r*x;
+    tmp.g = a.g*x;
+    tmp.b = a.b*x;
+    return tmp;
 }
-friend Color operator*=(Color const& a, Color const& b){
+friend Color operator*(Color const& a, Color const& b){
   auto tmp(a);
   tmp *=b;
   return tmp;
