@@ -51,7 +51,6 @@ std::ostream &Box::print(std::ostream &os) const
 }
 bool Box::intersect(Ray const &ray, float &t) const
 {
-    std::cout << minimum_.x << "origin " << ray.origin.x << "dir " << ray.direction.x;
     if (ray.direction.x == 0 && ray.direction.y == 0 && ray.direction.z == 0)
     {
         std::cout << "diriction kann nicht 0,0,0 sein";
