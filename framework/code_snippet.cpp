@@ -7,3 +7,20 @@
 // 		glm::vec3 tmp=cam_.direction_+r+u;
 // 		return Ray{cam_.origin_,glm::normalize(tmp)};
 // 	}
+
+
+// int calculate_shadow(glm::vec3 position, vector<light> lights, ) {
+//     int sum = 0;
+//     for(int i = 0; i<lights.size(); i++) {
+//         Ray ray();
+//         ray.origin_{position};
+//         ray.direction_{lights[0].position};
+//         float distance = 10;
+//          for(int i=0;i<scene.objects.size();i++) {
+//               bool test =scene.objects[i]->intersect(ray,distance);
+//          if((test=true) {
+//             sum +=1;
+//         }
+//         return sum;
+//     }
+// }
