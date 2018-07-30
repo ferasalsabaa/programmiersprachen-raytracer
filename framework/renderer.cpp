@@ -8,6 +8,7 @@
 // -----------------------------------------------------------------------------
 
 #include "renderer.hpp"
+#include <algorithm>
 
 
 
@@ -49,19 +50,16 @@ Color Renderer::shade(Shape const& shape, Ray const& ray, float t, std::vector<L
   glm::vec3 vec_light = glm::normalize(light_vector[0].position_-position);
 
   Color ambient_col = ambient.intensity_ * (shape.material_->ka_);
-  glm::vec3 reflection_vector = glm::normalize(vec_light - (2* glm::dot(normal, vec_light)*normal));
-  glm::vec3 camera_vector = glm::normalize(cam_.origin_ -position);
-  Color reflect = (shape.material_->ks_) * pow(glm::dot(reflection_vector,camera_vector),shape.material_->m_);
-
-  Color diffuse =  ((light_vector[0].intensity_ *  (shape.material_->kd_)) *glm::dot(normal,vec_light)) + ambient_col + reflect;
-  return diffuse;
   
+  glm::vec3 reflection_vector = glm::normalize((2* glm::dot(normal, vec_light)*normal)-vec_light);
+  glm::vec3 camera_vector = glm::normalize(ray.origin -position);
+  float ref_vec = pow(glm::dot(reflection_vector,camera_vector),shape.material_->m_);
+  Color reflect = (shape.material_->ks_) * std::max(ref_vec,(float)0);
 
-  //reflect vec_light;
-  //normalize vec_light;
-  //vector to camera;
-  //normalize vector to camera;
-  // glm::vec3 intensity = ambient.intensity_ * shape.material_->ka_ +light_vector[0].intensity_ * shape.material_->kd_ * cos(normal*vec_light)+ shape.material_->ks_*(reflected * camera)^m;
+  Color diffuse =  ((light_vector[0].intensity_ *  (shape.material_->kd_)) * glm::dot(normal,vec_light));
+  Color end_product = diffuse + ambient_col + reflect;
+  return end_product;
+  
 }
 
 void Renderer::render_test(Scene const& scene){
@@ -87,20 +85,6 @@ void Renderer::render_test(Scene const& scene){
           else{
             p.color = Color(0.0,0.0,0.0);
           }
-        
-       /* if(closet_shape != 0){
-          p.color = shade(*scene.objects[i], ray, closet_t, scene.lights, scene.ambient); 
-        }
-        else{
-          p.color = Color(0.3,0.3,0.5);
-        }
-
-        if(scene.objects[i]->intersect(ray,distance)==true){
-         p.color = shade(*scene.objects[i], ray, distance, scene.lights, scene.ambient); 
-        }
-        else{
-          p.color = Color(0.3,0.3,0.5);
-        }*/
       write(p);
       }
       
