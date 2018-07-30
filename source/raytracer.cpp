@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
  float distance = 90;
 
 //std::shared_ptr<Box> b1(new Box(max,min,"dd",m1));
-std::shared_ptr<Sphere> b1(new Sphere(position,distance));
+std::shared_ptr<Sphere> b1(new Sphere(position,distance,"sphere",m1));
 std::shared_ptr<Box> b2(new Box(max,min,"mm",m1));
 test.objects.reserve(10);
 test.objects.push_back(b1);
