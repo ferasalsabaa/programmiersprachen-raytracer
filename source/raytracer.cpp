@@ -29,7 +29,8 @@ int main(int argc, char* argv[])
 //Material m1(ka,kd,ks,m);
  std::shared_ptr<Material> m1(new Material(ka,kd,ks,m));
  //test.material_map.reserve(10);
- test.lights.reserve(10);
+ Light lampe{};
+ test.lights.push_back(lampe);
  test.material_map.insert(make_pair(m1->name_,m1));
  glm::vec3 min {1.0f,0.0f,-50.0f};
  glm::vec3 max {400.0f,200.0f,-50.0f};
@@ -41,7 +42,7 @@ std::shared_ptr<Sphere> b1(new Sphere(position,distance));
 std::shared_ptr<Box> b2(new Box(max,min,"mm",m1));
 test.objects.reserve(10);
 test.objects.push_back(b1);
-//test.objects.push_back(b2);
+test.objects.push_back(b2);
 
 Camera cam{};
 
