@@ -34,10 +34,12 @@ int main(int argc, char* argv[])
   glm::vec3 min {1.0f,0.0f,-50.0f};
   glm::vec3 max {400.0f,200.0f,-50.0f};
   glm::vec3 position {0.0f,10.0f,-10.0f};
+  glm::vec3 position1 {0.0f,50.0f,-10.0f};
   float distance = 10;
  
 
   std::shared_ptr<Sphere> b1(new Sphere(position,distance,"sphere",m1));
+  std::shared_ptr<Sphere> b3(new Sphere(position1,distance,"sphere",m1));
   std::shared_ptr<Box> b2(new Box(max,min,"mm",m1));
   test.objects.push_back(b1);
   //test.objects.push_back(b2);
