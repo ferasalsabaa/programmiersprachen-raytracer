@@ -103,7 +103,7 @@ void Renderer::render_test(Scene const& scene){
             shape_pos = i;
           }
           if(shape_pos!=-1){
-            p.color = shade(*scene.objects[shape_pos], ray, closet_distance, scene.lights, scene.ambient);
+            p.color = shade(*scene.objects[shape_pos], ray, distance, scene.lights, scene.ambient);
           }
           else{
             p.color = Color(0.0,0.0,0.0);

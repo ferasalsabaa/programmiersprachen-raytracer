@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
 
   std::shared_ptr<Material> m1(new Material(ka,kd,ks,m));
 
-  Light light{"sun",{100,100,-10},{0,1,1},5};
+  Light light{"sun",{100,100,-10},{0,0,0},5};
   test.lights.push_back(light);
   test.material_map.insert(make_pair(m1->name_,m1));
   glm::vec3 min {1.0f,0.0f,-50.0f};
@@ -36,6 +36,7 @@ int main(int argc, char* argv[])
   glm::vec3 position {200.0f,200.0f,-30.0f};
   glm::vec3 position2 {250.0f,150.0f,-10.0f};
   float distance = 90;
+ //float distance = 0;
 
   std::shared_ptr<Sphere> b1(new Sphere(position,distance,"sphere",m1));
   std::shared_ptr<Sphere> b2(new Sphere(position2,distance,"sphere2",m1));
