@@ -19,27 +19,28 @@ int main(int argc, char* argv[])
   std::string const filename = "./checkerboard.ppm";
 
   Scene test;
- Color ka(0.0,0.0,0.0);
-  Color kd(0.0,0.0,0.0);
-  Color ks(0.0,0.0,0.0);
-  float m=50;
-//Material m1(ka,kd,ks,m);
- std::shared_ptr<Material> m1(new Material(ka,kd,ks,m));
- test.material_map.insert(make_pair(m1->name_,m1));
- glm::vec3 min {1.0f,0.0f,-50.0f};
- glm::vec3 max {400.0f,200.0f,-50.0f};
- glm::vec3 position {400.0f,300.0f,-700.0f};
- float distance = 90;
- 
+  test.name_ = "aa";
+  Color ka(1.0,0.0,0.0);
+  Color kd(1.0,0.0,0.0);
+  Color ks(1.0,0.0,0.0);
+  float m=10;
+  Scene test2(open_sdf("scene"));
+
+  std::shared_ptr<Material> m1(new Material(ka,kd,ks,m));
+
+  Light light{"sun",{100,100,-10},{0,1,1},10};
+  test.lights.push_back(light);
+  test.material_map.insert(make_pair(m1->name_,m1));
+  glm::vec3 min {1.0f,0.0f,-50.0f};
+  glm::vec3 max {400.0f,200.0f,-50.0f};
+  glm::vec3 position {200.0f,200.0f,-10.0f};
+  float distance = 90;
 
   std::shared_ptr<Sphere> b1(new Sphere(position,distance,"sphere",m1));
-  std::shared_ptr<Sphere> b3(new Sphere(position1,distance,"sphere",m1));
   std::shared_ptr<Box> b2(new Box(max,min,"mm",m1));
-  
- // test.objects.push_back(b2);
-  // test.objects.push_back(b3);
-   test.objects.push_back(b1);
-  Light ambient_l{"ambient",{0,0,0},{0.2,0.1,0.1},1};
+  test.objects.push_back(b1);
+  //test.objects.push_back(b2);
+  Light ambient_l{"ambient",{0.1,0.1,0.1},{0.0,0.0,0.0},1};
   test.ambient = ambient_l;
   Camera cam{};
 
