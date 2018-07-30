@@ -88,7 +88,6 @@ bool Box::intersect(Ray const &ray, float &t) const
                 if ((schnitt_punkt.x <= maximum_.x && schnitt_punkt.x >= minimum_.x) && (schnitt_punkt.y <= maximum_.y && schnitt_punkt.y >= minimum_.y) && (schnitt_punkt.z <= maximum_.z && schnitt_punkt.z >= minimum_.z))
                 {
                     t = i;
-                    std::cout << "...$$$$$..." << t;
                     return true;
                 }
             }
