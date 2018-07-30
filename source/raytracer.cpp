@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
 
  std::shared_ptr<Material> m1(new Material(ka,kd,ks,m));
 
- Light light{"sun",{10,20,10},{1,1,1},5};
+ Light light{"sun",{10,20,10},{1,0,0},5};
  test.lights.push_back(light);
  test.material_map.insert(make_pair(m1->name_,m1));
  glm::vec3 min {1.0f,0.0f,-50.0f};
