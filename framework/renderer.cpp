@@ -10,6 +10,7 @@
 #include "renderer.hpp"
 
 
+
 Renderer::Renderer() : width_{480}, height_{320}, color_buffer_(width_*height_, Color(0.0, 0.0, 0.0)),
                       filename_{"file"}, ppm_{width_, height_}, cam_{} {}
 
@@ -41,17 +42,18 @@ void Renderer::render()
   ppm_.save(filename_);
 }
 
-Color Renderer::shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> const& light_vector, Light const& ambient, Camera const& cam){
+Color Renderer::shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> const& light_vector, Light const& ambient){
   
   glm::vec3 position = ray.direction + ray.direction*t;
   glm::vec3 normal = glm::normalize(shape.get_normal(position));
   glm::vec3 vec_light = glm::normalize(light_vector[0].position_-position);
 
   Color ambient_col = ambient.intensity_ * (shape.material_->ka_);
-  glm::vec3 reflection_vector = vec_light - (2* glm::dot(normal, vec_light)*normal);
+  glm::vec3 reflection_vector = glm::normalize(vec_light - (2* glm::dot(normal, vec_light)*normal));
+  glm::vec3 camera_vector = glm::normalize(cam_.origin_ -position);
+  Color reflect = (shape.material_->ks_) * pow(glm::dot(reflection_vector,camera_vector),shape.material_->m_);
 
-
-  Color diffuse =  ((light_vector[0].intensity_ *  (shape.material_->kd_)) *glm::dot(normal,vec_light)) + ambient_col;
+  Color diffuse =  ((light_vector[0].intensity_ *  (shape.material_->kd_)) *glm::dot(normal,vec_light)) + ambient_col + reflect;
   return diffuse;
   
 
@@ -73,9 +75,9 @@ for(int i=0;i<scene.objects.size();i++) {
       float distance=0;
       
         if(scene.objects[i]->intersect(ray,distance)==true){
-         p.color = shade(*scene.objects[i], ray, distance, scene.lights, scene.ambient, scene.cameras[0]); 
+         p.color = shade(*scene.objects[i], ray, distance, scene.lights, scene.ambient); 
         }else{
-          p.color = Color(0.0,1.0,0.0);
+          p.color = Color(0.3,0.3,0.5);
         }
       write(p);
       }

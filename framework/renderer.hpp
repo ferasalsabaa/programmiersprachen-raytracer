@@ -19,6 +19,7 @@
 #include "shape.hpp"
 #include <string>
 #include <glm/glm.hpp>
+#include <math.h>
 
 
 
@@ -40,7 +41,7 @@ public:
   void render();
   void render_test(Scene const& scene);
   void write(Pixel const& p);
-  Color shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> const& light_vector, Light const& ambient, Camera const& cam);
+  Color shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> const& light_vector, Light const& ambient);
 
   inline std::vector<Color> const& color_buffer() const
   {
