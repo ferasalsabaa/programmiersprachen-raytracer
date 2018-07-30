@@ -65,20 +65,42 @@ Color Renderer::shade(Shape const& shape, Ray const& ray, float t, std::vector<L
 }
 
 void Renderer::render_test(Scene const& scene){
-for(int i=0;i<scene.objects.size();i++) {
+
   for (unsigned y = 0; y < height_; ++y) {
     for (unsigned x = 0; x < width_; ++x) {
       Pixel p(x,y);
       Ray ray;
       ray.origin = glm::vec3{x,y,0};
       ray.direction = glm::vec3{0,0,-1.0};
-      float distance=0;
-      
-        if(scene.objects[i]->intersect(ray,distance)==true){
-         p.color = shade(*scene.objects[i], ray, distance, scene.lights, scene.ambient); 
-        }else{
+      float closet_distance=1000000;
+      int shape_pos = -1;
+      float distance = 0.0f;
+      for(int i=0;i<scene.objects.size();i++) {
+      bool test =scene.objects[i]->intersect(ray,distance);
+          if(test=true&&distance<closet_distance){
+            closet_distance = distance;
+            shape_pos = i;
+          }
+          if(shape_pos!=-1){
+            p.color = shade(*scene.objects[shape_pos], ray, closet_distance, scene.lights, scene.ambient);
+          }
+          else{
+            p.color = Color(0.0,0.0,0.0);
+          }
+        
+       /* if(closet_shape != 0){
+          p.color = shade(*scene.objects[i], ray, closet_t, scene.lights, scene.ambient); 
+        }
+        else{
           p.color = Color(0.3,0.3,0.5);
         }
+
+        if(scene.objects[i]->intersect(ray,distance)==true){
+         p.color = shade(*scene.objects[i], ray, distance, scene.lights, scene.ambient); 
+        }
+        else{
+          p.color = Color(0.3,0.3,0.5);
+        }*/
       write(p);
       }
       
@@ -86,6 +108,8 @@ for(int i=0;i<scene.objects.size();i++) {
   }
   ppm_.save(filename_);  
 }
+
+
 
 
 void Renderer::write(Pixel const& p)

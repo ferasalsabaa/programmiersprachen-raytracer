@@ -12,6 +12,7 @@ class Shape
   std::shared_ptr<Material> material_;
   Shape();
   Shape(std::string const& name,std::shared_ptr<Material> const& material);
+  Shape(Shape const& shape1);
    ~Shape();
   virtual float area() const=0;
   virtual float volume() const=0;

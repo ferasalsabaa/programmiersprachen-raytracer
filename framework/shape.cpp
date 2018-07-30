@@ -22,5 +22,6 @@ std::ostream& operator<<(std::ostream& os, Shape const& s) {
     return os;
 }
 
+Shape::Shape(Shape const& shape1): name_{shape1.name_} , material_{shape1.material_} {}
 
 
