@@ -50,8 +50,7 @@ Color Renderer::shade(Shape const& shape, Ray const& ray, float t, std::vector<L
 
  //Color diffuse = light_vector[0].intensity_ * (shape.material_->kd_) * glm::dot(normal,vec_light);
  Color diffuse =  light_vector[0].intensity_ * glm::dot(normal,vec_light) ;
- diffuse = diffuse * 1;
- //Color c11(0.0,0.1,0.0);
+ diffuse = diffuse * (shape.material_->kd_);
  return diffuse;
   
   //reflect vec_light;
