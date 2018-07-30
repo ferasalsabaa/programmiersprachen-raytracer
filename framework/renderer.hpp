@@ -20,7 +20,6 @@
 #include <string>
 #include <glm/glm.hpp>
 #include <math.h>
-#include <algorithm>
 #include <cmath>
 
 
