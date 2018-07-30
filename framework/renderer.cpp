@@ -70,12 +70,20 @@ void Renderer::render_test(Scene const& scene){
       Ray ray;
       ray.origin = glm::vec3{x,y,0};
       ray.direction = glm::vec3{0,0,-1.0};
+<<<<<<< HEAD
       float closet_distance=100;
+=======
+      float closet_distance=1000000;
+>>>>>>> ed3c870450f064ff12cf0db79520de50a62b8288
       int shape_pos = -1;
       float distance = 0.0f;
       for(int i=0;i<scene.objects.size();i++) {
       bool test =scene.objects[i]->intersect(ray,distance);
+<<<<<<< HEAD
           if((test=true) && (distance<closet_distance)){
+=======
+          if(test=true&&distance<closet_distance){
+>>>>>>> ed3c870450f064ff12cf0db79520de50a62b8288
             closet_distance = distance;
             shape_pos = i;
           }
@@ -83,7 +91,11 @@ void Renderer::render_test(Scene const& scene){
             p.color = shade(*scene.objects[shape_pos], ray, closet_distance, scene.lights, scene.ambient);
           }
           else{
+<<<<<<< HEAD
             p.color = Color(1.0,0.0,0.0);
+=======
+            p.color = Color(0.0,0.0,0.0);
+>>>>>>> ed3c870450f064ff12cf0db79520de50a62b8288
           }
       write(p);
       }
