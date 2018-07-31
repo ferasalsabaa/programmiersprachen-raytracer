@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
   Camera cam{};
 
   Renderer renderer{image_width, image_height, filename, cam};
-  renderer.render_test2(test);
+  renderer.render(test);
   Window window{{image_width, image_height}};
 
   while (!window.should_close()) {

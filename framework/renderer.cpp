@@ -85,35 +85,34 @@ for(int i=0;i<scene.objects.size();i++) {
   ppm_.save(filename_);  
 }*/
 
-void Renderer::render_test(Scene const& scene){
-
-  for (unsigned y = 0; y < height_; ++y) {
-    for (unsigned x = 0; x < width_; ++x) {
-      Pixel p(x,y);
-      Ray ray;
-      ray.origin = glm::vec3{x,y,0};
-      ray.direction = glm::vec3{0,0,-1.0};
-      float closet_distance=1000000;
-      int shape_pos = -1;
-      float distance = 0.0f;
-      for(int i=0;i<scene.objects.size();i++) {
-      bool test =scene.objects[i]->intersect(ray,distance);
-          if((test=true) && (distance<closet_distance)){
-            closet_distance = distance;
-            shape_pos = i;
-          }
-          if(shape_pos!=-1){
-            p.color = shade(*scene.objects[shape_pos], ray, distance, scene.lights, scene.ambient);
-          }
-          else{
-            p.color = Color(0.0,0.0,0.0);
-          }
-      write(p);
-      }
-      
-    }
-  }
-  ppm_.save(filename_);  
+ void Renderer::render(Scene const& scene){
+   float distance = 0;
+   bool intersect = false;
+   for (unsigned y = 0; y < height_; ++y) {
+     float sy= 1.0-y*1.0/height_;
+     for (unsigned x = 0; x < width_; ++x) {
+       float sx= x*1.0/width_;
+       Pixel p(x,y);
+       Ray ray= cam_.shoot_ray(sx,sy);
+       float closest_distance = 100000;//infinity
+       int object = -1; 
+       for(int i=0;i<scene.objects.size();i++) {
+         intersect = scene.objects[i]->intersect(ray,distance);
+         if ((distance < closest_distance) && (intersect == true)) {
+           closest_distance = distance;
+           object = i;
+         }
+       }
+         if(object != -1) {
+           //p.color = Color(0.4,0.0,0.4);
+           p.color = shade(*scene.objects[object], ray, distance, scene.lights, scene.ambient);
+         } else {
+           p.color = Color(0.0,0.0,0.4);
+         }        
+       write(p);
+       }
+     }
+   ppm_.save(filename_);  
 }
 
 
