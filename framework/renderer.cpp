@@ -62,38 +62,17 @@ Color Renderer::shade(Shape const& shape, Ray const& ray, float t, std::vector<L
   
 }
 
-/*void Renderer::render_test(Scene const& scene){
-for(int i=0;i<scene.objects.size();i++) {
-  for (unsigned y = 0; y < height_; ++y) {
-    for (unsigned x = 0; x < width_; ++x) {
-      Pixel p(x,y);
-      Ray ray;
-      ray.origin = glm::vec3{x,y,0};
-      ray.direction = glm::vec3{0,0,-1.0};
-      float distance=0;
-      
-        if(scene.objects[i]->intersect(ray,distance)==true){
-         p.color = shade(*scene.objects[i], ray, distance, scene.lights, scene.ambient); 
-        }else{
-          p.color = Color(0.3,0.3,0.5);
-        }
-      write(p);
-      }
-      
-    }
-  }
-  ppm_.save(filename_);  
-}*/
 
  void Renderer::render(Scene const& scene){
    float distance = 0;
    bool intersect = false;
    for (unsigned y = 0; y < height_; ++y) {
-     float sy= 1.0-y*1.0/height_;
+     //float sy= 1.0-y*1.0/height_;
      for (unsigned x = 0; x < width_; ++x) {
-       float sx= x*1.0/width_;
+       //float sx= x*1.0/width_;
        Pixel p(x,y);
-       Ray ray= cam_.shoot_ray(sx,sy);
+       //Ray ray= cam_.shoot_ray1(sx,sy);
+       Ray ray= cam_.shoot_ray(x,y, width_, height_);
        float closest_distance = 100000;//infinity
        int object = -1; 
        for(int i=0;i<scene.objects.size();i++) {

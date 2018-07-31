@@ -28,15 +28,15 @@ int main(int argc, char* argv[])
 
   std::shared_ptr<Material> m1(new Material(ka,kd,ks,m));
 
-  Light light{"sun",{60,60,-10},{0,0.5,0},60};
+  Light light{"sun",{50,-30,-10},{0,0.5,0},50};
   test.lights.push_back(light);
   test.material_map.insert(make_pair(m1->name_,m1));
   glm::vec3 min {300.0f,100.0f,-20.0f};
   glm::vec3 max {400.0f,200.0f,-50.0f};
   glm::vec3 position {0.0f,10.0f,-20.0f};
-  glm::vec3 position2 {0.0f,20.0f,-5.0f};
+  glm::vec3 position2 {0.0f,5.0f,-40.0f};
   float distance = 10;
-  float distance2 = 10;
+  float distance2 = 5;
 
   std::shared_ptr<Sphere> b1(new Sphere(position,distance,"sphere",m1));
   std::shared_ptr<Sphere> b2(new Sphere(position2,distance,"sphere2",m1));
