@@ -62,9 +62,9 @@ glm::vec3 Sphere::get_center() const{
 
 glm::vec3 Sphere::get_normal(glm::vec3 const& schnittpunkt) const{
     glm::vec3 normal;
-    normal.x = (schnittpunkt.x - mittelpunkt_.x) / radius_;
-    normal.y = (schnittpunkt.y - mittelpunkt_.y) / radius_;
-    normal.z = (schnittpunkt.z - mittelpunkt_.z) / radius_;
+    normal.x = (schnittpunkt.x - mittelpunkt_.x);
+    normal.y = (schnittpunkt.y - mittelpunkt_.y);
+    normal.z = (schnittpunkt.z - mittelpunkt_.z);
     return normal;
 }
 

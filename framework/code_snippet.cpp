@@ -26,34 +26,39 @@
 // }
 
 
-// void Renderer::render_test2(Scene const& scene){
-//   float distance = 0;
-//   bool intersect = false;
-//   for (unsigned y = 0; y < height_; ++y) {
-//     float sy= 1.0-y*1.0/height_;
-//     for (unsigned x = 0; x < width_; ++x) {
-//       float sx= x*1.0/width_;
-//       Pixel p(x,y);
-//       Ray ray= cam_.shoot_ray(sx,sy);
-//       float closest_distance = 100;
-//       int object = 10000; 
-//       for(int i=0;i<scene.objects.size();i++) {
-//         intersect = scene.objects[i]->intersect(ray,distance);
-//         if ((distance < closest_distance) && (intersect == true)) {
-//           closest_distance = distance;
-//           object = i;
-//         }
-//       }
-//         if(object != 10000) {
-//           //p.color = Color(0.4,0.0,0.4);
-//           p.color = shade(*scene.objects[object], ray, distance, scene.lights, scene.ambient);
-//         } else {
-//           p.color = Color(0.0,0.0,0.4);
-//         }        
-//       write(p);
-//       }
-//     }
-//   ppm_.save(filename_);  
-// }
+// Color Renderer::shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> const& light_vector, Color const& ambient, std::vector<std::shared_ptr<Shape>> objects){
+//   Color end{0,0,0};
 
+//   for(int i = 0; i < light_vector.size(); ++i) {
+
+//       glm::vec3 position = ray.direction + ray.direction*t;
+//       glm::vec3 normal = glm::normalize(shape.get_normal(position));
+//       glm::vec3 vec_light = glm::normalize(light_vector[i].position_-position);
+
+//       Color ambient_col = ambient * (shape.material_->ka_);
+//       bool intersect = false;
+//       float distance = 1;
+//       float intersect_value = 0;
+
+//       for(int j = 0; j<objects.size();++j){
+//         intersect = objects[j]->intersect(ray,distance);
+//         if (intersect == false) {
+//           intersect_value = 1;
+//         } else {
+//           intersect_value = 0;
+//         }
+//             glm::vec3 reflection_vector = glm::normalize((2* glm::dot(normal, vec_light)*normal)-vec_light);
+//             glm::vec3 camera_vector = glm::normalize(ray.origin -position);
+//             float ref_vec = pow(glm::dot(reflection_vector,camera_vector),shape.material_->m_);
+//             Color reflect = (shape.material_->ks_) * std::max(ref_vec,(float)0);
+
+//             Color diffuse =  ((light_vector[0].intensity_ *  (shape.material_->kd_)) * glm::dot(normal,vec_light));
+//             Color end_product = (diffuse + reflect) * intersect_value;
+//             end += end_product;
+//           }
+      
+//       }
+      
+//     return end;
+//   }
 

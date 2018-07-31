@@ -4,32 +4,32 @@
 #include <iostream>
 #include <glm/vec3.hpp>
 
-class Light {
-    public:
-    Light(): name_{""},position_{0.0,0.0,0.0},color_{0.0,0.0,0.0},brightness_{0},intensity_{0.0,0.0,0.0}
-    {}
+struct Light {
+public:
+	Light():
+		name_{"default"},
+		position_{10.0f,20.0f,10.0f},
+		color_{1.0f,1.0f,1.0f},
+	    brightness_{2000.0f} {}
+	    //isSchatten_{false} 
 
-    Light(std::string const& name,glm::vec3 const& position,Color const& color,unsigned int brightness):
-    name_{name},position_{position},color_{color},brightness_{brightness} ,intensity_{calucate_intensity(color,brightness)}
-    {}
-    
-    Color calucate_intensity(Color const& color, unsigned int brightness){
-        Color intensity(color.r*brightness,color.g*brightness,color.b*brightness);
-        return intensity;
-    }
+	Light(std::string const& name, glm::vec3 position, Color const& color, float brightness):
+		name_{name},
+		position_{position}, 
+		color_{color},
+		brightness_{brightness}{} 
 
-  //  ~Light();
+	~Light(){}
+	Color calculate_intensity() const {
+		Color intensity {color_*brightness_} ;
+		return intensity;
+	}
 
-    std::string name_;
-    glm::vec3 position_;
-    Color color_;
-    unsigned int brightness_;
-    Color intensity_;
-
-    private:
-   
-
-
+public:
+	std::string name_;
+	glm::vec3 position_;
+	Color color_;
+	float brightness_;
 
 };
 

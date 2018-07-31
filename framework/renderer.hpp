@@ -41,7 +41,7 @@ public:
 
   void render();
   void write(Pixel const& p);
-  Color shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> const& light_vector, Color const& ambient);
+  Color shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> const& light_vector, Color const& ambient, std::vector<std::shared_ptr<Shape>> objects);
   void render(Scene const& scene);
   inline std::vector<Color> const& color_buffer() const
   {

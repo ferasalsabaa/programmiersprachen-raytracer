@@ -50,6 +50,11 @@
         "string": "cpp",
         "string_view": "cpp",
         "random": "cpp",
-        "iterator": "cpp"
+        "iterator": "cpp",
+        "__bit_reference": "cpp",
+        "__tree": "cpp",
+        "ios": "cpp",
+        "map": "cpp",
+        "set": "cpp"
     }
 }
