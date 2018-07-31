@@ -24,7 +24,8 @@ int main(int argc, char* argv[])
   Color kd(1.0,0.0,0.0);
   Color ks(1.0,1.0,1.0);
   float m=5;
-  Scene test2(open_sdf("scene2.sdf"));
+  Scene test2;
+  test2 = open_sdf("scene2.sdf");
 
   std::shared_ptr<Material> m1(new Material(ka,kd,ks,m));
 
@@ -48,7 +49,7 @@ int main(int argc, char* argv[])
   Camera cam{};
 
   Renderer renderer{image_width, image_height, filename, cam};
-  renderer.render(test);
+  renderer.render(test2);
   Window window{{image_width, image_height}};
 
   while (!window.should_close()) {
