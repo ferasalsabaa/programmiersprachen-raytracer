@@ -31,8 +31,8 @@ int main(int argc, char* argv[])
   Light light{"sun",{50,-30,-10},{0,0.5,0},50};
   test.lights.push_back(light);
   test.material_map.insert(make_pair(m1->name_,m1));
-  glm::vec3 min {0.0f,0.0f,-2.0f};
-  glm::vec3 max {10.0f,20.0f,-5.0f};
+  glm::vec3 min {0.0f,10.0f,-20.0f};
+  glm::vec3 max {10.0f,20.0f,-15.0f};
   glm::vec3 position {0.0f,10.0f,-20.0f};
   glm::vec3 position2 {-5.0f,5.0f,-40.0f};
   float distance = 10;
@@ -41,8 +41,8 @@ int main(int argc, char* argv[])
   std::shared_ptr<Sphere> b1(new Sphere(position,distance,"sphere",m1));
   std::shared_ptr<Sphere> b2(new Sphere(position2,distance,"sphere2",m1));
   std::shared_ptr<Box> b3(new Box(max,min,"mm",m1));
-  test.objects.push_back(b1);
-  test.objects.push_back(b2);
+ // test.objects.push_back(b1);
+  test.objects.push_back(b3);
   Color ambient_l{0.8,0.8,0.8};
   test.ambient_ = ambient_l;
   Camera cam{};
