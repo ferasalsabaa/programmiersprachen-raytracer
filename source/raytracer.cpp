@@ -22,19 +22,19 @@ int main(int argc, char* argv[])
   test.name_ = "aa";
   Color ka(1.0,0.0,0.0);
   Color kd(1.0,0.0,0.0);
-  Color ks(1.0,0.0,0.0);
+  Color ks(1.0,1.0,1.0);
   float m=5;
-  Scene test2(open_sdf("scene"));
+  Scene test2(open_sdf("scene2.sdf"));
 
   std::shared_ptr<Material> m1(new Material(ka,kd,ks,m));
 
   Light light{"sun",{50,-30,-10},{0,0.5,0},50};
   test.lights.push_back(light);
   test.material_map.insert(make_pair(m1->name_,m1));
-  glm::vec3 min {300.0f,100.0f,-20.0f};
-  glm::vec3 max {400.0f,200.0f,-50.0f};
+  glm::vec3 min {0.0f,0.0f,-2.0f};
+  glm::vec3 max {10.0f,20.0f,-5.0f};
   glm::vec3 position {0.0f,10.0f,-20.0f};
-  glm::vec3 position2 {0.0f,5.0f,-40.0f};
+  glm::vec3 position2 {-5.0f,5.0f,-40.0f};
   float distance = 10;
   float distance2 = 5;
 
@@ -43,8 +43,8 @@ int main(int argc, char* argv[])
   std::shared_ptr<Box> b3(new Box(max,min,"mm",m1));
   test.objects.push_back(b1);
   test.objects.push_back(b2);
-  Light ambient_l{"ambient",{0.1,0.1,0.1},{0.0,0.5,0.5},60};
-  test.ambient = ambient_l;
+  Color ambient_l{0.8,0.8,0.8};
+  test.ambient_ = ambient_l;
   Camera cam{};
 
   Renderer renderer{image_width, image_height, filename, cam};

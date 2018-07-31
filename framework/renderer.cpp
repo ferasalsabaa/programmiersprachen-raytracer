@@ -43,13 +43,13 @@ void Renderer::render()
   ppm_.save(filename_);
 }
 
-Color Renderer::shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> const& light_vector, Light const& ambient){
+Color Renderer::shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> const& light_vector, Color const& ambient){
   
   glm::vec3 position = ray.direction + ray.direction*t;
   glm::vec3 normal = glm::normalize(shape.get_normal(position));
   glm::vec3 vec_light = glm::normalize(light_vector[0].position_-position);
 
-  Color ambient_col = ambient.intensity_ * (shape.material_->ka_);
+  Color ambient_col = ambient * (shape.material_->ka_);
   
   glm::vec3 reflection_vector = glm::normalize((2* glm::dot(normal, vec_light)*normal)-vec_light);
   glm::vec3 camera_vector = glm::normalize(ray.origin -position);
@@ -84,7 +84,7 @@ Color Renderer::shade(Shape const& shape, Ray const& ray, float t, std::vector<L
        }
          if(object != -1) {
            //p.color = Color(0.4,0.0,0.4);
-           p.color = shade(*scene.objects[object], ray, distance, scene.lights, scene.ambient);
+           p.color = shade(*scene.objects[object], ray, distance, scene.lights, scene.ambient_);
          } else {
            p.color = Color(0.0,0.0,0.4);
          }        
