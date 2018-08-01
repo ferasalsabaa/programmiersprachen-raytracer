@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
   Scene test2;
   test2 = open_sdf("scene2.sdf");
 
-  std::shared_ptr<Material> m1(new Material(ka,kd,ks,m));
+  std::shared_ptr<Material> m1(new Material(ka,kd,ks,m,1,1));
 
   Light light{"sun",{50,-30,-10},{0,0.5,0},50};
   test.lights.push_back(light);

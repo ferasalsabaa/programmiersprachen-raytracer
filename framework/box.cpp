@@ -1,11 +1,7 @@
 #define CATCH_CONFIG_RUNNER
 
 #include "box.hpp"
-#include <glm/glm.hpp>
-#include <glm/gtx/intersect.hpp>
-#include <vector>
-#include <math.h>
-#include <algorithm>
+#include <limits>
 
 Box::Box() : maximum_{0.0f, 0.0f, 0.0f}, minimum_{0.0f, 0.0f, 0.0f}
 {
@@ -107,11 +103,28 @@ float Box::get_radius() const{
 }
 
 glm::vec3 Box::get_normal(glm::vec3 const& schnittpunkt) const{
-   // glm::vec3 normal(glm::dot(schnittpunkt,minimum_));
+   //glm::vec3 normal(glm::dot(schnittpunkt,minimum_));
    glm::vec3 normal;
     normal.x = (schnittpunkt.x - get_center().x) / get_radius();
     normal.y = (schnittpunkt.y - get_center().y) / get_radius();
     normal.z = (schnittpunkt.z - get_center().z) / get_radius();
-
     return normal;
+// auto surface_pt = schnittpunkt; 
+//   if(surface_pt.x == Approx(minimum_.x)){
+//     return glm::vec3{-1.0,0.0,0.0};
+//   } if(surface_pt.y == Approx(minimum_.y)){
+//     return glm::vec3{0.0,-1.0,0.0};
+//   }
+//   if(surface_pt.z == Approx(minimum_.z)){
+//     return glm::vec3{0.0,0.0,-1.0};
+//   }
+//   if(surface_pt.x == Approx(maximum_.x)){
+//     return glm::vec3{1.0,0.0,0.0};
+//   }
+//   if(surface_pt.y == Approx(maximum_.y)){
+//     return glm::vec3{0.0,1.0,0.0};
+//   }
+//   if(surface_pt.z == Approx(maximum_.z)){
+//     return glm::vec3{0.0,0.0,1.0};
+//   }
 }

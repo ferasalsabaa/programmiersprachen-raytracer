@@ -25,7 +25,7 @@ struct Scene{
    std::map<std::string,std::shared_ptr<Material>> material_map;
    std::vector<std::shared_ptr<Shape>> objects;
    std::vector<Light> lights;
-   std::map<std::string,Camera> cameras;
+   Camera camera{};
    Color ambient_{1.0f,1.0f,1.0f};
    //Renderer rend_;
 

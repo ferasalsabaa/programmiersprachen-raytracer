@@ -10,10 +10,14 @@ struct Material
     Color kd_;
     Color ks_;
     float m_;
-Material() : name_{" "} ,ka_{0.0,0.0,0.0} , kd_{0.0,0.0,0.0} , ks_{0.0,0.0,0.0} , m_{0.0}
+    int opacity_;
+    float refraction_index_;
+
+Material() : name_{" "} ,ka_{0.0,0.0,0.0} , kd_{0.0,0.0,0.0} , ks_{0.0,0.0,0.0} , m_{0.0}, opacity_{1}, refraction_index_{0}
 {}
-Material(Color ka,Color kd,Color ks,float m) : name_{" "},ka_{ka} , kd_{kd} , ks_{ks} , m_{m}
+Material(Color const& ka,Color const& kd,Color const& ks,float m,int opacity, float refraction_index ) : name_{" "},ka_{ka} , kd_{kd} , ks_{ks} , m_{m}, opacity_{opacity}, refraction_index_{refraction_index}
 {}
+
 friend std::ostream& operator<<(std::ostream& os, Material const& s)
 {
     os << "\n name  : " <<s.name_<< "\n ka : " << s.ka_.r<<","<<s.ka_.g<<","<<s.ka_.b<<

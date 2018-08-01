@@ -3,7 +3,17 @@
 #include"shape.hpp"
 #include"ray.hpp"
 #include <glm/vec3.hpp>
-#include<iostream>
+#include <glm/glm.hpp>
+#include <glm/gtx/intersect.hpp>
+
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <math.h>
+
+
+
+
 class Box : public Shape 
 {
 public:

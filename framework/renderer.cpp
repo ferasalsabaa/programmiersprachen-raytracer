@@ -52,8 +52,9 @@ Color Renderer::shade(Shape const& shape, Ray const& ray, float t, std::vector<L
   for(int i = 0; i < light_vector.size(); ++i) {
       
       glm::vec3 normal = glm::normalize(shape.get_normal(position));
-      glm::vec3 vec_light = glm::normalize(light_vector[i].position_-position);
+      glm::vec3 vec_light = glm::normalize(light_vector[i].position_ - position);
       Ray new_ray{position, vec_light};
+      new_ray.origin += new_ray.direction * (float)0.001; //no self intersection
 
       
       bool intersect = false;
@@ -80,8 +81,8 @@ Color Renderer::shade(Shape const& shape, Ray const& ray, float t, std::vector<L
           }
       
       }
-      
-    return end + ambient_col;
+    //return end;
+    return (end + ambient_col)/(end + ambient_col + 1);
   }
 
 

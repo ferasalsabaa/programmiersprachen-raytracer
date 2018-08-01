@@ -68,7 +68,7 @@ Color kd(0.0,0.0,0.0);
 Color ks(0.0,0.0,0.0);
 float m=50;
 //Material m1(ka,kd,ks,m);
-std::shared_ptr<Material> m1(new Material(ka,kd,ks,m));
+std::shared_ptr<Material> m1(new Material(ka,kd,ks,m,1,1));
 glm::vec3 min {1.0f,0.0f,0.0f};
 glm::vec3 max {6.0f,5.0f,5.0f};
 

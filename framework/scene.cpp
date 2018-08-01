@@ -83,21 +83,27 @@ Scene open_sdf(std::string const& sdf_name)
                Camera cam{};
                line_stream >> cam.name_;
                line_stream >> cam.aperture_;
-               scene.cameras.insert(make_pair(cam.name_,cam));
+               line_stream >> cam.origin_.x;
+               line_stream >> cam.origin_.y;
+               line_stream >> cam.origin_.z;
+               line_stream >> cam.direction_.x;
+               line_stream >> cam.direction_.y;
+               line_stream >> cam.direction_.z;
+               scene.camera = cam;
            }
         }
-        // if(word=="ambient") {
-        //      Color amb();
-        //      line_stream >> amb.r;
-        //      line_stream >> amb.g;
-        //      line_stream >> amb.b;
-        //      ambient_ = ambient;
+        if(word=="ambient") {
+             Color amb{0.0f,0.0f,0.0f};
+             line_stream >> amb.r;
+             line_stream >> amb.g;
+             line_stream >> amb.b;
+             scene.ambient_ = amb;
 
-        //  }
+         }
          if(word=="render") {
              Renderer ren{};
              line_stream >> word;
-             ren.cam_ = find_camera(word, scene.cameras);
+             ren.cam_ = scene.camera;
              line_stream >> ren.filename_;
              line_stream >> ren.width_;
              line_stream >> ren.height_;
