@@ -43,8 +43,11 @@ Color Renderer::raytrace(Ray const& ray, int d) {
    }
   //if an object is found 
   if(object != -1) {
+    // glm::vec3 schnittpunkt = ray.origin + ray.direction*distance;
+    // glm::vec3 normale = glm::normalize(scene_.objects[object]->get_normal(schnittpunkt)* glm::vec3{2.0f}+glm::vec3{1.0f}); //*glm::vec3{255.0f});
+    // end= Color{normale.x, normale.y, normale.z};
       //necessary Colors
-      Color diffuse_col{0,0,0};
+      Color diffuse_col{0,0,0}; //in place implementieren
       Color ambient_col{0,0,0};
       Color reflect_col{0,0,0};
       Color reflectedColor{0,0,0};
@@ -96,7 +99,7 @@ Color Renderer::raytrace(Ray const& ray, int d) {
 
       //Reflection
       Color closest_reflection = scene_.objects[object]->material_->ks_;
-      if (d==100) { //stop recursion
+      if (d>0) { //stop recursion
         glm::vec3 V = ray.direction; //calculates the ray we come from
         glm::vec3 normal = scene_.objects[object]->get_normal(schnittpunkt);
        
@@ -136,7 +139,7 @@ Color Renderer::raytrace(Ray const& ray, int d) {
 
             glm::vec3 t = glm::normalize( q*V + (q*angle-c2)*normal );   // calculate outgoing vector in new material with fresnel
             Ray refractionRay{schnittpunkt, t}; //create new ray from it
-            refractionRay.origin+= refractionRay.direction* (float)0.001; //sself intersection
+            refractionRay.origin+= refractionRay.direction* (float)0.001; //self intersection
     
             refractedColor = raytrace(refractionRay, d-1); //do recursively
             end+=refractedColor;
@@ -144,7 +147,7 @@ Color Renderer::raytrace(Ray const& ray, int d) {
       }
        end = (end + ambient_col)/(end + ambient_col + 1);
       } else {
-        end = Color(0.0,0.0,0.8);
+        end = Color(1.0,1.0,1.0);
       }      
   return end;
 }

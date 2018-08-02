@@ -49,7 +49,7 @@ bool Box::intersect(Ray const &ray, float &t) const
 {
     if (ray.direction.x == 0 && ray.direction.y == 0 && ray.direction.z == 0)
     {
-        std::cout << "diriction kann nicht 0,0,0 sein";
+        std::cout << "direction kann nicht 0,0,0 sein";
     }
     else
     {
@@ -71,7 +71,7 @@ bool Box::intersect(Ray const &ray, float &t) const
 
         std::sort(distance_vector.begin(), distance_vector.end());
 
-        for (auto &i : distance_vector)
+        for (auto i : distance_vector)
         {
             if (!std::isinf(i))
             {
