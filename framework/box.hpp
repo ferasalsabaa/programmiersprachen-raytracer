@@ -5,6 +5,7 @@
 #include <glm/vec3.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtx/intersect.hpp>
+#include <catch-1.5/catch.hpp>
 
 #include <iostream>
 #include <algorithm>

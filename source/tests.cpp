@@ -63,7 +63,7 @@ s2->print(std::cout);
 delete s1;
 delete s2;
 std::cout<<"end  5.8"<<"\n";*/
-Color ka(0.0,0.0,0.0);
+/*Color ka(0.0,0.0,0.0);
 Color kd(0.0,0.0,0.0);
 Color ks(0.0,0.0,0.0);
 float m=50;
@@ -73,7 +73,7 @@ glm::vec3 min {1.0f,0.0f,0.0f};
 glm::vec3 max {6.0f,5.0f,5.0f};
 
 Box b1(max,min,"dd",m1);
-std::cout<<b1;
+std::cout<<b1;*/
 //std::cout<<material;
 
   return Catch::Session().run(argc, argv);
@@ -123,7 +123,7 @@ TEST_CASE("intersect_sphere","[intersect_sphere]")
 }*/
 
 //6.3
-TEST_CASE("intersect_box","[intersect_box]")
+/*TEST_CASE("intersect_box","[intersect_box]")
 {
   Ray ray;
   ray.origin=glm::vec3 {0.0,0.0,0.0};
@@ -150,4 +150,4 @@ TEST_CASE("intersect_box","[intersect_box]")
   REQUIRE ( result1 == false);
   //REQUIRE ( distance == Approx(0.5f));
 
-}
+}*/
