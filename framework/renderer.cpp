@@ -25,191 +25,128 @@ Renderer::Renderer(unsigned w, unsigned h, std::string const& file, Scene const&
 {}
 
 
-
-Color Renderer::shade(Shape const& shape, Ray const& ray, float t, int depth){
-  Color end{0,0,0};
-  glm::vec3 schnittpunkt = ray.origin + ray.direction*t;
-  Color ambient_col = scene_.ambient_* (shape.material_->ka_);
-   Color reflectedColor{0,0,0};
-
-  for(int i = 0; i < scene_.lights.size(); ++i) {
-      
-      glm::vec3 normal = glm::normalize(shape.get_normal(schnittpunkt));
-      glm::vec3 vec_light = glm::normalize(scene_.lights[i].position_ - schnittpunkt);
-      Ray new_ray{schnittpunkt, vec_light};
-      new_ray.origin += new_ray.direction * (float)0.001; //no self intersection
-
-      
-      bool intersect = false;
-      float distance = 1;
-      float intersect_value = 0;
-
-      for(int j = 0; j<scene_.objects.size();++j){
-        intersect = scene_.objects[j]->intersect(new_ray,distance);
-        if (intersect == false) {
-          intersect_value = 1;
-        } else {
-          intersect_value = 0;
-        }
-            glm::vec3 reflection_vector = glm::normalize((2* glm::dot(normal, vec_light)*normal)-vec_light);
-            glm::vec3 camera_vector = glm::normalize(scene_.camera.origin_ -schnittpunkt);
-            float ref_vec = std::max(glm::dot(reflection_vector,camera_vector),(float)0);
-            Color reflect = (shape.material_->ks_) * pow(ref_vec,shape.material_->m_);
-
-            Color diffuse =  (shape.material_->kd_) * std::max(glm::dot(normal,vec_light),(float)0);
-            Color end_product = (scene_.lights[i].calculate_intensity() * (diffuse + reflect)) * intersect_value;
-            end += end_product;
-          }
-      
-      }
-
-      //Reflection
-      Color closest_reflection = shape.material_->ks_;
-      if (depth > 0) {
-        glm::vec3 V = ray.direction;
-        glm::vec3 N = shape.get_normal(schnittpunkt);
-        glm::vec3 reflection_vector = glm::normalize((2* glm::dot(N, V)*N)-V);
-
-        Ray reflectionRay{schnittpunkt, reflection_vector};
-        reflectionRay.origin+= reflectionRay.direction * (float)0.001;
-        reflectedColor = raytrace(reflectionRay, depth-1);
-        end += reflectedColor;
-
-        int refr = shape.material_->opacity_; 
-        Color refractedColor{0,0,0};
-          if (refr && depth>0)
-          {
-            float q;
-            float rindex = shape.material_->refraction_index_;
-            float c1 = glm::dot(N, V);
-            if (c1 < 0) {
-              c1=-c1; q=1/rindex;
-              } else {
-              q=rindex;
-              N =- N;
-              }
-
-            float c2 = 1-q*q*(1-c1*c1);
-            if (c2>0) {
-              c2=sqrt(c2);
-            } else {
-              c2=0;
-            }
-
-            glm::vec3 t = glm::normalize( q*V + (q*c1-c2)*N );   // fresnel equation
-            Ray refractionRay{schnittpunkt, t};
-            refractionRay.origin+= refractionRay.direction*c2;
-    
-            refractedColor = raytrace(refractionRay, depth-1);
-            end+=refractedColor;
-        }
-      }
-    return (end + ambient_col)/(end + ambient_col + 1);
-  }
-
-
-
 Color Renderer::raytrace(Ray const& ray, int d) {
-  int depth = d;
   Color end{0,0,0};
   float distance = 0;
   bool intersect = false;
 
   float closest_distance = 100000;//
   int object = -1; 
+
+  //check if any of the objects are hit. Set the closest object to object
   for(int i=0;i< scene_.objects.size();i++) {
       intersect = scene_.objects[i]->intersect(ray,distance);
       if ((distance < closest_distance) && (intersect == true)) {
            closest_distance = distance;
            object = i;
-      }
     }
-    if(object != -1) {
-      //  end = shade(*scene_.objects[object], ray, distance, depth);
-      Color end{0,0,0};
-  glm::vec3 schnittpunkt = ray.origin + ray.direction*distance;
-  Color ambient_col = scene_.ambient_* (scene_.objects[object]->material_->ka_);
-   Color reflectedColor{0,0,0};
+   }
+  //if an object is found 
+  if(object != -1) {
+      //necessary Color
+      Color diffuse_col{0,0,0};
+      Color ambient_col{0,0,0};
+      Color reflect_col{0,0,0};
+      Color reflectedColor{0,0,0};
+      Color refractedColor{0,0,0};
 
-  for(int j = 0; j < scene_.lights.size(); ++j) {
+      //calculate the intersection point 
+      glm::vec3 schnittpunkt = ray.origin + ray.direction*distance;
       
-      glm::vec3 normal = glm::normalize(scene_.objects[object]->get_normal(schnittpunkt));
-      glm::vec3 vec_light = glm::normalize(scene_.lights[j].position_ - schnittpunkt);
-      Ray new_ray{schnittpunkt, vec_light};
-      new_ray.origin += new_ray.direction * (float)0.001; //no self intersection
-
+      //calculate the influence of the ambient light on the object
+      ambient_col = scene_.ambient_* (scene_.objects[object]->material_->ka_);
       
-      bool intersect = false;
-      float distance = 1;
-      float intersect_value = 0;
+      //iterate through all lights
+      for(int j = 0; j < scene_.lights.size(); ++j) {
+          
+          //calculate normal, light vector and ray between
+          glm::vec3 normal = glm::normalize(scene_.objects[object]->get_normal(schnittpunkt));
+          glm::vec3 vec_light = glm::normalize(scene_.lights[j].position_ - schnittpunkt);
+          Ray new_ray{schnittpunkt, vec_light};
+          new_ray.origin += new_ray.direction * (float)0.001; //no self intersection
 
-      for(int k = 0; k<scene_.objects.size();++k){
-        intersect = scene_.objects[k]->intersect(new_ray,distance);
-        if (intersect == false) {
-          intersect_value = 1;
-        } else {
-          intersect_value = 0;
-        }
+          
+          //check if any objects are between intersection point and light source
+          bool intersect = false;
+          float distance = 1;
+          float intersect_value = 0;
+
+          for(int k = 0; k<scene_.objects.size();++k){
+            intersect = scene_.objects[k]->intersect(new_ray,distance);
+            if (intersect == false) {
+              intersect_value = 1; //object didnt intersect
+            } else {
+              intersect_value = 0;
+            }
+
+            //calculate reflection vector and camera vector
             glm::vec3 reflection_vector = glm::normalize((2* glm::dot(normal, vec_light)*normal)-vec_light);
             glm::vec3 camera_vector = glm::normalize(scene_.camera.origin_ -schnittpunkt);
             float ref_vec = std::max(glm::dot(reflection_vector,camera_vector),(float)0);
-            Color reflect = (scene_.objects[object]->material_->ks_) * pow(ref_vec,scene_.objects[object]->material_->m_);
-
-            Color diffuse =  (scene_.objects[object]->material_->kd_) * std::max(glm::dot(normal,vec_light),(float)0);
-            Color end_product = (scene_.lights[j].calculate_intensity() * (diffuse + reflect)) * intersect_value;
+            reflect_col = (scene_.objects[object]->material_->ks_) * pow(ref_vec,scene_.objects[object]->material_->m_);
+            
+            //calculate diffuse color
+            diffuse_col =  (scene_.objects[object]->material_->kd_) * std::max(glm::dot(normal,vec_light),(float)0);
+            Color end_product = (scene_.lights[j].calculate_intensity() * (diffuse_col + reflect_col)) * intersect_value;
+            
+            //add to final color
             end += end_product;
-          }
-      
+          } 
       }
 
       //Reflection
       Color closest_reflection = scene_.objects[object]->material_->ks_;
-      if (depth > 0) {
-        glm::vec3 V = ray.direction;
-        glm::vec3 N = scene_.objects[object]->get_normal(schnittpunkt);
-        glm::vec3 reflection_vector = glm::normalize((2* glm::dot(N, V)*N)-V);
-
+      if (d>0) { //stop recursion
+        glm::vec3 V = ray.direction; //calculates the ray we come from
+        glm::vec3 normal = scene_.objects[object]->get_normal(schnittpunkt);
+       
+       
+       if (scene_.objects[object]->material_->m_>0 ) { //if material is reflective
+        glm::vec3 reflection_vector = glm::normalize((2* (glm::dot(normal, V))*normal)-V);
         Ray reflectionRay{schnittpunkt, reflection_vector};
-        reflectionRay.origin+= reflectionRay.direction * (float)0.001;
-        reflectedColor = raytrace(reflectionRay, depth-1);
-        end += reflectedColor;
+        reflectionRay.origin+= reflectionRay.direction * (float)0.001; //avoid self intersection
 
-        int refr = scene_.objects[object]->material_->opacity_; 
-        Color refractedColor{0,0,0};
-          if (refr && depth>0)
+        //recursive for three objects
+        reflectedColor = raytrace(reflectionRay, d-1);
+        end += reflectedColor; //reduces the brightness of the reflection a bit if i add *0.8?
+        }
+
+        //Check refraction
+        int is_opaque = scene_.objects[object]->material_->opacity_; 
+          if (is_opaque  && d > 0)
           {
             float q;
-            float rindex = scene_.objects[object]->material_->refraction_index_;
-            float c1 = glm::dot(N, V);
-            if (c1 < 0) {
-              c1=-c1; q=1/rindex;
-              } else {
-              q=rindex;
-              N =- N;
-              }
+            float refraction_index = scene_.objects[object]->material_->refraction_index_;
+            float angle = glm::dot(normal, V);
+            // we check if we are in or outside the material. Angle is positive or negative
+            if (angle < 0) {
+                angle=-angle; 
+                q= 1/refraction_index ; //inverse refraction index
+            } else {
+              q=refraction_index;
+              normal =- normal; //need to inverse the normal, go in object
+            }
 
-            float c2 = 1-q*q*(1-c1*c1);
+            float c2 = 1-q*q*(1-angle*angle);   //1 for the refration index of air, calculate the angle
             if (c2>0) {
               c2=sqrt(c2);
             } else {
-              c2=0;
+              c2=0; // there is total internal reflection
             }
 
-            glm::vec3 t = glm::normalize( q*V + (q*c1-c2)*N );   // fresnel equation
-            Ray refractionRay{schnittpunkt, t};
-            refractionRay.origin+= refractionRay.direction*c2;
+            glm::vec3 t = glm::normalize( q*V + (q*angle-c2)*normal );   // calculate outgoing vector in new material with fresnel
+            Ray refractionRay{schnittpunkt, t}; //create new ray from it
+            refractionRay.origin+= refractionRay.direction* (float)0.001; //sself intersection
     
-            refractedColor = raytrace(refractionRay, depth-1);
+            refractedColor = raytrace(refractionRay, d-1); //do recursively
             end+=refractedColor;
         }
       }
-       end+= (ambient_col)/(end + ambient_col + 1);
+       end = (end + ambient_col)/(end + ambient_col + 1);
       } else {
-        end = Color(0.0,0.0,0.4);
+        end = Color(0.0,0.0,0.8);
       }      
-
-    return end;
-
+  return end;
 }
 
  void Renderer::render(){
