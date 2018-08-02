@@ -48,8 +48,8 @@ int main(int argc, char* argv[])
   test.ambient_ = ambient_l;
   Camera cam{};
 
-  Renderer renderer{image_width, image_height, filename, cam};
-  renderer.render(test2);
+  Renderer renderer{image_width, image_height, filename, test2};
+  renderer.render();
   Window window{{image_width, image_height}};
 
   while (!window.should_close()) {

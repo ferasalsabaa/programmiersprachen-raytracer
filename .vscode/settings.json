@@ -55,6 +55,7 @@
         "__tree": "cpp",
         "ios": "cpp",
         "map": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "bitset": "cpp"
     }
 }

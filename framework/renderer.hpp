@@ -34,15 +34,16 @@ public:
   std::vector<Color> color_buffer_;
   std::string filename_;
   PpmWriter ppm_;
-  Camera cam_;
+  Scene scene_{};
 
   Renderer();
-  Renderer(unsigned w, unsigned h, std::string const& file, Camera const& cam);
+  Renderer(unsigned w, unsigned h, std::string const& file, Scene const& scene);
 
   void render();
   void write(Pixel const& p);
-  Color shade(Shape const& shape, Ray const& ray, float t, std::vector<Light> const& light_vector, Color const& ambient, std::vector<std::shared_ptr<Shape>> objects);
+  Color shade(Shape const& shape, Ray const& ray, float t, int depth);
   void render(Scene const& scene);
+  Color raytrace(Ray const& ray, int d);
   inline std::vector<Color> const& color_buffer() const
   {
     return color_buffer_;

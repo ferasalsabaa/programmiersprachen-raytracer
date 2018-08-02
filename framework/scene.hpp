@@ -27,7 +27,7 @@ struct Scene{
    std::vector<Light> lights;
    Camera camera{};
    Color ambient_{1.0f,1.0f,1.0f};
-   //Renderer rend_;
+   
 
 };
 

@@ -103,7 +103,6 @@ Scene open_sdf(std::string const& sdf_name)
          if(word=="render") {
              Renderer ren{};
              line_stream >> word;
-             ren.cam_ = scene.camera;
              line_stream >> ren.filename_;
              line_stream >> ren.width_;
              line_stream >> ren.height_;
