@@ -7,6 +7,7 @@
 #include "Sphere.hpp"
 #include "light.hpp"
 #include "box.hpp"
+#include "triangle.hpp"
 #include "camera.hpp"
 #include "color.hpp"
 

@@ -65,6 +65,23 @@ Scene open_sdf(std::string const& sdf_name)
                     line_stream >> word;
                     box->material_ = find_map(word, scene.material_map);
                     scene.objects.push_back(box);
+                }
+                else if(word=="triangle") {
+                    std::shared_ptr<Triangle> triangle = std::make_shared<Triangle>();
+                    line_stream >> word;
+                    triangle->set_name(word);
+                    line_stream >> triangle -> a_.x;
+                    line_stream >> triangle -> a_.y;
+                    line_stream >> triangle -> a_.z;
+                    line_stream >> triangle -> b_.x;
+                    line_stream >> triangle -> b_.y;
+                    line_stream >> triangle -> b_.z;
+                    line_stream >> triangle -> c_.x;
+                    line_stream >> triangle -> c_.y;
+                    line_stream >> triangle -> c_.z;
+                    line_stream >> word;
+                    triangle->material_ = find_map(word, scene.material_map);
+                    scene.objects.push_back(triangle);
                 }     
            }
            if (word=="light") {
@@ -83,23 +100,9 @@ Scene open_sdf(std::string const& sdf_name)
                Camera cam{};
                line_stream >> cam.name_;
                line_stream >> cam.aperture_;
-               line_stream >> cam.origin_.x;
-               line_stream >> cam.origin_.y;
-               line_stream >> cam.origin_.z;
-               line_stream >> cam.direction_.x;
-               line_stream >> cam.direction_.y;
-               line_stream >> cam.direction_.z;
                scene.camera = cam;
            }
         }
-        if(word=="ambient") {
-             Color amb{0.0f,0.0f,0.0f};
-             line_stream >> amb.r;
-             line_stream >> amb.g;
-             line_stream >> amb.b;
-             scene.ambient_ = amb;
-
-         }
          if(word=="render") {
              Renderer ren{};
              line_stream >> word;
