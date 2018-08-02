@@ -23,7 +23,7 @@ friend std::ostream& operator<<(std::ostream& os, Material const& s)
     os << "\n name  : " <<s.name_<< "\n ka : " << s.ka_.r<<","<<s.ka_.g<<","<<s.ka_.b<<
    "\n kd : " << s.kd_.r<<","<<s.kd_.g<<","<<s.kd_.b<<
    "\n ka : " << s.ks_.r<<","<<s.ks_.g<<","<<s.ks_.b<<
-   "\n Spekularreflexionsexponenten "<<s.m_;
+   "\n Spekularreflexionsexponenten ist super"<<s.m_;
     return os;
 }
 
