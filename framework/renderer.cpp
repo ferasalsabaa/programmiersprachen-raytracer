@@ -74,9 +74,39 @@ Color Renderer::shade(Shape const& shape, Ray const& ray, float t, int depth){
         reflectionRay.origin+= reflectionRay.direction * (float)0.001;
         reflectedColor = raytrace(reflectionRay, depth-1);
         end += reflectedColor;
+
+        int refr = shape.material_->opacity_; 
+        Color refractedColor{0,0,0};
+          if (refr && depth>0)
+          {
+            float q;
+            float rindex = shape.material_->refraction_index_;
+            float c1 = glm::dot(N, V);
+            if (c1 < 0) {
+              c1=-c1; q=1/rindex;
+              } else {
+              q=rindex;
+              N =- N;
+              }
+
+            float c2 = 1-q*q*(1-c1*c1);
+            if (c2>0) {
+              c2=sqrt(c2);
+            } else {
+              c2=0;
+            }
+
+            glm::vec3 t = glm::normalize( q*V + (q*c1-c2)*N );   // fresnel equation
+            Ray refractionRay{schnittpunkt, t};
+            refractionRay.origin+= refractionRay.direction*c2;
+    
+            refractedColor = raytrace(refractionRay, depth-1);
+            end+=refractedColor;
+        }
       }
     return (end + ambient_col)/(end + ambient_col + 1);
   }
+
 
 
 Color Renderer::raytrace(Ray const& ray, int d) {
