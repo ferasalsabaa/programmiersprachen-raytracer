@@ -34,7 +34,7 @@ Color Renderer::raytrace(Ray const& ray, int d) {
   int object = -1; 
 
   //check if any of the objects are hit. Set the closest object to object
-  for(int i=0;i< scene_.objects.size();i++) {
+  for(int i=0;i< scene_.objects.size();++i) {
       intersect = scene_.objects[i]->intersect(ray,distance);
       if ((distance < closest_distance) && (intersect == true)) {
            closest_distance = distance;
@@ -43,7 +43,7 @@ Color Renderer::raytrace(Ray const& ray, int d) {
    }
   //if an object is found 
   if(object != -1) {
-      //necessary Color
+      //necessary Colors
       Color diffuse_col{0,0,0};
       Color ambient_col{0,0,0};
       Color reflect_col{0,0,0};
@@ -61,7 +61,7 @@ Color Renderer::raytrace(Ray const& ray, int d) {
           
           //calculate normal, light vector and ray between
           glm::vec3 normal = glm::normalize(scene_.objects[object]->get_normal(schnittpunkt));
-          glm::vec3 vec_light = glm::normalize(scene_.lights[j].position_ - schnittpunkt);
+          glm::vec3 vec_light = glm::normalize(scene_.lights[j].position_ - schnittpunkt);  //normalisieren?
           Ray new_ray{schnittpunkt, vec_light};
           new_ray.origin += new_ray.direction * (float)0.001; //no self intersection
 
@@ -96,7 +96,7 @@ Color Renderer::raytrace(Ray const& ray, int d) {
 
       //Reflection
       Color closest_reflection = scene_.objects[object]->material_->ks_;
-      if (d>0) { //stop recursion
+      if (d==100) { //stop recursion
         glm::vec3 V = ray.direction; //calculates the ray we come from
         glm::vec3 normal = scene_.objects[object]->get_normal(schnittpunkt);
        
@@ -151,8 +151,8 @@ Color Renderer::raytrace(Ray const& ray, int d) {
 
  void Renderer::render(){
   
-   for (unsigned y = 0; y < height_; ++y) {
-     for (unsigned x = 0; x < width_; ++x) {
+   for (unsigned x = 0; x < height_; ++x) {
+     for (unsigned y = 0; y < width_; ++y) {
        Pixel p(x,y);
        Ray ray= scene_.camera.shoot_ray(x,y, width_, height_);
 
