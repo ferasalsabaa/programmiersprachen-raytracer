@@ -35,6 +35,8 @@ Scene open_sdf(std::string const& sdf_name)
                 line_stream >> material_ptr->ks_.g;
                 line_stream >> material_ptr->ks_.b;
                 line_stream >> material_ptr->m_; 
+                line_stream >> material_ptr->opacity_;
+                line_stream >> material_ptr->refraction_index_; 
 
                 scene.material_map.insert(make_pair(material_ptr->name_,material_ptr));
            }
@@ -67,21 +69,21 @@ Scene open_sdf(std::string const& sdf_name)
                     scene.objects.push_back(box);
                 }
                 else if(word=="triangle") {
-                    std::shared_ptr<Triangle> triangle = std::make_shared<Triangle>();
-                    line_stream >> word;
-                    triangle->set_name(word);
-                    line_stream >> triangle -> a_.x;
-                    line_stream >> triangle -> a_.y;
-                    line_stream >> triangle -> a_.z;
-                    line_stream >> triangle -> b_.x;
-                    line_stream >> triangle -> b_.y;
-                    line_stream >> triangle -> b_.z;
-                    line_stream >> triangle -> c_.x;
-                    line_stream >> triangle -> c_.y;
-                    line_stream >> triangle -> c_.z;
-                    line_stream >> word;
-                    triangle->material_ = find_map(word, scene.material_map);
-                    scene.objects.push_back(triangle);
+                    // std::shared_ptr<Triangle> triangle = std::make_shared<Triangle>();
+                    // line_stream >> word;
+                    // triangle->set_name(word);
+                    // line_stream >> triangle -> a_.x;
+                    // line_stream >> triangle -> a_.y;
+                    // line_stream >> triangle -> a_.z;
+                    // line_stream >> triangle -> b_.x;
+                    // line_stream >> triangle -> b_.y;
+                    // line_stream >> triangle -> b_.z;
+                    // line_stream >> triangle -> c_.x;
+                    // line_stream >> triangle -> c_.y;
+                    // line_stream >> triangle -> c_.z;
+                    // line_stream >> word;
+                    // triangle->material_ = find_map(word, scene.material_map);
+                    // scene.objects.push_back(triangle);
                 }     
            }
            if (word=="light") {
@@ -96,10 +98,27 @@ Scene open_sdf(std::string const& sdf_name)
                line_stream >> light.brightness_;
                scene.lights.push_back(light);
            }
+           if (word=="ambient") {
+               Color ambient_col{0,0,0};
+               line_stream >> ambient_col.r;
+               line_stream >> ambient_col.g;
+               line_stream >> ambient_col.b;
+               scene.ambient_ = ambient_col;
+ 
+           }
            if(word=="camera") {
                Camera cam{};
                line_stream >> cam.name_;
                line_stream >> cam.aperture_;
+               line_stream >> cam.origin_.x;
+               line_stream >> cam.origin_.y;
+               line_stream >> cam.origin_.z;
+               line_stream >> cam.direction_.x;
+               line_stream >> cam.direction_.y;
+               line_stream >> cam.direction_.z;
+               line_stream >> cam.up_.x;
+               line_stream >> cam.up_.y;
+               line_stream >> cam.up_.z;
                scene.camera = cam;
            }
         }
