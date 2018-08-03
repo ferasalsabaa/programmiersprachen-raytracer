@@ -24,14 +24,19 @@ float volume()const override;
 glm::vec3 get_center() const override;
 std::ostream& print(std::ostream& os) const override;
 float get_radius() const override;
-void set_u(float x);
+void set_u(float const& x);
+void set_ray(Ray const& ray);
 
     glm::vec3 a_;
     glm::vec3 b_;
     glm::vec3 c_;
+
+    Ray ray_;
+
     float u;
     float v;
     float w;
+
 
     private:
 

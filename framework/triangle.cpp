@@ -6,22 +6,27 @@ Triangle::Triangle(glm::vec3 const& a,glm::vec3 const& b,glm::vec3 const& c,std:
   Shape(name,material),a_{a}, b_{b}, c_{c}
 {}
 Triangle::~Triangle(){}
-void Triangle::set_u(float x){
+void Triangle::set_u(float const& x){
     u = x;
 }
+void Triangle::set_ray(Ray const& ray){
+    ray_=ray;
+}
 bool Triangle::intersect (Ray const& ray,float & t) const {
- /* glm::vec3 position;
+  glm::vec3 position;
   bool res = glm::intersectRayTriangle(ray.origin, ray.direction,
   a_, b_, c_, position);
-  if(res){
-glm::vec3 n = glm::normalize(glm::cross(a_-b_, a_-c_));
-}*/
+ t = position.t;
+  return res;
+/*
 glm::vec3 e1=b_-a_;
 glm::vec3 e2=c_ -a_;
+//set_ray(ray);
+
 
 float u = glm::dot(ray.origin-a_,glm::cross(ray.direction,e2)) / 
           glm::dot(e1,glm::cross(ray.direction,e2));
-      //    Triangle::set_u(u);
+          //set_u(uu);
 float v = glm::dot(ray.direction,(glm::cross((ray.origin-a_),e1)) /
           glm::dot(e1,glm::cross(ray.direction,e2)));
 float w = 1-u-v;
@@ -37,10 +42,15 @@ else{
     t = distance;
     return true;
 }
-
+*/
 }
 glm::vec3 Triangle::get_normal(glm::vec3 const& schnittpunkt) const{
-    return glm::normalize(glm::cross(a_-b_, a_-c_));
+    //return glm::normalize(glm::cross(a_-b_, a_-c_));
+    glm::vec3 normal;
+    normal.x = (schnittpunkt.x - get_center().x);
+    normal.y = (schnittpunkt.y - get_center().y);
+    normal.z = (schnittpunkt.z - get_center().z);
+    return normal;
 }
 
 float Triangle::area() const{
@@ -50,7 +60,7 @@ float Triangle::volume()const{
     return 1;
 }
 glm::vec3 Triangle::get_center() const{
-    glm::vec3(0.0,0.0,0.0);
+    glm::vec3((a_.x+b_.x+c_.x)/3,(a_.y+b_.y+c_.y)/3,(a_.z+b_.z+c_.z)/3);
 }
 std::ostream& Triangle::print(std::ostream& os) const{
     std::cout<<"ff";

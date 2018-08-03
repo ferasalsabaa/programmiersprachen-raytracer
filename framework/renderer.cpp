@@ -64,9 +64,13 @@ Color Renderer::raytrace(Ray const& ray, int d) {
           
           //calculate normal, light vector and ray between
           glm::vec3 normal = glm::normalize(scene_.objects[object]->get_normal(schnittpunkt));
-          glm::vec3 vec_light = glm::normalize(scene_.lights[j].position_ - schnittpunkt);  //normalisieren?
+          glm::vec3 vec_light = scene_.lights[j].position_ - schnittpunkt;  //normalisieren?
           Ray new_ray{schnittpunkt, vec_light};
           new_ray.origin += new_ray.direction * (float)0.001; //no self intersection
+
+
+
+
 
           
           //check if any objects are between intersection point and light source
