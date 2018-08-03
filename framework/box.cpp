@@ -103,12 +103,7 @@ float Box::get_radius() const{
 }
 
 glm::vec3 Box::get_normal(glm::vec3 const& schnittpunkt) const{
-   //glm::vec3 normal(glm::dot(schnittpunkt,minimum_));
-  /* glm::vec3 normal;
-    normal.x = (schnittpunkt.x - get_center().x) / get_radius();
-    normal.y = (schnittpunkt.y - get_center().y) / get_radius();
-    normal.z = (schnittpunkt.z - get_center().z) / get_radius();
-    return normal;*/
+
  auto surface_pt = schnittpunkt; 
    if(surface_pt.x == Approx(minimum_.x)){
      return glm::vec3{-1.0,0.0,0.0};

@@ -103,7 +103,7 @@ Color Renderer::raytrace(Ray const& ray, int d) {
 
       //Reflection
       Color closest_reflection = scene_.objects[object]->material_->ks_;
-      if (d>0) { //stop recursion
+      if (d==10) { //stop recursion
         glm::vec3 V = ray.direction; //calculates the ray we come from
         glm::vec3 normal = scene_.objects[object]->get_normal(schnittpunkt);
        
