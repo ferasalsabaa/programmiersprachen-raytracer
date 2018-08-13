@@ -3,18 +3,16 @@
 #include "box.hpp"
 #include <limits>
 
-Box::Box() : maximum_{0.0f, 0.0f, 0.0f}, minimum_{0.0f, 0.0f, 0.0f}
-{
-}
-Box::Box(glm::vec3 const &maximum, glm::vec3 const &minimum) : maximum_{maximum}, minimum_{minimum}
-{
-}
-Box::Box(glm::vec3 const &maximum, glm::vec3 const &minimum, std::string const &name, std::shared_ptr<Material> const& material) 
-: maximum_{maximum},
-  minimum_{minimum},
+Box::Box() : minimum_{0.0f, 0.0f, 0.0f}, maximum_{1.0f, 1.0f, 1.0f} {}
+
+Box::Box(glm::vec3 const& minimum, glm::vec3 const& maximum) : minimum_{minimum}, maximum_{maximum} {}
+
+Box::Box(glm::vec3 const& minimum, glm::vec3 const& maximum, std::string const &name, std::shared_ptr<Material> const& material) 
+: minimum_{minimum},
+  maximum_{maximum},
   Shape(name, material)
-{
-}
+{}
+
 glm::vec3 Box::get_maximum() const
 {
     return maximum_;

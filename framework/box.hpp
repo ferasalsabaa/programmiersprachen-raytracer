@@ -19,10 +19,10 @@ class Box : public Shape
 {
 public:
     Box();
-    Box(glm::vec3 const& maximum,glm::vec3 const& minimum);
-    Box(glm::vec3 const& maximum,glm::vec3 const& minimum,std::string const& name, std::shared_ptr<Material> const& material);
-    glm::vec3 get_maximum() const;
+    Box(glm::vec3 const& minimum, glm::vec3 const& maximum);
+    Box(glm::vec3 const& minimum, glm::vec3 const& maximum,std::string const& name, std::shared_ptr<Material> const& material);
     glm::vec3 get_minimum() const;
+    glm::vec3 get_maximum() const;
     float area() const override ;
     float volume()const override;
     std::ostream& print(std::ostream& os) const override;
@@ -31,11 +31,10 @@ public:
     float get_radius() const override;
     glm::vec3 get_normal(glm::vec3 const& schnittpunkt) const override; 
     
-
-    glm::vec3 maximum_;
-    glm::vec3 minimum_;
     
 private:
+    glm::vec3 minimum_;
+    glm::vec3 maximum_;
 
 };
 

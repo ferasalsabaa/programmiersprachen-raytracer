@@ -37,35 +37,39 @@ Scene open_sdf(std::string const& sdf_name)
                 line_stream >> material_ptr->m_; 
                 line_stream >> material_ptr->opacity_;
                 line_stream >> material_ptr->refraction_index_; 
-
                 scene.material_map.insert(make_pair(material_ptr->name_,material_ptr));
            }
            if(word=="shape"){ 
                   line_stream>>word;       
                   if(word=="sphere"){
-                      std::shared_ptr<Sphere> sphere = std::make_shared<Sphere>(); 
                       line_stream >> word;
-                      sphere->set_name(word);      
-                      line_stream >> sphere -> mittelpunkt_.x;
-                      line_stream >> sphere -> mittelpunkt_.y;
-                      line_stream >> sphere -> mittelpunkt_.z;
-                      line_stream >> sphere -> radius_;
+                      std::string name = word;
+                      glm::vec3 center;   
+                      line_stream >> center.x;
+                      line_stream >> center.y;
+                      line_stream >> center.z;
+                      float radius;
+                      line_stream >> radius;
                       line_stream >> word;
-                      sphere->material_ = find_map(word, scene.material_map);
+                      std::shared_ptr<Material> material_sphere  = find_map(word, scene.material_map);
+                      std::shared_ptr<Sphere> sphere = std::make_shared<Sphere>(center, radius, name, material_sphere); 
                       scene.objects.push_back(sphere);
 
                 } else if (word=="box") {
-                    std::shared_ptr<Box> box = std::make_shared<Box>();
+                    std::string name;
                     line_stream >> word;
-                    box->set_name(word);  
-                    line_stream >> box -> minimum_.x;
-                    line_stream >> box -> minimum_.y;
-                    line_stream >> box -> minimum_.z;
-                    line_stream >> box -> maximum_.x;
-                    line_stream >> box -> maximum_.y;
-                    line_stream >> box -> maximum_.z;
+                    name = word; 
+                    glm::vec3 min;
+                    glm::vec3 max;
+                    line_stream >> min.x;
+                    line_stream >> min.y;
+                    line_stream >> min.z;
+                    line_stream >> max.x;
+                    line_stream >> max.y;
+                    line_stream >> max.z;
                     line_stream >> word;
-                    box->material_ = find_map(word, scene.material_map);
+                    std::shared_ptr<Material> material_box  = find_map(word, scene.material_map);
+                    std::shared_ptr<Box> box = std::make_shared<Box>(min, max, name, material_box);
                     scene.objects.push_back(box);
                 }
                 else if(word=="triangle") {
