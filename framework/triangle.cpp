@@ -8,12 +8,12 @@ Triangle::Triangle(glm::vec3 const& a,glm::vec3 const& b,glm::vec3 const& c,std:
 Triangle::~Triangle(){}
 
 bool Triangle::intersect (Ray const& ray,float & t) const {
-  glm::vec3 position;
+  /*glm::vec3 position;
   bool res = glm::intersectRayTriangle(ray.origin, ray.direction,
   a_, b_, c_, position);
  t = position.t;
-  return res;
-/*
+  return res;*/
+
 glm::vec3 e1=b_-a_;
 glm::vec3 e2=c_ -a_;
 //set_ray(ray);
@@ -37,7 +37,7 @@ else{
     t = distance;
     return true;
 }
-*/
+
 }
 glm::vec3 Triangle::get_normal(glm::vec3 const& schnittpunkt) const{
     //return glm::normalize(glm::cross(a_-b_, a_-c_));
