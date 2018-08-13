@@ -6,12 +6,7 @@ Triangle::Triangle(glm::vec3 const& a,glm::vec3 const& b,glm::vec3 const& c,std:
   Shape(name,material),a_{a}, b_{b}, c_{c}
 {}
 Triangle::~Triangle(){}
-void Triangle::set_u(float const& x){
-    u = x;
-}
-void Triangle::set_ray(Ray const& ray){
-    ray_=ray;
-}
+
 bool Triangle::intersect (Ray const& ray,float & t) const {
   glm::vec3 position;
   bool res = glm::intersectRayTriangle(ray.origin, ray.direction,
