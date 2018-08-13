@@ -57,6 +57,7 @@
         "map": "cpp",
         "set": "cpp",
         "bitset": "cpp",
-        "__locale": "cpp"
+        "__locale": "cpp",
+        "optional": "cpp"
     }
 }

@@ -92,34 +92,23 @@ Scene open_sdf(std::string const& sdf_name)
                     std::shared_ptr<Material> material_triangle  = find_map(word, scene.material_map);
                     std::shared_ptr<Triangle> triangle = std::make_shared<Triangle>(a,b,c,name,material_triangle);
                     scene.objects.push_back(triangle);
-
-                    // std::shared_ptr<Triangle> triangle = std::make_shared<Triangle>();
-                    // line_stream >> word;
-                    // triangle->set_name(word);
-                    // line_stream >> triangle -> a_.x;
-                    // line_stream >> triangle -> a_.y;
-                    // line_stream >> triangle -> a_.z;
-                    // line_stream >> triangle -> b_.x;
-                    // line_stream >> triangle -> b_.y;
-                    // line_stream >> triangle -> b_.z;
-                    // line_stream >> triangle -> c_.x;
-                    // line_stream >> triangle -> c_.y;
-                    // line_stream >> triangle -> c_.z;
-                    // line_stream >> word;
-                    // triangle->material_ = find_map(word, scene.material_map);
-                    // scene.objects.push_back(triangle);
                 }     
            }
            if (word=="light") {
-               Light light{};
-               line_stream >> light.name_;
-               line_stream >> light.position_.x;
-               line_stream >> light.position_.y;
-               line_stream >> light.position_.z;
-               line_stream >> light.color_.r;
-               line_stream >> light.color_.g;
-               line_stream >> light.color_.b;
-               line_stream >> light.brightness_;
+               std::string name;
+               line_stream >> word;
+               name = word;
+               glm::vec3 position;
+               Color color;
+               float brightness;
+               line_stream >> position.x;
+               line_stream >> position.y;
+               line_stream >> position.z;
+               line_stream >> color.r;
+               line_stream >> color.g;
+               line_stream >> color.b;
+               line_stream >> brightness;
+               Light light(name,position,color,brightness);
                scene.lights.push_back(light);
            }
            if (word=="ambient") {
@@ -131,19 +120,26 @@ Scene open_sdf(std::string const& sdf_name)
  
            }
            if(word=="camera") {
-               Camera cam{};
-               line_stream >> cam.name_;
-               line_stream >> cam.aperture_;
-               line_stream >> cam.origin_.x;
-               line_stream >> cam.origin_.y;
-               line_stream >> cam.origin_.z;
-               line_stream >> cam.direction_.x;
-               line_stream >> cam.direction_.y;
-               line_stream >> cam.direction_.z;
-               line_stream >> cam.up_.x;
-               line_stream >> cam.up_.y;
-               line_stream >> cam.up_.z;
-               scene.camera = cam;
+               std::string name;
+               line_stream >> word;
+               name = word;
+               float aperture;
+               glm::vec3 origin;
+               glm::vec3 direction;
+               glm::vec3 up;
+               line_stream >> aperture;
+               line_stream >> origin.x;
+               line_stream >> origin.y;
+               line_stream >> origin.z;
+               line_stream >> direction.x;
+               line_stream >> direction.y;
+               line_stream >> direction.z;
+               line_stream >> up.x;
+               line_stream >> up.y;
+               line_stream >> up.z;
+               Camera cam(name,aperture,origin,direction,up);
+               scene.camera=cam;
+
            }
         }
          if(word=="render") {

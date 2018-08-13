@@ -25,11 +25,18 @@ public:
 		return intensity;
 	}
 
-public:
+	glm::vec3 get_position() const {
+		return position_;
+	}
+
+
+
+private:
 	std::string name_;
 	glm::vec3 position_;
 	Color color_;
 	float brightness_;
+
 
 };
 

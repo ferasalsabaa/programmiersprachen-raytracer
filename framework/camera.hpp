@@ -8,11 +8,7 @@
 class Camera {
 
     public:
-    std::string name_;
-    float aperture_;
-    glm::vec3 origin_;
-    glm::vec3 direction_;
-    glm::vec3 up_; 
+  
 
     
 
@@ -54,9 +50,17 @@ class Camera {
 		glm::vec3 tmp=direction_+r+u;
 		return Ray{origin_,glm::normalize(tmp)};
 	}
+    glm::vec3 get_origin() const{
+        return origin_;
+    }
 
 
     private:
+    std::string name_;
+    float aperture_;
+    glm::vec3 origin_;
+    glm::vec3 direction_;
+    glm::vec3 up_;
     
 };
 

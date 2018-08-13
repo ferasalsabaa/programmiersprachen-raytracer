@@ -16,6 +16,7 @@
 struct Color
 {
   Color(float red, float green, float blue) : r(red), g(green), b(blue) {}
+  Color() : r(0.0), g(0.0), b(0.0) {}
 
   friend std::ostream& operator<<(std::ostream& os, Color const& c)
   {

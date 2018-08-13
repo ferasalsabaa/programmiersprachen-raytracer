@@ -64,7 +64,7 @@ Color Renderer::raytrace(Ray const& ray, int d) {
           
           //calculate normal, light vector and ray between
           glm::vec3 normal = glm::normalize(scene_.objects[object]->get_normal(schnittpunkt));
-          glm::vec3 vec_light = scene_.lights[j].position_ - schnittpunkt;  //normalisieren?
+          glm::vec3 vec_light = scene_.lights[j].get_position() - schnittpunkt;  //normalisieren?
           Ray new_ray{schnittpunkt, vec_light};
           new_ray.origin += new_ray.direction * (float)0.001; //no self intersection
 
@@ -88,7 +88,7 @@ Color Renderer::raytrace(Ray const& ray, int d) {
 
             //calculate reflection vector and camera vector
             glm::vec3 reflection_vector = glm::normalize((2* glm::dot(normal, vec_light)*normal)-vec_light);
-            glm::vec3 camera_vector = glm::normalize(scene_.camera.origin_ -schnittpunkt);
+            glm::vec3 camera_vector = glm::normalize(scene_.camera.get_origin() -schnittpunkt);
             float ref_vec = std::max(glm::dot(reflection_vector,camera_vector),(float)0);
             reflect_col = (scene_.objects[object]->material_->ks_) * pow(ref_vec,scene_.objects[object]->material_->m_);
             
