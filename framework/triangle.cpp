@@ -40,12 +40,13 @@ else{
 
 }
 glm::vec3 Triangle::get_normal(glm::vec3 const& schnittpunkt) const{
-    //return glm::normalize(glm::cross(a_-b_, a_-c_));
-    glm::vec3 normal;
+    return glm::normalize(glm::cross(a_-b_, a_-c_));
+ /*   glm::vec3 normal;
     normal.x = (schnittpunkt.x - get_center().x);
     normal.y = (schnittpunkt.y - get_center().y);
     normal.z = (schnittpunkt.z - get_center().z);
-    return normal;
+    return normal;*/
+    
 }
 
 float Triangle::area() const{
