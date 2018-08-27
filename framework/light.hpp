@@ -4,7 +4,7 @@
 #include <iostream>
 #include <glm/vec3.hpp>
 
-struct Light {
+class Light {
 public:
 	Light():
 		name_{"default"},
