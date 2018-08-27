@@ -56,6 +56,17 @@ radius_ * radius_, // squared radius !!!
 distance);
 }
 
+intersection_shape Sphere::intersect_new (Ray const& ray,float & t) const{
+    intersection_shape shape1{};
+    if(intersect(ray,t)==true){
+        shape1.hit = true;
+        shape1.distance = t;
+        shape1.position=ray.origin + ray.direction*t;
+        shape1.normal = glm::normalize(shape1.position - mittelpunkt_);
+
+    }
+    return shape1;
+}
 glm::vec3 Sphere::get_center() const{
     return mittelpunkt_;
 }

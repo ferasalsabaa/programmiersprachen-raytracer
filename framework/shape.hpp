@@ -5,6 +5,7 @@
 #include"color.hpp"
 #include"ray.hpp"
 #include<material.hpp>
+struct intersection_shape;
 
 class Shape
 {
@@ -17,6 +18,7 @@ class Shape
   virtual float area() const=0;
   virtual float volume() const=0;
   virtual bool intersect (Ray const& ray,float & t) const=0;
+  virtual intersection_shape intersect_new (Ray const& ray,float & t) const=0;
   virtual std::ostream& print(std::ostream& os) const;
   void set_name(std::string const& na);
   virtual float get_radius() const=0;
@@ -31,6 +33,11 @@ class Shape
 };
 
 std::ostream& operator <<(std::ostream& os, Shape const& s);
-
+struct intersection_shape{
+	float distance;
+	bool hit;
+	glm::vec3 position; 
+  glm::vec3 normal;
+};
 
 #endif

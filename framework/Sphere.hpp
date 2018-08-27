@@ -23,7 +23,7 @@ float volume()const override;
 glm::vec3 get_center() const override;
 std::ostream& print(std::ostream& os) const override;
 bool intersect(Ray const& ray,float & distance) const override;
-
+intersection_shape intersect_new (Ray const& ray,float & t) const override;
 private:
 glm::vec3 mittelpunkt_;
 float radius_;

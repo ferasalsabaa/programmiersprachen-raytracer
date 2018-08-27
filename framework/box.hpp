@@ -27,6 +27,9 @@ public:
     float volume()const override;
     std::ostream& print(std::ostream& os) const override;
     bool intersect (Ray const& ray,float & t) const override;
+
+    intersection_shape intersect_new (Ray const& ray,float & t) const override;
+
     glm::vec3 get_center() const override;
     float get_radius() const override;
     glm::vec3 get_normal(glm::vec3 const& schnittpunkt) const override; 

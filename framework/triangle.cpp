@@ -49,6 +49,19 @@ glm::vec3 Triangle::get_normal(glm::vec3 const& schnittpunkt) const{
     
 }
 
+ intersection_shape Triangle::intersect_new (Ray const& ray,float & t) const{
+     intersection_shape shape1{};
+    if(intersect(ray,t)==true){
+        shape1.hit = true;
+        shape1.distance = t;
+        shape1.position=ray.origin + ray.direction*t;
+        //shape1.normal = glm::normalize(shape1.position - mittelpunkt_);
+
+    }
+    return shape1;
+ }
+
+
 float Triangle::area() const{
     return 1;
 }

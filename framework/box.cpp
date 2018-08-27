@@ -121,3 +121,15 @@ glm::vec3 Box::get_normal(glm::vec3 const& schnittpunkt) const{
      return glm::vec3{0.0,0.0,1.0};
    }
 }
+
+ intersection_shape Box::intersect_new (Ray const& ray,float & t) const{
+     intersection_shape shape1{};
+    if(intersect(ray,t)==true){
+        shape1.hit = true;
+        shape1.distance = t;
+        shape1.position=ray.origin + ray.direction*t;
+        //shape1.normal = glm::normalize(shape1.position - mittelpunkt_);
+
+    }
+    return shape1;
+ }
