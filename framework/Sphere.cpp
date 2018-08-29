@@ -65,6 +65,9 @@ intersection_shape Sphere::intersect_new (Ray const& ray,float & t) const{
         shape1.normal = glm::normalize(shape1.position - mittelpunkt_);
 
     }
+    else{
+        shape1.hit = false;
+    }
     return shape1;
 }
 glm::vec3 Sphere::get_center() const{

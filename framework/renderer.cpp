@@ -29,16 +29,20 @@ Color Renderer::raytrace(Ray const& ray, int d) {
   Color end{0,0,0};
   float distance = 0;
   bool intersect = false;
+  glm::vec3 schnittpunkt;
 
+  intersection_shape intersection_shape1;
   float closest_distance = 100000;//
   int object = -1; 
 
   //check if any of the objects are hit. Set the closest object to object
   for(int i=0;i< scene_.objects.size();++i) {
-      intersect = scene_.objects[i]->intersect(ray,distance);
+      intersection_shape1 = scene_.objects[i]->intersect_new(ray,distance);
+      intersect = intersection_shape1.hit;
       if ((distance < closest_distance) && (intersect == true)) {
            closest_distance = distance;
            object = i;
+           schnittpunkt = intersection_shape1.position;
     }
    }
   //if an object is found 
@@ -54,7 +58,7 @@ Color Renderer::raytrace(Ray const& ray, int d) {
       Color refractedColor{0,0,0};
 
       //calculate the intersection point 
-      glm::vec3 schnittpunkt = ray.origin + ray.direction*distance;
+     // glm::vec3 schnittpunkt = ray.origin + ray.direction*distance;
       
       //calculate the influence of the ambient light on the object
       ambient_col = scene_.ambient_* (scene_.objects[object]->material_->ka_);
@@ -77,9 +81,11 @@ Color Renderer::raytrace(Ray const& ray, int d) {
           bool intersect = false;
           float distance = 1;
           float intersect_value = 0;
+          intersection_shape shape2;
 
           for(int k = 0; k<scene_.objects.size();++k){
-            intersect = scene_.objects[k]->intersect(new_ray,distance);
+            shape2 = scene_.objects[k]->intersect_new(new_ray,distance);
+            intersect = shape2.hit;
             if (intersect == false) {
               intersect_value = 1; //object didnt intersect
             } else {

@@ -128,7 +128,7 @@ glm::vec3 Box::get_normal(glm::vec3 const& schnittpunkt) const{
         shape1.hit = true;
         shape1.distance = t;
         shape1.position=ray.origin + ray.direction*t;
-        //shape1.normal = glm::normalize(shape1.position - mittelpunkt_);
+        shape1.normal = get_normal(shape1.position);
 
     }
     return shape1;
