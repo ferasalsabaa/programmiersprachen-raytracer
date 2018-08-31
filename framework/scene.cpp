@@ -143,14 +143,10 @@ Scene open_sdf(std::string const& sdf_name)
            }
         }
          if(word=="render") {
-            //  std::string filename;
-            //  unsigned width;
-            //  unsigned height;
-            //  line_stream >> word;
-            //  line_stream >> filename;
-            //  line_stream >> width;
-            //  line_stream >> height;
-            //  Renderer ren{};
+               line_stream>>scene.width_;
+               line_stream>>scene.height_;
+               line_stream>>scene.name_;
+         
 
          }
     }
