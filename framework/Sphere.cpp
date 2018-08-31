@@ -20,6 +20,7 @@ Sphere::Sphere(glm::vec3 const& mittelpunkt,float const& radius,std::string cons
 
 Sphere::~Sphere(){}
 
+
 float Sphere::get_radius() const {
     return radius_;
 }
@@ -27,7 +28,6 @@ float Sphere::get_radius() const {
 glm::vec3 Sphere::get_mittelpunkt() const {
     return mittelpunkt_;
 }
-
 
 
 float Sphere::area() const {
@@ -50,10 +50,10 @@ glm::vec3 v = glm::normalize(ray.direction); //ohne ende
 //auto a = ray.direction = {0.0f,0.0f,1.0f};
 
 return glm::intersectRaySphere(
-ray.origin,v,
-mittelpunkt_,
-radius_ * radius_, // squared radius !!!   
-distance);
+    ray.origin,v,
+    mittelpunkt_,
+    radius_ * radius_, // squared radius !!!   
+    distance);
 }
 
 intersection_shape Sphere::intersect_new (Ray const& ray,float & t) const{
@@ -70,6 +70,7 @@ intersection_shape Sphere::intersect_new (Ray const& ray,float & t) const{
     }
     return shape1;
 }
+
 glm::vec3 Sphere::get_center() const{
     return mittelpunkt_;
 }

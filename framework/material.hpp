@@ -5,13 +5,7 @@
 
 struct Material
 {
-    std::string name_;
-    Color ka_;
-    Color kd_;
-    Color ks_;
-    float m_;
-    int opacity_;
-    float refraction_index_;
+
 
 Material() : name_{" "} ,ka_{0.0,0.0,0.0} , kd_{0.0,0.0,0.0} , ks_{0.0,0.0,0.0} , m_{0.0}, opacity_{1}, refraction_index_{0}
 {}
@@ -26,6 +20,14 @@ friend std::ostream& operator<<(std::ostream& os, Material const& s)
    "\n Spekularreflexionsexponenten ist super"<<s.m_;
     return os;
 }
+
+    std::string name_;
+    Color ka_;
+    Color kd_;
+    Color ks_;
+    float m_;
+    int opacity_;
+    float refraction_index_;
 
 };
 

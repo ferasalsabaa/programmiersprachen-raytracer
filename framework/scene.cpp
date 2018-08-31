@@ -73,25 +73,25 @@ Scene open_sdf(std::string const& sdf_name)
                     scene.objects.push_back(box);
                 }
                 else if(word=="triangle") {
-                    std::string name;
-                    line_stream >> word;
-                    name = word;
-                    glm::vec3 a;
-                    glm::vec3 b;
-                    glm::vec3 c;
-                    line_stream >> a.x;
-                    line_stream >> a.y;
-                    line_stream >> a.z;
-                    line_stream >> b.x;
-                    line_stream >> b.y;
-                    line_stream >> b.z;
-                    line_stream >> c.x;
-                    line_stream >> c.y;
-                    line_stream >> c.z;
-                    line_stream >> word;
-                    std::shared_ptr<Material> material_triangle  = find_map(word, scene.material_map);
-                    std::shared_ptr<Triangle> triangle = std::make_shared<Triangle>(a,b,c,name,material_triangle);
-                    scene.objects.push_back(triangle);
+                    // std::string name;
+                    // line_stream >> word;
+                    // name = word;
+                    // glm::vec3 a;
+                    // glm::vec3 b;
+                    // glm::vec3 c;
+                    // line_stream >> a.x;
+                    // line_stream >> a.y;
+                    // line_stream >> a.z;
+                    // line_stream >> b.x;
+                    // line_stream >> b.y;
+                    // line_stream >> b.z;
+                    // line_stream >> c.x;
+                    // line_stream >> c.y;
+                    // line_stream >> c.z;
+                    // line_stream >> word;
+                    // std::shared_ptr<Material> material_triangle  = find_map(word, scene.material_map);
+                    // std::shared_ptr<Triangle> triangle = std::make_shared<Triangle>(a,b,c,name,material_triangle);
+                    // scene.objects.push_back(triangle);
                 }     
            }
            if (word=="light") {
@@ -143,11 +143,15 @@ Scene open_sdf(std::string const& sdf_name)
            }
         }
          if(word=="render") {
-             Renderer ren{};
-             line_stream >> word;
-             line_stream >> ren.filename_;
-             line_stream >> ren.width_;
-             line_stream >> ren.height_;
+            //  std::string filename;
+            //  unsigned width;
+            //  unsigned height;
+            //  line_stream >> word;
+            //  line_stream >> filename;
+            //  line_stream >> width;
+            //  line_stream >> height;
+            //  Renderer ren{};
+
          }
     }
     ifs.close();

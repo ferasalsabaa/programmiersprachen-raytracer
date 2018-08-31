@@ -37,7 +37,6 @@ private:
 	Color color_;
 	float brightness_;
 
-
 };
 
 #endif

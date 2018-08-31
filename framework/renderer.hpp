@@ -29,13 +29,6 @@ class Renderer
 {
 public:
 
-  unsigned width_;
-  unsigned height_;
-  std::vector<Color> color_buffer_;
-  std::string filename_;
-  PpmWriter ppm_;
-  Scene scene_{};
-
   Renderer();
   Renderer(unsigned w, unsigned h, std::string const& file, Scene const& scene);
 
@@ -50,8 +43,13 @@ public:
   }
 
 
-
 private:
+  unsigned width_;
+  unsigned height_;
+  std::vector<Color> color_buffer_;
+  std::string filename_;
+  PpmWriter ppm_;
+  Scene scene_{};
 
 };
 

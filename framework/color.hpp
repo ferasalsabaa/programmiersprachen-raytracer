@@ -18,38 +18,33 @@ struct Color
   Color(float red, float green, float blue) : r(red), g(green), b(blue) {}
   Color() : r(0.0), g(0.0), b(0.0) {}
 
-  friend std::ostream& operator<<(std::ostream& os, Color const& c)
-  {
+  friend std::ostream& operator<<(std::ostream& os, Color const& c){
     os << "(" << c.r << "," << c.g << "," << c.b << ")\n";
     return os;
   }
 
-  Color& operator+=(Color const& other)
-  {
+  Color& operator+=(Color const& other){
     r += other.r;
     g += other.g;
     b += other.b;
     return *this;
   }
 
-  Color& operator-=(Color const& other)
-  {
+  Color& operator-=(Color const& other){
     r -= other.r;
     g -= other.g;
     b -= other.b;
     return *this;
   }
 
-    Color& operator*=(Color const& other)
-  {
+    Color& operator*=(Color const& other){
     r *= other.r;
     g *= other.g;
     b *= other.b;
     return *this;
   }
 
-     Color& operator/=(Color const& other)
-  {
+     Color& operator/=(Color const& other){
     r /= other.r;
     g /= other.g;
     b /= other.b;
@@ -57,15 +52,13 @@ struct Color
     
   }
 
-  friend Color operator+(Color const& a, Color const& b)
-  {
+  friend Color operator+(Color const& a, Color const& b){
     auto tmp(a);
     tmp += b;
     return tmp;
   }
 
-  friend Color operator-(Color const& a, Color const& b)
-  {
+  friend Color operator-(Color const& a, Color const& b){
     auto tmp(a);
     tmp -= b;
     return tmp;
@@ -112,7 +105,6 @@ Color& operator*=(float other){
   b *= other;
   return *this;
 }
-
 
   float r;
   float g;

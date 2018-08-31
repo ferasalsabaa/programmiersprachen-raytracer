@@ -10,9 +10,10 @@ class Sphere : public Shape
 {
 public:
 Sphere();
-~Sphere();
 Sphere(glm::vec3 const& mittel_punkt,float const& radius);
 Sphere(glm::vec3 const& mittel_punkt,float const& radius,std::string const& name,std::shared_ptr<Material> const& material);
+~Sphere();
+
 float get_radius() const override;
 glm::vec3 get_mittelpunkt() const;
 glm::vec3 get_normal(glm::vec3 const& schnittpunkt) const override;

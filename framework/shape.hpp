@@ -14,15 +14,13 @@ class Shape
   Shape();
   Shape(std::string const& name,std::shared_ptr<Material> const& material);
   Shape(Shape const& shape1);
-   ~Shape();
+  virtual ~Shape();
+  
   virtual float area() const=0;
   virtual float volume() const=0;
   virtual bool intersect (Ray const& ray,float & t) const=0;
   virtual intersection_shape intersect_new (Ray const& ray,float & t) const=0;
   virtual std::ostream& print(std::ostream& os) const;
-  void set_name(std::string const& na);
-  virtual float get_radius() const=0;
-  virtual glm::vec3 get_center() const=0;
   virtual glm::vec3 get_normal(glm::vec3 const& schnittpunkt) const=0;
 
 
