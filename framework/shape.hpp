@@ -10,7 +10,7 @@ struct intersection_shape;
 class Shape
 {
   public:
-  std::shared_ptr<Material> material_;
+ 
   Shape();
   Shape(std::string const& name,std::shared_ptr<Material> const& material);
   Shape(Shape const& shape1);
@@ -22,6 +22,10 @@ class Shape
   virtual intersection_shape intersect_new (Ray const& ray,float & t) const=0;
   virtual std::ostream& print(std::ostream& os) const;
   virtual glm::vec3 get_normal(glm::vec3 const& schnittpunkt) const=0;
+  std::shared_ptr<Material> get_material() const;
+
+  protected:
+   std::shared_ptr<Material> material_;
 
 
   private:

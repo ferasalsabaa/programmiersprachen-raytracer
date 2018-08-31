@@ -61,7 +61,7 @@ Color Renderer::raytrace(Ray const& ray, int d) {
      // glm::vec3 schnittpunkt = ray.origin + ray.direction*distance;
       
       //calculate the influence of the ambient light on the object
-      ambient_col = scene_.ambient_* (scene_.objects[object]->material_->ka_);
+      ambient_col = scene_.ambient_* (scene_.objects[object]->get_material()->ka_);
       
       //iterate through all lights
       for(int j = 0; j < scene_.lights.size(); ++j) {
@@ -96,10 +96,10 @@ Color Renderer::raytrace(Ray const& ray, int d) {
             glm::vec3 reflection_vector = glm::normalize((2* glm::dot(normal, vec_light)*normal)-vec_light);
             glm::vec3 camera_vector = glm::normalize(scene_.camera.get_origin() -schnittpunkt);
             float ref_vec = std::max(glm::dot(reflection_vector,camera_vector),(float)0);
-            reflect_col = (scene_.objects[object]->material_->ks_) * pow(ref_vec,scene_.objects[object]->material_->m_);
+            reflect_col = (scene_.objects[object]->get_material()->ks_) * pow(ref_vec,scene_.objects[object]->get_material()->m_);
             
             //calculate diffuse color
-            diffuse_col =  (scene_.objects[object]->material_->kd_) * std::max(glm::dot(normal,vec_light),(float)0);
+            diffuse_col =  (scene_.objects[object]->get_material()->kd_) * std::max(glm::dot(normal,vec_light),(float)0);
             Color end_product = (scene_.lights[j].calculate_intensity() * (diffuse_col + reflect_col)) * intersect_value;
             
             //add to final color
@@ -108,13 +108,13 @@ Color Renderer::raytrace(Ray const& ray, int d) {
       }
 
       //Reflection
-      Color closest_reflection = scene_.objects[object]->material_->ks_;
+      Color closest_reflection = scene_.objects[object]->get_material()->ks_;
       if (d==10) { //stop recursion
         glm::vec3 V = ray.direction; //calculates the ray we come from
         glm::vec3 normal = scene_.objects[object]->get_normal(schnittpunkt);
        
        
-       if (scene_.objects[object]->material_->m_>0 ) { //if material is reflective
+       if (scene_.objects[object]->get_material()->m_>0 ) { //if material is reflective
         glm::vec3 reflection_vector = glm::normalize((2* (glm::dot(normal, V))*normal)-V);
         Ray reflectionRay{schnittpunkt, reflection_vector};
         reflectionRay.origin+= reflectionRay.direction * (float)0.001; //avoid self intersection
@@ -125,11 +125,11 @@ Color Renderer::raytrace(Ray const& ray, int d) {
         }
 
         //Check refraction
-        int is_opaque = scene_.objects[object]->material_->opacity_; 
+        int is_opaque = scene_.objects[object]->get_material()->opacity_; 
           if (is_opaque  && d > 0)
           {
             float q;
-            float refraction_index = scene_.objects[object]->material_->refraction_index_;
+            float refraction_index = scene_.objects[object]->get_material()->refraction_index_;
             float angle = glm::dot(normal, V);
             // we check if we are in or outside the material. Angle is positive or negative
             if (angle < 0) {
