@@ -14,14 +14,14 @@ Sphere(glm::vec3 const& mittel_punkt,float const& radius);
 Sphere(glm::vec3 const& mittel_punkt,float const& radius,std::string const& name,std::shared_ptr<Material> const& material);
 ~Sphere();
 
-float get_radius() const override;
+float get_radius() const;
 glm::vec3 get_mittelpunkt() const;
 glm::vec3 get_normal(glm::vec3 const& schnittpunkt) const override;
 
 
 float area() const override ;
 float volume()const override;
-glm::vec3 get_center() const override;
+glm::vec3 get_center() const;
 std::ostream& print(std::ostream& os) const override;
 bool intersect(Ray const& ray,float & distance) const override;
 intersection_shape intersect_new (Ray const& ray,float & t) const override;

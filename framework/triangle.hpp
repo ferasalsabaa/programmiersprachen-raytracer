@@ -20,11 +20,11 @@ class Triangle : public Shape
 
     ~Triangle();
 
-float area() const override ;
-float volume()const override;
-glm::vec3 get_center() const override;
-std::ostream& print(std::ostream& os) const override;
-float get_radius() const override;
+    float area() const override ;
+    float volume()const override;
+    glm::vec3 get_center() const;
+    std::ostream& print(std::ostream& os) const override;
+    float get_radius() const;
 
 
 
