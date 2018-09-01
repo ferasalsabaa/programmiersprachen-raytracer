@@ -13,7 +13,7 @@ class Shape
  
   Shape();
   Shape(std::string const& name,std::shared_ptr<Material> const& material);
-  Shape(std::string const& name,std::shared_ptr<Material> const& material, glm::4 world_transform);
+  Shape(std::string const& name,std::shared_ptr<Material> const& material, glm::mat4 world_transform);
   Shape(Shape const& shape1);
   virtual ~Shape();
   

@@ -14,7 +14,7 @@ struct Ray
 	{}
 
 
-	Ray& Ray::transformRay(glm::mat4 const& mat) {
+	Ray& transform_ray(glm::mat4 const& mat) {
 		glm::vec4 a {origin, 1.0f}; //point w is 1
 		glm::vec4 b {direction, 0.0f}; //vector w is 0
 		glm::vec3 origin_ {mat * a};
@@ -23,8 +23,8 @@ struct Ray
 		return *this;
 	}
 
-	Ray transformRay(glm::mat4 const& mat, Ray& ray) {
-		return ray.transformRay(mat);;
+	Ray transform_ray(glm::mat4 const& mat, Ray& ray) {
+		return ray.transform_ray(mat);;
 	}
 
 	glm::vec3 origin= {0.0f,0.0f,0.0f};

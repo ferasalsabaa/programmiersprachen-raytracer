@@ -43,8 +43,10 @@ std::ostream &Box::print(std::ostream &os) const
        << " min : " << minimum_.x << "," << minimum_.y << "," << minimum_.z <<"\n material : "<< *material_<< "\n";
     return os;
 }
-bool Box::intersect(Ray const &ray, float &t) const
-{
+bool Box::intersect(Ray const &rayIn, float &t) const
+{   
+    Ray ray{rayIn};
+    ray = ray.transform_ray(world_transformation_inv(), ray);
     if (ray.direction.x == 0 && ray.direction.y == 0 && ray.direction.z == 0)
     {
         std::cout << "direction kann nicht 0,0,0 sein";

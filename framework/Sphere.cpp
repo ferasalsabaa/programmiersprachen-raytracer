@@ -56,7 +56,9 @@ return glm::intersectRaySphere(
     distance);
 }
 
-intersection_shape Sphere::intersect_new (Ray const& ray,float & t) const{
+intersection_shape Sphere::intersect_new (Ray const& rayIn,float & t) const{
+    Ray ray{rayIn};
+    ray = ray.transform_ray(world_transformation_inv(), ray);
     intersection_shape shape1{};
     if(intersect(ray,t)==true){
         shape1.hit = true;
