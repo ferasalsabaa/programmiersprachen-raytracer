@@ -13,6 +13,7 @@ class Shape
  
   Shape();
   Shape(std::string const& name,std::shared_ptr<Material> const& material);
+  Shape(std::string const& name,std::shared_ptr<Material> const& material, glm::mat4 world_transform);
   Shape(Shape const& shape1);
   virtual ~Shape();
   
@@ -24,8 +25,36 @@ class Shape
   virtual glm::vec3 get_normal(glm::vec3 const& schnittpunkt) const=0;
   std::shared_ptr<Material> get_material() const;
 
+
+  virtual void translate(glm::vec3 const& p);
+  virtual void scale(glm::vec3 const& s);
+  virtual void rotate_x(float phi);
+  virtual void rotate_y(float phi);
+  virtual void rotate_z(float phi);
+
+
+  std::string name() const;
+  Material const& material() const;
+  glm::mat4 world_transformation() const;
+  glm::mat4 world_transformation_inv() const;
+
+  void world_transformation(glm::mat4 const& mat);
+
+
+
   protected:
    std::shared_ptr<Material> material_;
+   glm::mat4 world_transformation_
+   {1,0,0,0,
+    0,1,0,0,
+    0,0,1,0,
+    0,0,0,1};
+
+   glm::mat4 world_transformation_inv_
+   {1,0,0,0,
+    0,1,0,0,
+    0,0,1,0,
+    0,0,0,1};
 
 
   private:
