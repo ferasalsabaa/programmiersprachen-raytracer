@@ -109,12 +109,12 @@ Color Renderer::raytrace(Ray const& ray, int d) {
 
       //Reflection
       Color closest_reflection = scene_.objects[object]->get_material()->ks_;
-      if (d==10) { //stop recursion
+      if (d<=0) { //stop recursion
         glm::vec3 V = ray.direction; //calculates the ray we come from
-        glm::vec3 normal = scene_.objects[object]->get_normal(schnittpunkt);
+        glm::vec3 normal = scene_.objects[object]->get_normal(schnittpunkt); 
        
        
-       if (scene_.objects[object]->get_material()->m_>0 ) { //if material is reflective
+       if (scene_.objects[object]->get_material()->m_ > 0 ) { //if material is reflective
         glm::vec3 reflection_vector = glm::normalize((2* (glm::dot(normal, V))*normal)-V);
         Ray reflectionRay{schnittpunkt, reflection_vector};
         reflectionRay.origin+= reflectionRay.direction * (float)0.001; //avoid self intersection
