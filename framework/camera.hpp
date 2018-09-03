@@ -23,11 +23,11 @@ struct Camera {
 
     glm::vec3 get_origin() const;
 
-    // glm::mat4 transform_camera() const;
-    // void translate(glm::vec3 const& p);
-    // void rotate_x(float phi);
-    // void rotate_y(float phi);
-    // void rotate_z(float phi);
+    glm::mat4 transform_camera() const;
+    void translate(glm::vec3 const& p);
+    void rotate_x(float phi); //check order!!!
+    void rotate_y(float phi); //check order!!!
+    void rotate_z(float phi); //check order!!!
 
 
  
@@ -36,8 +36,8 @@ struct Camera {
     glm::vec3 origin_;
     glm::vec3 direction_;
     glm::vec3 up_;
-    // glm::mat4 transform_cam_;
-    // glm::mat4 transform_cam_inv_;
+    glm::mat4 transform_cam_;
+    glm::mat4 transform_cam_inv_;
     
 };
 
