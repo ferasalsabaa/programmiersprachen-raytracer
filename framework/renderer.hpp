@@ -27,6 +27,7 @@
 
 class Renderer
 {
+
 public:
 
   Renderer();

@@ -1,10 +1,13 @@
 #include "camera.hpp"
+using namespace std;
+
+   
 
     Camera::Camera() : name_{""}, aperture_{90}, origin_{0.0,10.0,10.0}, direction_{0.0,0.0,-1}, up_{0,1,0} /*transform_cam_{}, transform_cam_inv_{glm::inverse(transform_cam_)}*/ {}
     Camera::Camera(std::string const& name, float aperture, glm::vec3 origin, glm::vec3 direction, glm::vec3 up) :
      name_{name}, aperture_{aperture}, origin_ {origin}, direction_{direction}, up_{up} /*transform_cam_{}, transform_cam_inv_{glm::inverse(transform_cam_)}*/ {}
 
-
+    Camera::~Camera(){}
     Ray Camera::shoot_ray(float x, float y, float width_, float height_) const {
         glm::vec3 rayOrigin{0,0,0};
         glm::vec3 rayDirection = {(x-width_/2), (y-height_/2), -(width_/2)/tan(aperture_/2)}; 

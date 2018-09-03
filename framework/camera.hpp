@@ -1,17 +1,19 @@
 #ifndef camera_HPP
 #define camera_HPP
+#include <ray.hpp>
 #include <glm/vec3.hpp>
 #include <iostream>
+#include <string>
 #include <glm/gtx/intersect.hpp>
-#include <ray.hpp>
 
-class Camera {
 
-    public:
+struct Camera {
+
   
 
     Camera();
     Camera(std::string const& name, float aperture, glm::vec3 origin, glm::vec3 direction, glm::vec3 up);
+    ~Camera();
 
     Ray shoot_ray(float x, float y, float width_, float height_) const;
 
@@ -26,7 +28,7 @@ class Camera {
     // void rotate_z(float phi);
 
 
-    private:
+ 
     std::string name_;
     float aperture_;
     glm::vec3 origin_;

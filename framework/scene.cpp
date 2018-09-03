@@ -137,7 +137,7 @@ Scene open_sdf(std::string const& sdf_name)
                line_stream >> up.x;
                line_stream >> up.y;
                line_stream >> up.z;
-               Camera cam(name,aperture,origin,direction,up);
+               Camera cam{name,aperture,origin,direction,up};
                scene.camera=cam;
 
            }
