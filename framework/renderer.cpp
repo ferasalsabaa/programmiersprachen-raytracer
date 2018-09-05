@@ -30,6 +30,7 @@ Color Renderer::raytrace(Ray const& ray, int d) {
   float distance = 0;
   bool intersect = false;
   glm::vec3 schnittpunkt;
+  glm::vec3 normal_inter;
 
   intersection_shape intersection_shape1;
   float closest_distance = 100000;//
@@ -43,6 +44,7 @@ Color Renderer::raytrace(Ray const& ray, int d) {
            closest_distance = distance;
            object = i;
            schnittpunkt = intersection_shape1.position;
+           normal_inter = intersection_shape1.normal;
     }
    }
   //if an object is found 
@@ -63,11 +65,12 @@ Color Renderer::raytrace(Ray const& ray, int d) {
       //calculate the influence of the ambient light on the object
       ambient_col = scene_.ambient_* (scene_.objects[object]->get_material()->ka_);
       
+      
       //iterate through all lights
       for(int j = 0; j < scene_.lights.size(); ++j) {
           
           //calculate normal, light vector and ray between
-          glm::vec3 normal = glm::normalize(scene_.objects[object]->get_normal(schnittpunkt));
+          glm::vec3 normal = glm::normalize(normal_inter);   //normalize ?
           glm::vec3 vec_light = scene_.lights[j].get_position() - schnittpunkt;  //normalisieren?
           Ray new_ray{schnittpunkt, vec_light};
           new_ray.origin += new_ray.direction * (float)0.001; //no self intersection
@@ -78,16 +81,16 @@ Color Renderer::raytrace(Ray const& ray, int d) {
 
           
           //check if any objects are between intersection point and light source
-          bool intersect = false;
-          float distance = 1;
+          bool intersect1 = false;
+          float distance1 = 1;
           float intersect_value = 0;
           intersection_shape shape2;
 
           for(int k = 0; k<scene_.objects.size();++k){
-            shape2 = scene_.objects[k]->intersect_new(new_ray,distance);
-            intersect = shape2.hit;
-            if (intersect == false) {
-              intersect_value = 1; //object didnt intersect
+            shape2 = scene_.objects[k]->intersect_new(new_ray,distance1);
+            intersect1 = shape2.hit;
+            if (intersect1 == false) {
+              intersect_value = 1; //object didnt intersect1
             } else {
               intersect_value = 0;
             }
@@ -96,11 +99,12 @@ Color Renderer::raytrace(Ray const& ray, int d) {
             glm::vec3 reflection_vector = glm::normalize((2* glm::dot(normal, vec_light)*normal)-vec_light);
             glm::vec3 camera_vector = glm::normalize(scene_.camera.get_origin() -schnittpunkt);
             float ref_vec = std::max(glm::dot(reflection_vector,camera_vector),(float)0);
-            reflect_col = (scene_.objects[object]->get_material()->ks_) * pow(ref_vec,scene_.objects[object]->get_material()->m_);
+            reflect_col = (scene_.objects[object]->get_material()->ks_) * pow(ref_vec,scene_.objects[object]->get_material()->m_); //* scene_.lights[j].calculate_intensity();
             
             //calculate diffuse color
             diffuse_col =  (scene_.objects[object]->get_material()->kd_) * std::max(glm::dot(normal,vec_light),(float)0);
-            Color end_product = (scene_.lights[j].calculate_intensity() * (diffuse_col + reflect_col)) * intersect_value;
+            Color end_product = (scene_.lights[j].calculate_intensity() * (diffuse_col )) ;
+           end_product += reflect_col * intersect_value; 
             
             //add to final color
             end += end_product;
