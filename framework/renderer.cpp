@@ -115,11 +115,12 @@ Color Renderer::raytrace(Ray const& ray, int d) {
       Color closest_reflection = scene_.objects[object]->get_material()->ks_;
       if (d<=0) { //stop recursion
         glm::vec3 V = ray.direction; //calculates the ray we come from
-        glm::vec3 normal = scene_.objects[object]->get_normal(schnittpunkt); 
+        //glm::vec3 normal = scene_.objects[object]->get_normal(schnittpunkt); 
+       
        
        
        if (scene_.objects[object]->get_material()->m_ > 0 ) { //if material is reflective
-        glm::vec3 reflection_vector = glm::normalize((2* (glm::dot(normal, V))*normal)-V);
+        glm::vec3 reflection_vector = glm::normalize((2* (glm::dot(normal_inter, V))*normal_inter)-V);
         Ray reflectionRay{schnittpunkt, reflection_vector};
         reflectionRay.origin+= reflectionRay.direction * (float)0.001; //avoid self intersection
 
@@ -134,14 +135,14 @@ Color Renderer::raytrace(Ray const& ray, int d) {
           {
             float q;
             float refraction_index = scene_.objects[object]->get_material()->refraction_index_;
-            float angle = glm::dot(normal, V);
+            float angle = glm::dot(normal_inter, V);
             // we check if we are in or outside the material. Angle is positive or negative
             if (angle < 0) {
                 angle=-angle; 
                 q= 1/refraction_index ; //inverse refraction index
             } else {
               q=refraction_index;
-              normal =- normal; //need to inverse the normal, go in object
+              normal_inter =- normal_inter; //need to inverse the normal, go in object
             }
 
             float c2 = 1-q*q*(1-angle*angle);   //1 for the refration index of air, calculate the angle
@@ -151,7 +152,7 @@ Color Renderer::raytrace(Ray const& ray, int d) {
               c2=0; // there is total internal reflection
             }
 
-            glm::vec3 t = glm::normalize( q*V + (q*angle-c2)*normal );   // calculate outgoing vector in new material with fresnel
+            glm::vec3 t = glm::normalize( q*V + (q*angle-c2)*normal_inter );   // calculate outgoing vector in new material with fresnel
             Ray refractionRay{schnittpunkt, t}; //create new ray from it
             refractionRay.origin+= refractionRay.direction* (float)0.001; //self intersection
     
