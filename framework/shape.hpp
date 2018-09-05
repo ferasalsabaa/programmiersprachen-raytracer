@@ -1,11 +1,11 @@
 #ifndef Shape_HPP
 #define Shape_HPP
-#include<iostream>
-#include<memory>
 #include"color.hpp"
 #include"ray.hpp"
+#include "intersection_shape.hpp"
+#include<iostream>
+#include<memory>
 #include<material.hpp>
-struct intersection_shape;
 
 class Shape
 {
@@ -64,11 +64,5 @@ class Shape
 };
 
 std::ostream& operator <<(std::ostream& os, Shape const& s);
-struct intersection_shape{
-	float distance;
-	bool hit;
-	glm::vec3 position; 
-  glm::vec3 normal;
-};
 
 #endif

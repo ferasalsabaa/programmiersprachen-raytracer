@@ -115,6 +115,7 @@ Color Renderer::raytrace(Ray const& ray, int d) {
       Color closest_reflection = scene_.objects[object]->get_material()->ks_;
       if (d<=0) { //stop recursion
         glm::vec3 V = ray.direction; //calculates the ray we come from
+      // glm::vec3 V =  glm::normalize(schnittpunkt-scene_.camera.get_origin());
         //glm::vec3 normal = scene_.objects[object]->get_normal(schnittpunkt); 
        
        
