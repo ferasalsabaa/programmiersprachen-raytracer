@@ -113,26 +113,23 @@ Color Renderer::raytrace(Ray const& ray, int d) {
 
       //Reflection
       Color closest_reflection = scene_.objects[object]->get_material()->ks_;
-      if (d<=0) { //stop recursion
+      if (d>0) { //stop recursion
         glm::vec3 V = ray.direction; //calculates the ray we come from
-      // glm::vec3 V =  glm::normalize(schnittpunkt-scene_.camera.get_origin());
-        //glm::vec3 normal = scene_.objects[object]->get_normal(schnittpunkt); 
-       
-       
-       
-       if (scene_.objects[object]->get_material()->m_ > 0 ) { //if material is reflective
-        glm::vec3 reflection_vector = glm::normalize((2* (glm::dot(normal_inter, V))*normal_inter)-V);
-        Ray reflectionRay{schnittpunkt, reflection_vector};
+        glm::vec3 normal = scene_.objects[object]->get_normal(schnittpunkt);
+        float Ndot = glm::dot(normal,V);
+
+        glm::vec3 reflection_vector = glm::normalize(V-(2* Ndot*normal));
+        Ray reflectionRay{schnittpunkt, reflection_vector}; //we need a new ray to shoot to other object (the normal) to see what is reflected
         reflectionRay.origin+= reflectionRay.direction * (float)0.001; //avoid self intersection
 
         //recursive for three objects
         reflectedColor = raytrace(reflectionRay, d-1);
-        end += reflectedColor; //reduces the brightness of the reflection a bit if i add *0.8?
-        }
+        end+=reflectedColor*closest_reflection*0.7;  //reduce intensity of reflection by multiplying 0.4
+
 
         //Check refraction
         int is_opaque = scene_.objects[object]->get_material()->opacity_; 
-          if (is_opaque  && d > 0)
+          if (is_opaque  && d == 10)
           {
             float q;
             float refraction_index = scene_.objects[object]->get_material()->refraction_index_;
