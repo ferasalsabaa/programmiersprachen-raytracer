@@ -124,12 +124,12 @@ Color Renderer::raytrace(Ray const& ray, int d) {
 
         //recursive for three objects
         reflectedColor = raytrace(reflectionRay, d-1);
-        end+=reflectedColor*closest_reflection*0.7;  //reduce intensity of reflection by multiplying 0.4
+        //end+=reflectedColor*closest_reflection*0.7;  //reduce intensity of reflection by multiplying 0.4
 
 
         //Check refraction
         int is_opaque = scene_.objects[object]->get_material()->opacity_; 
-          if (is_opaque  && d == 10)
+          if (is_opaque  && d > 0)
           {
             float q;
             float refraction_index = scene_.objects[object]->get_material()->refraction_index_;
@@ -155,7 +155,7 @@ Color Renderer::raytrace(Ray const& ray, int d) {
             refractionRay.origin+= refractionRay.direction* (float)0.001; //self intersection
     
             refractedColor = raytrace(refractionRay, d-1); //do recursively
-            end+=refractedColor;
+            end+=refractedColor+(reflectedColor*closest_reflection*0.7);
         }
       }
        end = (end + ambient_col)/(end + ambient_col + 1);
