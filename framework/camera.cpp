@@ -12,7 +12,7 @@ using namespace std;
     Ray Camera::shoot_ray(float x, float y, float width_, float height_) const {
         glm::vec3 rayOrigin{0,0,0};
         glm::vec3 rayDirection = {(x-width_/2), (y-height_/2), -(width_/2)/tan(aperture_/2)}; 
-        return Ray{rayOrigin,rayDirection};
+        return Ray{rayOrigin,glm::normalize(rayDirection) };
 
     }
 
