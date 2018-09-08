@@ -19,11 +19,11 @@ struct Camera {
 
     Ray shoot_ray(float x, float y, float width_, float height_) const;
 
-    Ray shoot_ray1(float x, float y) const;
+    Ray shoot_ray1(float x, float y);
 
     glm::vec3 get_origin() const;
 
-    glm::mat4 transform_camera() const;
+    glm::mat4 transform_camera();
     void translate(glm::vec3 const& p);
     void rotate_x(float phi); //check order!!!
     void rotate_y(float phi); //check order!!!

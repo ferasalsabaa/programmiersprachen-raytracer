@@ -17,21 +17,28 @@ using namespace std;
     }
 
 
-     Ray Camera::shoot_ray1(float x, float y) const{
+     Ray Camera::shoot_ray1(float x, float y){
 		glm::vec3 right=glm::cross(direction_,up_);
 		glm::vec3 up=glm::cross(right,direction_); 
 		float fovBereich=tan(aperture_*(M_PI*0.5f/180))*2;
 		glm::vec3 r=right*( (x-0.5f)*fovBereich );
 		glm::vec3 u=up*( (y-0.5f)*fovBereich );
 		glm::vec3 tmp=direction_+r+u;
-		return Ray{origin_,glm::normalize(tmp)};
+		Ray ray{origin_,glm::normalize(tmp)};
+
+        transform_cam_ = transform_camera(); //check if i need to change transform_cam_ from camera or not
+
+        Ray newRay;
+
+        return newRay.transform_ray(transform_cam_, ray);
+
 	}
 
     glm::vec3 Camera::get_origin() const{
         return origin_;
     }
 
-    glm::mat4 Camera::transform_camera() const {
+    glm::mat4 Camera::transform_camera(){
         glm::vec3 e = origin_;
         glm::vec3 n = glm::normalize(direction_); //negative z-Achse
         glm::vec3 up = up_; //y-Achse 
