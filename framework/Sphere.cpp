@@ -64,9 +64,9 @@ intersection_shape Sphere::intersect_new (Ray const& rayIn,float & t) const{
         shape1.hit = true;
         shape1.distance = t;
         shape1.position = ray.origin + ray.direction*t;
-        shape1.normal = shape1.position - mittelpunkt_;
-        shape1.normal = glm::normalize(glm::vec3(glm::transpose(world_transformation())*glm::vec4(shape1.normal, 0.0))); //we can drop the w part, because it becomes irrelevant afterwards (just for position/direction)
-        shape1.position = glm::vec3(world_transformation()*glm::vec4(shape1.position,1.0));
+        shape1.normal = glm::normalize(shape1.position - mittelpunkt_);
+        shape1.normal = glm::normalize(glm::vec3(glm::transpose(world_transformation_inv())*glm::vec4(shape1.normal, 0.0))); //double inversion?
+        shape1.position = glm::vec3(world_transformation()*glm::vec4(shape1.position,1.0)); //we can drop the w part, because it becomes irrelevant afterwards (just for position/direction)
 
     }
     else{

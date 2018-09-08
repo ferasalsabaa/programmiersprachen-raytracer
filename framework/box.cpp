@@ -216,7 +216,9 @@ return intersect;
 
 }
 
- intersection_shape Box::intersect_new (Ray const& ray,float & t) const{
+ intersection_shape Box::intersect_new (Ray const& rayIn,float & t) const{
+     Ray ray{rayIn};
+     ray = ray.transform_ray(world_transformation_inv(), ray);
      intersection_shape shape1{};
      glm::vec3 normal{0.0,0.0,0.0};
     if(intersect_box(ray,t,normal)==true){
@@ -224,6 +226,8 @@ return intersect;
         shape1.distance = t;
         shape1.position=ray.origin + ray.direction*t;
         shape1.normal = normal;
+        shape1.normal = glm::normalize(glm::vec3(glm::transpose(world_transformation_inv())*glm::vec4(shape1.normal, 0.0)));
+        shape1.position = glm::vec3(world_transformation()*glm::vec4(shape1.position,1.0));
 
     }
     return shape1;
