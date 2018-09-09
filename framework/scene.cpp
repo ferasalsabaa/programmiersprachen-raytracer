@@ -153,6 +153,33 @@ Scene open_sdf(std::string const& sdf_name)
              line_stream >> word;
              name_shape = word;
              if(word==scene.camera.name_){
+                 line_stream >> word;
+                 if(word=="translate"){
+                 glm::vec3 translate;
+                 line_stream >> translate.x;
+                 line_stream >> translate.y;
+                 line_stream >> translate.z;
+                 scene.camera.translate(translate);
+                 }
+            if(word=="rotate"){
+                 glm::vec3 rotate_vec;
+                 float angle;
+                 line_stream >> angle;
+                 line_stream >> rotate_vec.x;
+                 line_stream >> rotate_vec.y;
+                 line_stream >> rotate_vec.z;
+                 if(rotate_vec.x>0){
+                   scene.camera.rotate_x(angle);
+                 }
+                 if(rotate_vec.y>0){
+                    scene.camera.rotate_y(angle);
+                 }
+                 if(rotate_vec.z>0){
+                     scene.camera.rotate_z(angle);
+                 }
+
+            }
+
 
              }
              else
@@ -194,7 +221,7 @@ Scene open_sdf(std::string const& sdf_name)
 
             }
              
-             }
+         }
              
          } 
         
