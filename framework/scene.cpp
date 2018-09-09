@@ -152,6 +152,11 @@ Scene open_sdf(std::string const& sdf_name)
              std::string name_shape;
              line_stream >> word;
              name_shape = word;
+             if(word==scene.camera.name_){
+
+             }
+             else
+             {
              std::shared_ptr<Shape> transform_shape = find_shape(name_shape,scene.objects);
              line_stream >> word;
              if(word=="scale"){
@@ -162,32 +167,34 @@ Scene open_sdf(std::string const& sdf_name)
                  transform_shape->scale(scale1);
 
              } 
-           /* if(word=="translate"){
-                 glm::vec3 scale2;
-                 line_stream >> scale2.x;
-                 line_stream >> scale2.y;
-                 line_stream >> scale2.z;
-                 transform_shape->translate(scale2);
+            if(word=="translate"){
+                 glm::vec3 translate;
+                 line_stream >> translate.x;
+                 line_stream >> translate.y;
+                 line_stream >> translate.z;
+                 transform_shape->translate(translate);
 
             } 
             if(word=="rotate"){
                  glm::vec3 rotate_vec;
+                 float angle;
+                 line_stream >> angle;
                  line_stream >> rotate_vec.x;
                  line_stream >> rotate_vec.y;
                  line_stream >> rotate_vec.z;
                  if(rotate_vec.x>0){
-                     transform_shape->rotate_x(rotate_vec.x);
+                     transform_shape->rotate_x(angle);
                  }
                  if(rotate_vec.y>0){
-                     transform_shape->rotate_y(rotate_vec.y);
+                     transform_shape->rotate_y(angle);
                  }
                  if(rotate_vec.z>0){
-                     transform_shape->rotate_z(rotate_vec.z);
+                     transform_shape->rotate_z(angle);
                  }
 
-            }*/
+            }
              
-             
+             }
              
          } 
         
