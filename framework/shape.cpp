@@ -25,6 +25,9 @@ std::ostream& operator<<(std::ostream& os, Shape const& s) {
 std::shared_ptr<Material> Shape::get_material() const{
     return material_;
 }
+std::string Shape::get_name() const{
+  return name_;
+}
 
 glm::mat4 Shape::world_transformation() const {
   return world_transformation_;

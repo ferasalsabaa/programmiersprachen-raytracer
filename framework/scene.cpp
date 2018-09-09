@@ -141,14 +141,56 @@ Scene open_sdf(std::string const& sdf_name)
                scene.camera=cam;
 
            }
+      
         }
          if(word=="render") {
                line_stream>>scene.width_;
                line_stream>>scene.height_;
                line_stream>>scene.name_;
-         
-
          }
+         if(word=="transform"){
+             std::string name_shape;
+             line_stream >> word;
+             name_shape = word;
+             std::shared_ptr<Shape> transform_shape = find_shape(name_shape,scene.objects);
+             line_stream >> word;
+             if(word=="scale"){
+                 glm::vec3 scale1;
+                 line_stream >> scale1.x;
+                 line_stream >> scale1.y;
+                 line_stream >> scale1.z;
+                 transform_shape->scale(scale1);
+
+             } 
+           /* if(word=="translate"){
+                 glm::vec3 scale2;
+                 line_stream >> scale2.x;
+                 line_stream >> scale2.y;
+                 line_stream >> scale2.z;
+                 transform_shape->translate(scale2);
+
+            } 
+            if(word=="rotate"){
+                 glm::vec3 rotate_vec;
+                 line_stream >> rotate_vec.x;
+                 line_stream >> rotate_vec.y;
+                 line_stream >> rotate_vec.z;
+                 if(rotate_vec.x>0){
+                     transform_shape->rotate_x(rotate_vec.x);
+                 }
+                 if(rotate_vec.y>0){
+                     transform_shape->rotate_y(rotate_vec.y);
+                 }
+                 if(rotate_vec.z>0){
+                     transform_shape->rotate_z(rotate_vec.z);
+                 }
+
+            }*/
+             
+             
+             
+         } 
+        
     }
     ifs.close();
     return scene;
@@ -180,4 +222,15 @@ Camera find_camera(std::string const& name, std::map<std::string, Camera> const&
         return cam;
     }
 
+}
+std::shared_ptr<Shape> find_shape(std::string shape_name,std::vector<std::shared_ptr<Shape>> objects){
+    auto i = find_if(objects.begin(),objects.end(), 
+            [&shape_name](std::shared_ptr<Shape> const& shape_object)
+            {return (shape_object->get_name())==shape_name;});
+  if( i!=objects.end() ){
+    return *i;
+  }
+  else{
+    return nullptr;
+}
 }

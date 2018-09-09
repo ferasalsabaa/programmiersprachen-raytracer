@@ -29,7 +29,6 @@ glm::vec3 Sphere::get_mittelpunkt() const {
     return mittelpunkt_;
 }
 
-
 float Sphere::area() const {
   return 4 * pow(get_radius(),2) * M_PI;
 }

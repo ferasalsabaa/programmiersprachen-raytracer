@@ -24,6 +24,7 @@ class Shape
   virtual std::ostream& print(std::ostream& os) const;
   virtual glm::vec3 get_normal(glm::vec3 const& schnittpunkt) const=0;
   std::shared_ptr<Material> get_material() const;
+  std::string get_name() const;
 
 
   virtual void translate(glm::vec3 const& p);

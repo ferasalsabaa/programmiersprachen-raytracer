@@ -37,5 +37,6 @@ struct Scene{
 Scene open_sdf (std::string const& sdf_name);
 std::shared_ptr<Material> find_map(std::string const& name,std::map<std::string,std::shared_ptr<Material>> const& material_map);
 Camera find_camera(std::string const& name, std::map<std::string, Camera> const& cameras);
+std::shared_ptr<Shape> find_shape(std::string name,std::vector<std::shared_ptr<Shape>> objects);
 
 #endif
