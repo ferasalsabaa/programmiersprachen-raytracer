@@ -209,6 +209,9 @@ bool Box::intersect_box (Ray const& ray, float& t, glm::vec3& normal) const {
 			normal=get_normal_box(plane_out);
 		}
 	}
+    if(t<0){
+        intersect=false;
+    }
 return intersect;
 
 

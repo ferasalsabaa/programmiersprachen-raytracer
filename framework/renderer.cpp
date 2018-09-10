@@ -70,8 +70,8 @@ Color Renderer::raytrace(Ray const& ray, int d) {
       for(int j = 0; j < scene_.lights.size(); ++j) {
           
           //calculate normal, light vector and ray between
-          glm::vec3 normal = glm::normalize(normal_inter);   //normalize ?
-          glm::vec3 vec_light = glm::normalize(scene_.lights[j].get_position() - schnittpunkt);  //normalisieren?
+          glm::vec3 normal = glm::normalize(normal_inter);
+          glm::vec3 vec_light = glm::normalize(scene_.lights[j].get_position() - schnittpunkt); 
           Ray new_ray{schnittpunkt, vec_light};
           new_ray.origin += new_ray.direction * (float)0.001; //no self intersection
 
@@ -107,7 +107,7 @@ Color Renderer::raytrace(Ray const& ray, int d) {
             non_reflected_color_contribution += reflect_col * intersect_value; 
             
             // do we need real reflection? how strong?
-            float perfect_reflection_weight = 0.5;
+            float perfect_reflection_weight = 0.2;
 
             Color reflected_color_contribution(0.0, 0.0, 0.0);
 
@@ -116,9 +116,9 @@ Color Renderer::raytrace(Ray const& ray, int d) {
                 glm::vec3 V = ray.direction; //calculates the ray we come from
               // glm::vec3 V =  glm::normalize(schnittpunkt-scene_.camera.get_origin());
                 //glm::vec3 normal = scene_.objects[object]->get_normal(schnittpunkt); 
-              if( scene_.objects[object]->get_material()->ks_.r > 0.0
+              if( (scene_.objects[object]->get_material()->ks_.r > 0.0
                   || scene_.objects[object]->get_material()->ks_.g > 0.0
-                  || scene_.objects[object]->get_material()->ks_.b > 0.0) {              
+                  || scene_.objects[object]->get_material()->ks_.b > 0.0)) {             
                 glm::vec3 reflection_vector = glm::reflect(V, normal_inter);//glm::normalize((2* (glm::dot(normal_inter, V))*normal_inter)-V);
                 Ray reflectionRay{schnittpunkt, reflection_vector};
                 reflectionRay.origin += reflectionRay.direction * (float)0.001; //avoid self intersection
