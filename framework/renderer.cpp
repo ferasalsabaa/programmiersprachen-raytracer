@@ -24,7 +24,7 @@ Renderer::Renderer(unsigned w, unsigned h, std::string const& file, Scene const&
   , scene_(scene)
 {}
 
-
+Color reflected_color_contribution(0.0, 0.0, 0.0);
 Color Renderer::raytrace(Ray const& ray, int d) {
   Color end{0,0,0};
   float distance = 0;
@@ -67,7 +67,7 @@ Color Renderer::raytrace(Ray const& ray, int d) {
       
       
       //iterate through all lights
-      for(int j = 0; j < scene_.lights.size(); ++j) {
+      for(int j = 0; j < scene_.lights.size(); ++j){
           
           //calculate normal, light vector and ray between
           glm::vec3 normal = glm::normalize(normal_inter);
@@ -109,16 +109,16 @@ Color Renderer::raytrace(Ray const& ray, int d) {
             // do we need real reflection? how strong?
             float perfect_reflection_weight = 0.2;
 
-            Color reflected_color_contribution(0.0, 0.0, 0.0);
+            ///////
 
             
             if(d > 0) {
                 glm::vec3 V = ray.direction; //calculates the ray we come from
               // glm::vec3 V =  glm::normalize(schnittpunkt-scene_.camera.get_origin());
                 //glm::vec3 normal = scene_.objects[object]->get_normal(schnittpunkt); 
-              if( (scene_.objects[object]->get_material()->ks_.r > 0.0
-                  || scene_.objects[object]->get_material()->ks_.g > 0.0
-                  || scene_.objects[object]->get_material()->ks_.b > 0.0)) {             
+              if( (scene_.objects[object]->get_material()->ks_.r > 0.5
+                  || scene_.objects[object]->get_material()->ks_.g > 0.5
+                  || scene_.objects[object]->get_material()->ks_.b > 0.5)) {           
                 glm::vec3 reflection_vector = glm::reflect(V, normal_inter);//glm::normalize((2* (glm::dot(normal_inter, V))*normal_inter)-V);
                 Ray reflectionRay{schnittpunkt, reflection_vector};
                 reflectionRay.origin += reflectionRay.direction * (float)0.001; //avoid self intersection
@@ -127,36 +127,19 @@ Color Renderer::raytrace(Ray const& ray, int d) {
                 reflected_color_contribution = raytrace(reflectionRay, d-1);
                 //end += reflectedColor; //reduces the brightness of the reflection a bit if i add *0.8?
                 
-              }
-
-            } else {
-             // perfect_reflection_weight = 0.0;
+              }else {
+              perfect_reflection_weight = 0.0;
             }
 
             //add to final color
             end +=   non_reflected_color_contribution *  (1.0 - perfect_reflection_weight) +
                      reflected_color_contribution * (perfect_reflection_weight);
-          } 
+            
+          }
       }
 
       //Reflection
-      Color closest_reflection = scene_.objects[object]->get_material()->ks_;
-      if (d<=0) { //stop recursion
         glm::vec3 V = ray.direction; //calculates the ray we come from
-      // glm::vec3 V =  glm::normalize(schnittpunkt-scene_.camera.get_origin());
-        //glm::vec3 normal = scene_.objects[object]->get_normal(schnittpunkt); 
-       
-       
-       
-       if (scene_.objects[object]->get_material()->m_ > 0 ) { //if material is reflective
-        glm::vec3 reflection_vector = glm::normalize((2* (glm::dot(normal_inter, V))*normal_inter)-V);
-        Ray reflectionRay{schnittpunkt, reflection_vector};
-        reflectionRay.origin+= reflectionRay.direction * (float)0.001; //avoid self intersection
-
-        //recursive for three objects
-        reflectedColor = raytrace(reflectionRay, d-1);
-        //end += reflectedColor; //reduces the brightness of the reflection a bit if i add *0.8?
-        }
 
         //Check refraction
         int is_opaque = scene_.objects[object]->get_material()->opacity_; 
@@ -185,8 +168,8 @@ Color Renderer::raytrace(Ray const& ray, int d) {
             Ray refractionRay{schnittpunkt, t}; //create new ray from it
             refractionRay.origin+= refractionRay.direction* (float)0.001; //self intersection
     
-            refractedColor = raytrace(refractionRay, d-1); //do recursively
-            //end+=refractedColor;
+            //refractedColor += raytrace(refractionRay, d-1); //do recursively
+            end+=refractedColor;
         }
       }
        end = (end + ambient_col)/(end + ambient_col + 1);
