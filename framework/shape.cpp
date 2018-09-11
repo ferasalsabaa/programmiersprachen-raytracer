@@ -44,10 +44,10 @@ void Shape::world_transformation(glm::mat4 const& matrix) {
 
 void Shape::translate(glm::vec3 const& p) {
   glm::mat4 translateMat;
-  translateMat[0] = glm::vec4 {1.0f, 0.0f, 0.0f, p.x};
-  translateMat[1] = glm::vec4 {0.0f, 1.0f, 0.0f, p.y};
-  translateMat[2] = glm::vec4 {0.0f, 0.0f, 1.0f, p.z};
-  translateMat[3] = glm::vec4 {0.0f, 0.0f, 0.0f, 1.0f};
+  translateMat[0] = glm::vec4 {1.0f, 0.0f, 0.0f, 0.0f}; //Warum so und nicht p als letzte Spalte?
+  translateMat[1] = glm::vec4 {0.0f, 1.0f, 0.0f, 0.0f};
+  translateMat[2] = glm::vec4 {0.0f, 0.0f, 1.0f, 0.0f};
+  translateMat[3] = glm::vec4 {p, 1.0f};
 
   world_transformation_  = translateMat * world_transformation_;
   world_transformation_inv_ = glm::inverse(world_transformation_);
