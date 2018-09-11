@@ -174,7 +174,11 @@ Color Renderer::raytrace(Ray const& ray, int d) {
       }
        end = (end + ambient_col)/(end + ambient_col + 1);
       } else {
+<<<<<<< HEAD
         end = Color(1.0,1.0,1.0);
+=======
+        end =scene_.ambient_;
+>>>>>>> 57f6ce3c42ba28761aaca9e40f5acd1d43b9e720
       }      
   return end;
 }
