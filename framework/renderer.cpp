@@ -174,7 +174,7 @@ Color Renderer::raytrace(Ray const& ray, int d) {
       }
        end = (end + ambient_col)/(end + ambient_col + 1);
       } else {
-        end = Color(1.0,1.0,1.0);
+        end = Color(0.0,0.0,0.0);
       }      
   return end;
 }
