@@ -16,7 +16,7 @@ Sphere(glm::vec3 const& mittel_punkt,float const& radius,std::string const& name
 
 float get_radius() const;
 glm::vec3 get_mittelpunkt() const;
-glm::vec3 get_normal(glm::vec3 const& schnittpunkt) const override;
+glm::vec3 get_normal(glm::vec3 const& schnittpunkt) const;
 
 
 float area() const override ;

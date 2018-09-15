@@ -74,12 +74,6 @@ Color Renderer::raytrace(Ray const& ray, int d) {
           glm::vec3 vec_light = glm::normalize(scene_.lights[j].get_position() - schnittpunkt); 
           Ray new_ray{schnittpunkt, vec_light};
           new_ray.origin += new_ray.direction * (float)0.001; //no self intersection
-
-
-
-
-
-          
           //check if any objects are between intersection point and light source
           bool intersect1 = false;
           float distance1 = 1;
@@ -100,6 +94,7 @@ Color Renderer::raytrace(Ray const& ray, int d) {
             glm::vec3 camera_vector = glm::normalize(scene_.camera.get_origin() -schnittpunkt);
             float ref_vec = std::max(glm::dot(reflection_vector,camera_vector),(float)0);
             reflect_col = Color(0.0, 0.0, 0.0);//(scene_.objects[object]->get_material()->ks_) * pow(ref_vec,scene_.objects[object]->get_material()->m_); //* scene_.lights[j].calculate_intensity();
+            reflect_col = (scene_.objects[object]->get_material()->ks_) * pow(ref_vec,scene_.objects[object]->get_material()->m_); //* scene_.lights[j].calculate_intensity();
             
             //calculate diffuse color
             diffuse_col =  (scene_.objects[object]->get_material()->kd_) * std::max(glm::dot(normal,vec_light),(float)0);
@@ -108,8 +103,6 @@ Color Renderer::raytrace(Ray const& ray, int d) {
             
             // do we need real reflection? how strong?
             float perfect_reflection_weight = 0.2;
-
-            ///////
 
             
             if(d > 0) {
@@ -125,7 +118,6 @@ Color Renderer::raytrace(Ray const& ray, int d) {
 
                 //recursive for three objects
                 reflected_color_contribution = raytrace(reflectionRay, d-1);
-                //end += reflectedColor; //reduces the brightness of the reflection a bit if i add *0.8?
                 
               }else {
               perfect_reflection_weight = 0.0;
@@ -149,7 +141,7 @@ Color Renderer::raytrace(Ray const& ray, int d) {
             float refraction_index = scene_.objects[object]->get_material()->refraction_index_;
             float angle = glm::dot(normal_inter, V);
             // we check if we are in or outside the material. Angle is positive or negative
-            if (angle < 0) {
+            if (angle < 0) { //in
                 angle=-angle; 
                 q= 1/refraction_index ; //inverse refraction index
             } else {
@@ -168,17 +160,13 @@ Color Renderer::raytrace(Ray const& ray, int d) {
             Ray refractionRay{schnittpunkt, t}; //create new ray from it
             refractionRay.origin+= refractionRay.direction* (float)0.001; //self intersection
     
-            //refractedColor += raytrace(refractionRay, d-1); //do recursively
+            refractedColor += raytrace(refractionRay, d-1); //do recursively
             end+=refractedColor;
         }
       }
        end = (end + ambient_col)/(end + ambient_col + 1);
       } else {
-<<<<<<< HEAD
-        end = Color(1.0,1.0,1.0);
-=======
-        end =scene_.ambient_;
->>>>>>> 57f6ce3c42ba28761aaca9e40f5acd1d43b9e720
+        end = scene_.ambient_;
       }      
   return end;
 }

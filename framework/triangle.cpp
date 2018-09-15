@@ -5,6 +5,7 @@ Triangle::Triangle() : Shape(), a_{0.0,0.0,0.0}, b_{0.0,0.0,0.0}, c_{0.0,0.0,0.0
 Triangle::Triangle(glm::vec3 const& a,glm::vec3 const& b,glm::vec3 const& c,std::string const& name, std::shared_ptr<Material> const& material) :
   Shape(name,material),a_{a}, b_{b}, c_{c}
 {}
+Triangle::~Triangle(){}
 
 bool Triangle::intersect (Ray const& ray,float & t) const {
   /*glm::vec3 position;

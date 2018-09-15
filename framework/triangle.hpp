@@ -13,12 +13,10 @@ class Triangle : public Shape
     public:
     Triangle();
     Triangle(glm::vec3 const& a,glm::vec3 const& b,glm::vec3 const& c,std::string const& name, std::shared_ptr<Material> const& material);
-  
-    bool intersect (Ray const& ray,float & t) const override;
-    glm::vec3 get_normal(glm::vec3 const& schnittpunkt) const override;
-    intersection_shape intersect_new (Ray const& ray,float & t) const;
-
     ~Triangle();
+    bool intersect (Ray const& ray,float & t) const override;
+    glm::vec3 get_normal(glm::vec3 const& schnittpunkt) const;
+    intersection_shape intersect_new (Ray const& ray,float & t) const;
 
     float area() const override ;
     float volume()const override;
