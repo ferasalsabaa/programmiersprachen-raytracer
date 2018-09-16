@@ -48,9 +48,9 @@ int main(int argc, char* argv[])
   test.ambient_ = ambient_l;
   Camera cam{};
 
-  Renderer renderer{image_width, image_height, filename, test2};
+  Renderer renderer{test2.width_, test2.height_, test2.file_name_, test2};
   renderer.render();
-  Window window{{image_width, image_height}};
+  Window window{{test2.width_, test2.width_,}};
 
   while (!window.should_close()) {
     if (window.get_key(GLFW_KEY_ESCAPE) == GLFW_PRESS) {

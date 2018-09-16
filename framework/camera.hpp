@@ -17,7 +17,7 @@ struct Camera {
     Camera(std::string const& name, float aperture, glm::vec3 origin, glm::vec3 direction, glm::vec3 up);
     ~Camera();
 
-    Ray shoot_ray(float x, float y, float width_, float height_) const;
+    Ray shoot_ray(float x, float y, float width_, float height_);
 
     Ray shoot_ray1(float x, float y);
 

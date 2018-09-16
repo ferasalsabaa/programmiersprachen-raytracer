@@ -144,9 +144,13 @@ Scene open_sdf(std::string const& sdf_name)
       
         }
          if(word=="render") {
+               
+               line_stream>>word;
+               
+               line_stream>>scene.name_;
+               line_stream>>scene.file_name_;
                line_stream>>scene.width_;
                line_stream>>scene.height_;
-               line_stream>>scene.name_;
          }
          if(word=="transform"){
              std::string name_shape;

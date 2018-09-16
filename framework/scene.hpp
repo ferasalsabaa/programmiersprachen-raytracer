@@ -30,6 +30,8 @@ struct Scene{
 
    unsigned width_;
    unsigned height_;
+   std::string file_name_;
+
    
 
 };

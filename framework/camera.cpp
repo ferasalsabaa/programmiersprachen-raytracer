@@ -9,11 +9,12 @@ using namespace std;
      name_{name}, aperture_{aperture}, origin_ {origin}, direction_{direction}, up_{up}, transform_cam_{}, transform_cam_inv_{glm::inverse(transform_cam_)} {}
 
     Camera::~Camera(){}
-    Ray Camera::shoot_ray(float x, float y, float width_, float height_) const {
+    Ray Camera::shoot_ray(float x, float y, float width_, float height_) {
         glm::vec3 rayOrigin{0,0,0};
         glm::vec3 rayDirection = {(x-width_/2), (y-height_/2), -(width_/2)/tan(aperture_/2)}; 
-        return Ray{rayOrigin,glm::normalize(rayDirection) };
-
+        Ray cam_ray{rayOrigin,rayDirection};
+        auto transform_cam = transform_camera();
+        return cam_ray.transform_ray(transform_cam);
     }
 
 
